@@ -1,0 +1,17 @@
+.DS_Store
+
+.vs
+
+Assembly-CSharp.csproj
+
+CSCI526_Mobile_Game.sln
+
+Library/
+
+Logs/
+
+obj/
+
+Packages/
+
+Temp/
