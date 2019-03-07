@@ -2,34 +2,28 @@
 using UnityEngine.UI;
 
 public class BaseCharacter : MonoBehaviour {
-    //Check whether it is OK to wear specific equipment
-
-    //Inventory
-    //Leveling
-    //Items
+    //TODO: Inventory, Leveling
 
     private string characterName;
     private string characterDescription;
 
-    //Stats
-    //https://home.gamer.com.tw/creationDetail.php?sn=1468884
 
-    private float attack;  //ATK
-    private float magicAttack;  //MAG
-    private float attackSpeed;  //frequency
-    private float range;  //attack range (distance)
+    //Stats Name Ref: http://www.kingsraid.wiki/index.php?title=Stats
+    private CharacterAttribute maxHP;
+    private CharacterAttribute aTK;
+    private CharacterAttribute mATK;
+    private CharacterAttribute pDEF;
+    private CharacterAttribute mDEF;
 
-    private float defense;
-    private float magicDefense;
-    private float resistance;
-    private float magicResistance;
+    private CharacterAttribute crit;
+    private CharacterAttribute critDMG;
+    private CharacterAttribute pernetration;
+    private CharacterAttribute aCC;
+    private CharacterAttribute dodge;
+    private CharacterAttribute block;
+    private CharacterAttribute critResistance;
 
-    private float hit;
-    private float avoid;
-
-
-    //public float startSpeed = 10f;
-    //public float speed;
+    private CharacterAttribute ATKSpeed;
 
     //public float startHealth = 100;
     //private float health;
@@ -37,18 +31,21 @@ public class BaseCharacter : MonoBehaviour {
     //public Image healthBar;
 
     //private bool isDead = false;
+
     public string CharacterName { get; set; }
     public string CharacterDescription { get; set; }
 
-    public float Attack { get; set; }
+    public CharacterAttribute MaxHP { get; set; }
+    public CharacterAttribute ATK { get; set; }
+    public CharacterAttribute MATK { get; set; }
+    public CharacterAttribute PDEF { get; set; }
+    public CharacterAttribute MDEF { get; set; }
 
-    // Use this for initialization
-    void Start() {
-
-    }
-
-    // Update is called once per frame
-    void Update() {
-
-    }
+    public CharacterAttribute Crit { get; set; }
+    public CharacterAttribute CritDMG { get; set; }
+    public CharacterAttribute Pernetration { get; set; }
+    public CharacterAttribute ACC { get; set; }
+    public CharacterAttribute Dodge { get; set; }
+    public CharacterAttribute Block { get; set; }
+    public CharacterAttribute CritResistance { get; set; }
 }
