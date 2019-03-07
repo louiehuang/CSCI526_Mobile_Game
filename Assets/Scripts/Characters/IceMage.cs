@@ -1,19 +1,27 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Ice Mage
+/// Slow down the enemies and give them DOT
+/// </summary>
 public class IceMage : Mage {
-
 
     [Header("Ice Mage Fileds")]
     public int damageOverTime = 30;
-    public float slowAmount = .5f;
+    public float slowAmount = 0.5f;
 
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
 
+    new void Start() {
+        range.BaseValue = 30f;
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        Debug.Log("In IceMage");
+    }
 
     protected override void Update() {
-        if (this.Target == null) {
+        if (this.Target == null) { 
             if (lineRenderer.enabled) {
                 lineRenderer.enabled = false;
                 impactEffect.Stop();

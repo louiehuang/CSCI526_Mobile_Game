@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
 /// <summary>
-/// Mage.
+/// Priest.
 /// </summary>
-public class Mage : BaseHero {
+public class Priest : BaseHero {
 
 
 

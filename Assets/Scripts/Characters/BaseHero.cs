@@ -8,9 +8,10 @@ public class BaseHero : BaseCharacter {
     public Transform Target { get; set; }
     public Enemy TargetEnemy { get; set; }
 
+    //[Header("General")]
+    //public float range = 5f;
 
-    [Header("General")]
-    public float range = 15f;
+    public CharacterAttribute range;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -23,8 +24,9 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
-    // Use this for initialization
+    // Default initialization
     protected void Start() {
+        range.BaseValue = 15f;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
@@ -41,7 +43,7 @@ public class BaseHero : BaseCharacter {
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range) {
+        if (nearestEnemy != null && shortestDistance <= range.Value) {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<Enemy>();
         } else {
@@ -88,6 +90,6 @@ public class BaseHero : BaseCharacter {
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
+        Gizmos.DrawWireSphere(transform.position, range.Value);
     }
 }
