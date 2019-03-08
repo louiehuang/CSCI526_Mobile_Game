@@ -3,7 +3,9 @@
 public class BaseHero : BaseCharacter {
 
     private Transform target;
+
     private BaseEnemy targetEnemy;
+
 
     public Transform Target { get; set; }
     public BaseEnemy TargetEnemy { get; set; }

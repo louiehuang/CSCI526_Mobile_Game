@@ -15,6 +15,12 @@ public class IceMage : Mage {
     public Light impactLight;
 
     new void Start() {
+        LevelManager = new MageLeveling(this, 1);
+
+        //TODO: init needed attrs
+        ATK = new CharacterAttribute();
+
+
         range.BaseValue = 30f;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("In IceMage");
