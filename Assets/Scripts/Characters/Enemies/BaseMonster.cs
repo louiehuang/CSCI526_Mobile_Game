@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseEnemy : BaseCharacter
+public class BaseMonster : BaseCharacter
 {
 
     public float startSpeed = 10f;
