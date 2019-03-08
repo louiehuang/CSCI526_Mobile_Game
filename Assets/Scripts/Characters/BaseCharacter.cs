@@ -47,9 +47,39 @@ public class BaseCharacter : MonoBehaviour {
     public CharacterAttribute ATKSpeed;
     public float ATKSpeedValue { get { return ATKSpeed.Value; } set { ATKSpeed.BaseValue = value; } }
 
-    //public float startHealth = 100;
+    // Modified by Maolin Tu
 
-    //public Image healthBar;
+    public float CurHP { get; set; }
 
-    //private bool isDead = false;
+
+    [Header("Unity Stuff")]
+    public Image healthBar;
+    public GameObject deathEffect;
+
+    [Header("Other Attribute")]
+    public int worth = 50;
+
+    protected bool isDead;
+
+    public void TakeDamage(float amount)
+    {
+        CurHP -= amount;
+
+        healthBar.fillAmount = CurHP / MaxHPValue;
+
+        if (CurHP <= 0 && !isDead)
+        {
+            Die();
+        }
+    }
+
+    protected virtual void Die()
+    {
+        isDead = true;
+
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
+    }
 }
