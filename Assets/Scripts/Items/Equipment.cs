@@ -6,17 +6,16 @@ public enum EquipmentType {
 
 [CreateAssetMenu]
 public class Equipment : Item {
-    public int ATKUP;
-    public float ATKPercentUp;
-    public float CritPercentDown;
+    public int ATK = 10;
+    public float ATKPercent = 0.1f;
+    public float CritPercent = -0.05f;
 
     public EquipmentType EquipmentType;
 
     public void Equip(BaseHero hero) {
-        hero.ATK.AddModifier(new StatModifier(ATKUP, StatModType.Flat));
-        hero.ATK.AddModifier(new StatModifier(ATKPercentUp, StatModType.PercentAdd));
-
-        hero.Crit.AddModifier(new StatModifier(CritPercentDown, StatModType.PercentAdd));
+        hero.ATK.AddModifier(new StatModifier(ATK, StatModType.Flat));
+        hero.ATK.AddModifier(new StatModifier(ATKPercent, StatModType.PercentAdd, this));
+        hero.Crit.AddModifier(new StatModifier(CritPercent, StatModType.PercentAdd, this));
     }
 
     public void Unequip(BaseHero hero) {
