@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 
 [Serializable]
 public class CharacterAttribute {
-    public float BaseValue;
+    public float BaseValue = 0f;
 
     protected bool isDirty = true;
     protected float lastBaseValue;

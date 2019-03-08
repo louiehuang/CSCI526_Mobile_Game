@@ -5,8 +5,7 @@
 /// </summary>
 public class Mage : BaseHero {
 
-
-
+    public MageLeveling LevelManager;
 
 }
 
