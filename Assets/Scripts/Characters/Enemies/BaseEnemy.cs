@@ -8,12 +8,12 @@ public class BaseEnemy : BaseCharacter
     public float MoveSpeedValue { get { return MoveSpeed.Value; } set { MoveSpeed.BaseValue = value; } }
     [HideInInspector]
     public float speed;
+    [Header("Unity Setup Fields")]
+    public string enemyTag = "Enemy";
 
+    private Transform target;
 
-    //[Header("Unity Stuff")]
-    //public Image healthBar;
-
-    //private bool isDead = false;
+    public Transform Target { get; set; }
 
     void Start() {
         Debug.Log("Enemy initial: " + MoveSpeedValue);
