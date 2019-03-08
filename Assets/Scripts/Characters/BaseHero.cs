@@ -3,10 +3,10 @@
 public class BaseHero : BaseCharacter {
 
     private Transform target;
-    private Enemy targetEnemy;
+    private BaseEnemy targetEnemy;
 
     public Transform Target { get; set; }
-    public Enemy TargetEnemy { get; set; }
+    public BaseEnemy TargetEnemy { get; set; }
 
     //[Header("General")]
     //public float range = 5f;
@@ -45,7 +45,7 @@ public class BaseHero : BaseCharacter {
 
         if (nearestEnemy != null && shortestDistance <= range.Value) {
             target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            targetEnemy = nearestEnemy.GetComponent<BaseEnemy>();
         } else {
             target = null;
         }

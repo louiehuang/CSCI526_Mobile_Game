@@ -59,7 +59,7 @@ public class Bullet : MonoBehaviour {
     }
 
     void Damage(Transform enemy) {
-        Enemy e = enemy.GetComponent<Enemy>();
+        BaseEnemy e = enemy.GetComponent<BaseEnemy>();
 
         if (e != null) {
             e.TakeDamage(damage);

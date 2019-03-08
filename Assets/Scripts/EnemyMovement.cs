@@ -1,16 +1,16 @@
 using UnityEngine;
 using System.Collections;
 
-[RequireComponent(typeof(Enemy))]
+[RequireComponent(typeof(BaseEnemy))]
 public class EnemyMovement : MonoBehaviour {
 
     private Transform target;
     private int wavepointIndex = 0;
 
-    private Enemy enemy;
+    private BaseEnemy enemy;
 
     void Start() {
-        enemy = GetComponent<Enemy>();
+        enemy = GetComponent<BaseEnemy>();
 
         target = Waypoints.points[0];
     }
