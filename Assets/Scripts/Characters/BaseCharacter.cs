@@ -61,6 +61,11 @@ public class BaseCharacter : MonoBehaviour {
 
     protected bool isDead;
 
+    private void Awake()
+    {
+        CurHP = MaxHPValue;
+    }
+
     public void TakeDamage(float amount)
     {
         CurHP -= amount;
@@ -72,7 +77,7 @@ public class BaseCharacter : MonoBehaviour {
         }
 
 
-        Debug.Log(this.name + " was attcked with curHp is " + CurHP);
+        Debug.Log(this.name + "CurHP " + CurHP + " amount = "+ amount + " curHp is " + CurHP);
         if (CurHP <= 0 && !isDead)
         {
             Die();

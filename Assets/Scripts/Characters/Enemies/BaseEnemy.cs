@@ -21,9 +21,10 @@ public class BaseEnemy : BaseCharacter
 
     void Start() {
         
-        Debug.Log("Enemy initial: " + MoveSpeedValue);
+
         speed = MoveSpeedValue;
         CurHP = MaxHPValue;
+        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP);
     }
 
 

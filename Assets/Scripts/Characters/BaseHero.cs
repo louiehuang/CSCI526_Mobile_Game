@@ -28,9 +28,10 @@ public class BaseHero : BaseCharacter {
 
     // Default initialization
     protected void Start() {
+        CurHP = MaxHPValue;
         range.BaseValue = 15f;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("Say something");
+        Debug.Log("Hero initial:  CurHP " + CurHP);
     }
 
     protected void UpdateTarget() {
