@@ -10,14 +10,17 @@ public class BaseEnemy : BaseCharacter
     public float speed;
 
     [Header("Unity Setup Fields")]
-    public string enemyTag = "Enemy";
+    public string enemyTag = "Hero";
     public float range = 30f;
 
     private Transform target;
+    private Transform attackTarget;
 
     public Transform Target { get; set; }
+    public Transform AttackTarget { get; set; }
 
     void Start() {
+        
         Debug.Log("Enemy initial: " + MoveSpeedValue);
         speed = MoveSpeedValue;
         CurHP = MaxHPValue;

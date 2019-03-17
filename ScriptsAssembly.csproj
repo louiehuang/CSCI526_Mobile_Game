@@ -68,6 +68,7 @@
     <Compile Include="Assets\Scripts\Characters\BaseHero.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemies\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyMovement.cs" />
+    <Compile Include="Assets\Scripts\Characters\Enemies\EnemyUsingBullet.cs" />
     <Compile Include="Assets\Scripts\Characters\FireMage.cs" />
     <Compile Include="Assets\Scripts\Characters\IceMage.cs" />
     <Compile Include="Assets\Scripts\Characters\Knight.cs" />

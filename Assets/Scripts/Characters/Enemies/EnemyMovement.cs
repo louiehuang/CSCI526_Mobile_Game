@@ -11,15 +11,22 @@ public class EnemyMovement : MonoBehaviour {
     private Transform attackTarget;
 
 
-    [Header("Unity Setup Fields")]
-    public string enemyTag = "Hero";
-    public float range = 30f;
+    private string enemyTag;
+    private float range;
 
     void Start() {
         enemy = GetComponent<BaseEnemy>();
+
+        this.enemyTag = enemy.enemyTag;
+        this.range = enemy.range;
+
         Animation anim = GetComponent<Animation>();
-        anim.wrapMode = WrapMode.Loop;
-        anim.Play("Run");
+        if(anim != null)
+        {
+            anim.wrapMode = WrapMode.Loop;
+            anim.Play("Run");
+        }
+
         target = Waypoints.points[0];
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
@@ -29,7 +36,7 @@ public class EnemyMovement : MonoBehaviour {
         Vector3 dir = target.position - transform.position;
         if (attackTarget != null)
         {
-            Debug.Log("see turret");
+            //Debug.Log("see turret");
             dir = Vector3.zero;
         }
         transform.Translate(dir.normalized * enemy.speed * Time.deltaTime, Space.World);
@@ -71,11 +78,12 @@ public class EnemyMovement : MonoBehaviour {
                 nearestEnemy = heroTarget;
             }
         }
-        Debug.Log("shortestDistance  " + shortestDistance);
+        //Debug.Log("shortestDistance  " + shortestDistance);
         if (nearestEnemy != null && shortestDistance < range)
         {
-            Debug.Log("change attachTarget  " + shortestDistance);
+            //Debug.Log("change attachTarget  " + shortestDistance);
             attackTarget = nearestEnemy.transform;
+            enemy.AttackTarget = attackTarget;
             //targetEnemy = nearestEnemy.GetComponent<Enemy>();
         }
         else

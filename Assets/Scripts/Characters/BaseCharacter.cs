@@ -65,8 +65,14 @@ public class BaseCharacter : MonoBehaviour {
     {
         CurHP -= amount;
 
-        healthBar.fillAmount = CurHP / MaxHPValue;
+        //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector
+        if(healthBar != null)
+        {
+            healthBar.fillAmount = CurHP / MaxHPValue;
+        }
 
+
+        Debug.Log(this.name + " was attcked with curHp is " + CurHP);
         if (CurHP <= 0 && !isDead)
         {
             Die();
