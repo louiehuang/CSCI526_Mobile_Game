@@ -8,8 +8,10 @@ public class BaseEnemy : BaseCharacter
     public float MoveSpeedValue { get { return MoveSpeed.Value; } set { MoveSpeed.BaseValue = value; } }
     [HideInInspector]
     public float speed;
+
     [Header("Unity Setup Fields")]
     public string enemyTag = "Enemy";
+    public float range = 30f;
 
     private Transform target;
 
