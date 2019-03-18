@@ -13,7 +13,7 @@ public abstract class LevelingController {
 
     //Add exp recursively if level up
     public void AddEXP(float amount) {
-        int maxEXP = TotalEXPToLevelUp();
+        int maxEXP = TotalEXPToLevelUp(Level);
 
         if (CurrentEXP + amount >= maxEXP) {
             float left = amount - maxEXP;
@@ -34,9 +34,9 @@ public abstract class LevelingController {
     /// <summary>
     /// EXP formula ref https://wenku.baidu.com/view/d455517cf46527d3240ce0c6.html
     /// </summary>
-    public int TotalEXPToLevelUp() {
-        float first = (Mathf.Pow((Level - 1), 3) + 60) / 5;
-        float second = (Level - 1) * 2 + 60;
+    public int TotalEXPToLevelUp(int level) {
+        float first = (Mathf.Pow((level - 1), 3) + 60) / 5;
+        float second = (level - 1) * 2 + 60;
         return Mathf.FloorToInt(first * second / 50) * 50;
     }
 }
