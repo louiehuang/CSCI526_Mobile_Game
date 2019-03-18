@@ -36,7 +36,7 @@ public class FireMage : Mage {
         CharacterDescription = FireMageConfig.CharacterDescription;
 
         MaxHP = new CharacterAttribute(FireMageConfig.MaxHPValue);
-        CurHP = MaxHPValue;
+        CurHP = 10;  //TODO: change back to MaxHPValue
 
         ATK = new CharacterAttribute(FireMageConfig.ATKValue);
         MATK = new CharacterAttribute(FireMageConfig.MATKValue);
@@ -57,7 +57,7 @@ public class FireMage : Mage {
         attackRate = ATKSpeedValue;  //3 attacks per second
 
         //special
-        range = new CharacterAttribute(FireMageConfig.Range);
+        Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
     }
 }

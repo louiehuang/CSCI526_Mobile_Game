@@ -50,7 +50,7 @@ public class Knight : BaseHero {
         attackRate = ATKSpeedValue;  //3 attacks per second
 
         //special
-        range = new CharacterAttribute(KnightConfig.Range);
+        Range = new CharacterAttribute(KnightConfig.Range);
     }
 }
 

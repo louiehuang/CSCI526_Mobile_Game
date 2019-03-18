@@ -12,7 +12,7 @@ public static class IceMageConfig {
     public static float PDEFBonus = 1f;
     public static float MDEFBonus = 2f;
 
-    //common
+    //common base value
     public static int Level = 1;
     public static float Range = 30f;
 
