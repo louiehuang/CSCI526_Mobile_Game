@@ -31,5 +31,5 @@ public static class FireMageConfig {
     public static float BlockValue = 0f;
     public static float CritResistanceValue = 0.1f;
 
-    public static float ATKSpeedValue = 3f;  // 1 attack per second
+    public static float ATKSpeedValue = 2f;  // 2 attacks per second
 }
