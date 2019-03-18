@@ -6,7 +6,8 @@ public class Bullet : MonoBehaviour {
 
     public float speed = 70f;
 
-    public int damage = 50;
+
+    public float damage = 50f;
 
     public float explosionRadius = 0f;
     public GameObject impactEffect;
@@ -59,8 +60,9 @@ public class Bullet : MonoBehaviour {
     }
 
     void Damage(Transform enemy) {
-        //BaseEnemy e = enemy.GetComponent<BaseEnemy>();
+
         BaseCharacter e = enemy.GetComponent<BaseCharacter>();
+
         if (e != null) {
             e.TakeDamage(damage);
         }

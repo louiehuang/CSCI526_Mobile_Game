@@ -7,8 +7,15 @@ public class BaseCharacter : MonoBehaviour {
     public string CharacterName { get; set; }
     public string CharacterDescription { get; set; }
 
-    public CharacterAttribute MaxHP;
+
+    public CharacterAttribute MaxHP = new CharacterAttribute();
     public float MaxHPValue { get { return MaxHP.Value; } set { MaxHP.BaseValue = value; } }
+
+    public float CurHP { get; set; }
+
+    //attack range
+    public CharacterAttribute Range;
+    public float RangeValue { get { return Range.Value; } set { Range.BaseValue = value; } }
 
     //init attributes when needed
     public CharacterAttribute ATK;
@@ -47,9 +54,6 @@ public class BaseCharacter : MonoBehaviour {
     public CharacterAttribute ATKSpeed;
     public float ATKSpeedValue { get { return ATKSpeed.Value; } set { ATKSpeed.BaseValue = value; } }
 
-    // Modified by Maolin Tu
-
-    public float CurHP { get; set; }
 
 
     [Header("Unity Stuff")]
@@ -66,24 +70,6 @@ public class BaseCharacter : MonoBehaviour {
         CurHP = MaxHPValue;
     }
 
-    public void TakeDamage(float amount)
-    {
-        CurHP -= amount;
-
-        //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector
-        if(healthBar != null)
-        {
-            healthBar.fillAmount = CurHP / MaxHPValue;
-        }
-
-
-        Debug.Log(this.name + "CurHP " + CurHP + " amount = "+ amount + " curHp is " + CurHP);
-        if (CurHP <= 0 && !isDead)
-        {
-            Die();
-        }
-    }
-
     protected virtual void Die()
     {
         isDead = true;
@@ -92,5 +78,33 @@ public class BaseCharacter : MonoBehaviour {
         Destroy(effect, 5f);
 
         Destroy(gameObject);
+    }
+
+
+
+    //TODO: damage formula
+    //need two object: hero and enemy
+    public float CalculateDamageOnEnemy(BaseHero hero) {
+
+        return 0f;
+    }
+
+    //TODO: take damage
+    public void TakeDamage(float amount)
+    {
+        CurHP -= amount;
+
+        //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = CurHP / MaxHPValue;
+        }
+
+
+        Debug.Log(this.name + "CurHP " + CurHP + " amount = " + amount + " curHp is " + CurHP);
+        if (CurHP <= 0 && !isDead)
+        {
+            Die();
+        }
     }
 }
