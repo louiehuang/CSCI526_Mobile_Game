@@ -54,7 +54,7 @@ namespace Tests {
 
             Assert.AreEqual(110f, fireMage.MaxHPValue);
             Assert.AreEqual(3f, fireMage.ATKValue);
-            Assert.AreEqual(8f, fireMage.MATKValue);
+            Assert.AreEqual(28f, fireMage.MATKValue);
         }
 
         [Test]

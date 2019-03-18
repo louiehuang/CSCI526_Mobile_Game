@@ -18,7 +18,7 @@ public static class FireMageConfig {
     public static float CurHP = 100f;
 
     public static float ATKValue = 2f;
-    public static float MATKValue = 5f;
+    public static float MATKValue = 25f;
 
     public static float PDEFValue = 10f;
     public static float MDEFValue = 10f;

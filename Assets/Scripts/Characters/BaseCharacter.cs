@@ -66,5 +66,9 @@ public class BaseCharacter : MonoBehaviour {
         //}
     }
 
-    //damage formula
+    //TODO: damage formula
+    public float CalculateDamage() {
+
+        return 0f;
+    }
 }

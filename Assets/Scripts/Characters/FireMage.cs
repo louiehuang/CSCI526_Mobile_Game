@@ -23,7 +23,7 @@ public class FireMage : Mage {
     protected override void Shoot() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.damage = MATKValue;
+        bullet.damage = 0.3f * MATKValue;
 
         if (bullet != null)
             bullet.Seek(Target);
