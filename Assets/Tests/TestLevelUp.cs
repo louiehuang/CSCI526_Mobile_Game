@@ -54,7 +54,7 @@ namespace Tests {
 
             Assert.AreEqual(110f, fireMage.MaxHPValue);
             Assert.AreEqual(3f, fireMage.ATKValue);
-            Assert.AreEqual(8f, fireMage.MATKValue);
+            Assert.AreEqual(28f, fireMage.MATKValue);
         }
 
         [Test]
@@ -69,6 +69,20 @@ namespace Tests {
             Assert.AreEqual(165f, priest.MaxHPValue);
             Assert.AreEqual(11.5f, priest.ATKValue);
             Assert.AreEqual(22f, priest.MATKValue);
+        }
+
+        [Test]
+        public void KnightGoLevel2() {
+            Knight knight = gameObject.AddComponent<Knight>();
+            knight.LoadAttr();
+            knight.LevelManager = new KnightLeveling(knight, 1);
+
+            knight.LevelManager.AddEXP(700);
+            Assert.AreEqual(2, knight.LevelManager.Level);
+
+            Assert.AreEqual(230f, knight.MaxHPValue);
+            Assert.AreEqual(12f, knight.ATKValue);
+            Assert.AreEqual(11f, knight.MATKValue);
         }
     }
 }

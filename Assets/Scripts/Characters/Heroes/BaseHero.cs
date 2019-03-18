@@ -8,14 +8,9 @@ public class BaseHero : BaseCharacter {
     private Enemy targetEnemy; 
     public Enemy TargetEnemy { get; set; }
 
-    //[Header("General")]
-    //public float range = 5f;
-
-    public CharacterAttribute range;
-
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
-    public float attackRate = 1f;
+    public float attackRate = 1f;  //TODO: convert attackSpeed to attackRate
     private float attackCountdown = 0f;
 
     [Header("Unity Setup Fields")]
@@ -27,7 +22,7 @@ public class BaseHero : BaseCharacter {
 
     // Default initialization
     protected void Start() {
-        range.BaseValue = 15f;
+        Range = new CharacterAttribute(10f);  //default
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
@@ -44,7 +39,7 @@ public class BaseHero : BaseCharacter {
             }
         }
 
-        if (nearestEnemy != null && shortestDistance <= range.Value) {
+        if (nearestEnemy != null && shortestDistance <= RangeValue) {
             target = nearestEnemy.transform;
             targetEnemy = nearestEnemy.GetComponent<Enemy>();
         } else {
@@ -66,7 +61,7 @@ public class BaseHero : BaseCharacter {
 
      
         if (attackCountdown <= 0f) {
-            Shoot();
+            Attack();
             attackCountdown = 1f / attackRate;
         }
 
@@ -81,7 +76,7 @@ public class BaseHero : BaseCharacter {
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
-    protected virtual void Shoot() {
+    protected virtual void Attack() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -91,6 +86,6 @@ public class BaseHero : BaseCharacter {
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range.Value);
+        Gizmos.DrawWireSphere(transform.position, RangeValue);
     }
 }

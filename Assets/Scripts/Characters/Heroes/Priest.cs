@@ -32,7 +32,7 @@ public class Priest : BaseHero {
         foreach (GameObject hero in heroes) {
             float heroHealth = hero.GetComponent<BaseHero>().CurHP;
             float distanceToHero = Vector3.Distance(transform.position, hero.transform.position);
-            if (heroHealth < lowestHealth && distanceToHero <= range.Value) {
+            if (heroHealth < lowestHealth && distanceToHero <= RangeValue) {
                 lowestHealth = heroHealth;
                 heroToHeal = hero;
             }
@@ -101,7 +101,7 @@ public class Priest : BaseHero {
         ATKSpeed = new CharacterAttribute(PriestConfig.ATKSpeedValue);
 
         //special
-        range = new CharacterAttribute(PriestConfig.Range);
+        Range = new CharacterAttribute(PriestConfig.Range);
     }
 }
 

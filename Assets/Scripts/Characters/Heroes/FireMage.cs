@@ -20,10 +20,10 @@ public class FireMage : Mage {
         Debug.Log("In fireMage");
     }
 
-    protected override void Shoot() {
+    protected override void Attack() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.damage = MATKValue;
+        bullet.damage = 0.3f * MATKValue;
 
         if (bullet != null)
             bullet.Seek(Target);
@@ -36,7 +36,7 @@ public class FireMage : Mage {
         CharacterDescription = FireMageConfig.CharacterDescription;
 
         MaxHP = new CharacterAttribute(FireMageConfig.MaxHPValue);
-        CurHP = MaxHPValue;
+        CurHP = 10;  //TODO: change back to MaxHPValue
 
         ATK = new CharacterAttribute(FireMageConfig.ATKValue);
         MATK = new CharacterAttribute(FireMageConfig.MATKValue);
@@ -57,7 +57,7 @@ public class FireMage : Mage {
         attackRate = ATKSpeedValue;  //3 attacks per second
 
         //special
-        range = new CharacterAttribute(FireMageConfig.Range);
+        Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
     }
 }

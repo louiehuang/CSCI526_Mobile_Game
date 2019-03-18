@@ -90,6 +90,6 @@ public class IceMage : Mage {
         //special
         damageOverTime = 0.75f * MATKValue;
         slowAmount = IceMageConfig.SlowAmount;
-        range = new CharacterAttribute(IceMageConfig.Range);
+        Range = new CharacterAttribute(IceMageConfig.Range);
     }
 }

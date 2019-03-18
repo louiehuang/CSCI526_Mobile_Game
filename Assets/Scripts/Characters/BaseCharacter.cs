@@ -12,6 +12,10 @@ public class BaseCharacter : MonoBehaviour {
 
     public float CurHP { get; set; }
 
+    //attack range
+    public CharacterAttribute Range;
+    public float RangeValue { get { return Range.Value; } set { Range.BaseValue = value; } }
+
     //init attributes when needed
     public CharacterAttribute ATK;
     public float ATKValue { get { return ATK.Value; } set { ATK.BaseValue = value; } }
@@ -55,6 +59,13 @@ public class BaseCharacter : MonoBehaviour {
 
     public Image healthBar;
 
+    //TODO: damage formula
+    //need two object: hero and enemy
+    public float CalculateDamageOnEnemy(BaseHero hero) {
+
+        return 0f;
+    }
+
     //TODO: take damage
     public void TakeDamage(float amount) {
         CurHP -= amount;
@@ -65,6 +76,4 @@ public class BaseCharacter : MonoBehaviour {
         //    Die();
         //}
     }
-
-    //damage formula
 }
