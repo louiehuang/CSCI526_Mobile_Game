@@ -7,7 +7,7 @@
 public class IceMage : Mage {
 
     [Header("Ice Mage Fileds")]
-    public int damageOverTime = 30;
+    public float damageOverTime = 0f;
     public float slowAmount = 0.5f;
 
     public LineRenderer lineRenderer;
@@ -15,13 +15,12 @@ public class IceMage : Mage {
     public Light impactLight;
 
     new void Start() {
-        LevelManager = new MageLeveling(this, 1);
+        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
-        //TODO: init needed attrs
-        ATK = new CharacterAttribute();
+        LoadAttr();
 
+        //string json = JsonUtility.ToJson(ATK);
 
-        range.BaseValue = 30f;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("In IceMage");
     }
@@ -62,4 +61,35 @@ public class IceMage : Mage {
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
     }
 
+
+    //TODO: change back to private (currently set to pulbic for testing purpose)
+    public void LoadAttr() {
+        CharacterName = IceMageConfig.CharacterName;
+        CharacterDescription = IceMageConfig.CharacterDescription;
+
+        MaxHP = new CharacterAttribute(IceMageConfig.MaxHPValue);
+        CurHP = MaxHPValue;
+
+        ATK = new CharacterAttribute(IceMageConfig.ATKValue);
+        MATK = new CharacterAttribute(IceMageConfig.MATKValue);
+
+        PDEF = new CharacterAttribute(IceMageConfig.PDEFValue);
+        MDEF = new CharacterAttribute(IceMageConfig.MDEFValue);
+
+        Crit = new CharacterAttribute(IceMageConfig.CritValue);
+        CritDMG = new CharacterAttribute(IceMageConfig.CritDMGValue);
+
+        Pernetration = new CharacterAttribute(IceMageConfig.PernetrationValue);
+        ACC = new CharacterAttribute(IceMageConfig.ACCValue);
+        Dodge = new CharacterAttribute(IceMageConfig.DodgeValue);
+        Block = new CharacterAttribute(IceMageConfig.BlockValue);
+        CritResistance = new CharacterAttribute(IceMageConfig.CritResistanceValue);
+
+        ATKSpeed = new CharacterAttribute(IceMageConfig.ATKSpeedValue);
+
+        //special
+        damageOverTime = 0.75f * MATKValue;
+        slowAmount = IceMageConfig.SlowAmount;
+        range = new CharacterAttribute(IceMageConfig.Range);
+    }
 }

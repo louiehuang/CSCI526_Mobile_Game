@@ -3,9 +3,9 @@
 public class BaseHero : BaseCharacter {
 
     private Transform target;
-    private Enemy targetEnemy; 
-
     public Transform Target { get; set; }
+
+    private Enemy targetEnemy; 
     public Enemy TargetEnemy { get; set; }
 
     //[Header("General")]
@@ -15,10 +15,11 @@ public class BaseHero : BaseCharacter {
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
-    public float fireRate = 1f;
-    private float fireCountdown = 0f;
+    public float attackRate = 1f;
+    private float attackCountdown = 0f;
 
     [Header("Unity Setup Fields")]
+    public string heroTag = "Hero";
     public string enemyTag = "Enemy";
     public Transform partToRotate;
     public float turnSpeed = 10f;
@@ -64,23 +65,23 @@ public class BaseHero : BaseCharacter {
         LockOnTarget();
 
      
-        if (fireCountdown <= 0f) {
+        if (attackCountdown <= 0f) {
             Shoot();
-            fireCountdown = 1f / fireRate;
+            attackCountdown = 1f / attackRate;
         }
 
-        fireCountdown -= Time.deltaTime;
+        attackCountdown -= Time.deltaTime;
 
     }
 
     protected void LockOnTarget() {
-        Vector3 dir = target.position - transform.position;
+        Vector3 dir = Target.position - transform.position;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
-    void Shoot() {
+    protected virtual void Shoot() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 

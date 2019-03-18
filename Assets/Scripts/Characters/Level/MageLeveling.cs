@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class MageLeveling : LevelingController {
     Mage mage;
@@ -11,9 +10,13 @@ public class MageLeveling : LevelingController {
     protected override void LevelUp() {
         base.LevelUp();
 
-        int adder = Mathf.FloorToInt(Mathf.Log(Level + 1));
+        //int bonus = Mathf.FloorToInt(Mathf.Log(Level + 1));
 
-        mage.ATKValue = adder * 2;
-        //mage.MaxHPValue += adder * 5;
+        //all mages use same level up bonus, set in IceMageConfig
+        mage.MaxHPValue += IceMageConfig.MaxHPBonus;
+        mage.ATKValue += IceMageConfig.ATKBonus;
+        mage.MATKValue += IceMageConfig.MATKBonus;
+        mage.PDEFValue += IceMageConfig.PDEFBonus;
+        mage.MDEFValue += IceMageConfig.MDEFBonus;
     }
 }

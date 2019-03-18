@@ -4,7 +4,13 @@
 
 Assembly-CSharp.csproj
 
+ScriptsAssembly.csproj
+
 CSCI526_Mobile_Game.sln
+
+Tests.csproj
+
+ProjectSettings/ProjectVersion.txt
 
 Library/
 
