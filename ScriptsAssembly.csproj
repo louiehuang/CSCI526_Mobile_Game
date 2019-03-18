@@ -85,7 +85,6 @@
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
     <Compile Include="Assets\Scripts\Config\PriestConfig.cs" />
-    <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameOver.cs" />
     <Compile Include="Assets\Scripts\HeroPool.cs" />

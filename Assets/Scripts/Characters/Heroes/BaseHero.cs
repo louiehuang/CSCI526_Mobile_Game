@@ -5,8 +5,8 @@ public class BaseHero : BaseCharacter {
     private Transform target;
     public Transform Target { get; set; }
 
-    private Enemy targetEnemy; 
-    public Enemy TargetEnemy { get; set; }
+    private BaseEnemy targetEnemy; 
+    public BaseEnemy TargetEnemy { get; set; }
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -41,7 +41,7 @@ public class BaseHero : BaseCharacter {
 
         if (nearestEnemy != null && shortestDistance <= RangeValue) {
             target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            targetEnemy = nearestEnemy.GetComponent<BaseEnemy>();
         } else {
             target = null;
         }
