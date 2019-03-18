@@ -65,4 +65,6 @@ public class BaseCharacter : MonoBehaviour {
         //    Die();
         //}
     }
+
+    //damage formula
 }

@@ -64,8 +64,6 @@ public class IceMage : Mage {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
-        Debug.Log("init attr");
-
         CharacterName = IceMageConfig.CharacterName;
         CharacterDescription = IceMageConfig.CharacterDescription;
 
@@ -91,6 +89,7 @@ public class IceMage : Mage {
 
         //special
         damageOverTime = 0.75f * MATKValue;
+        slowAmount = IceMageConfig.SlowAmount;
         range = new CharacterAttribute(IceMageConfig.Range);
     }
 }

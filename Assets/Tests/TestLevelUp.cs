@@ -30,18 +30,31 @@ namespace Tests {
 
 
         [Test]
-        public void MageGoLevel2() {
+        public void IceMageGoLevel2() {
             IceMage iceMage = gameObject.AddComponent<IceMage>();
             iceMage.LoadAttr();
             iceMage.LevelManager = new MageLeveling(iceMage, 1);
 
             iceMage.LevelManager.AddEXP(700);
-            //Debug.Log("Level: " + iceMage.LevelManager.Level);
             Assert.AreEqual(2, iceMage.LevelManager.Level);
 
             Assert.AreEqual(110f, iceMage.MaxHPValue);
             Assert.AreEqual(11f, iceMage.ATKValue);
             Assert.AreEqual(35f, iceMage.MATKValue);
+        }
+
+        [Test]
+        public void FireMageGoLevel2() {
+            FireMage fireMage = gameObject.AddComponent<FireMage>();
+            fireMage.LoadAttr();
+            fireMage.LevelManager = new MageLeveling(fireMage, 1);
+
+            fireMage.LevelManager.AddEXP(700);
+            Assert.AreEqual(2, fireMage.LevelManager.Level);
+
+            Assert.AreEqual(110f, fireMage.MaxHPValue);
+            Assert.AreEqual(3f, fireMage.ATKValue);
+            Assert.AreEqual(8f, fireMage.MATKValue);
         }
 
         [Test]
@@ -51,13 +64,11 @@ namespace Tests {
             priest.LevelManager = new PriestLeveling(priest, 1);
 
             priest.LevelManager.AddEXP(700);
-            //Debug.Log("Level: " + iceMage.LevelManager.Level);
             Assert.AreEqual(2, priest.LevelManager.Level);
 
             Assert.AreEqual(165f, priest.MaxHPValue);
             Assert.AreEqual(11.5f, priest.ATKValue);
             Assert.AreEqual(22f, priest.MATKValue);
         }
-
     }
 }

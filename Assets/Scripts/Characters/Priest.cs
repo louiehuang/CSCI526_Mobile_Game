@@ -5,10 +5,10 @@
 /// </summary>
 public class Priest : BaseHero {
     public PriestLeveling LevelManager;
-    public string heroTag = "Hero";
     private float healCountdown = 0f;
 
-    private Transform target;
+    private Transform targetHeroTransform;
+    //public Transform Target { get; set; }
 
     private BaseHero targetHero;
     public BaseHero TargetHero { get; set; }
@@ -19,7 +19,7 @@ public class Priest : BaseHero {
         LoadAttr();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
-        Debug.Log("In IceMage");
+        Debug.Log("In Priest");
     }
 
 
@@ -37,17 +37,16 @@ public class Priest : BaseHero {
                 heroToHeal = hero;
             }
         }
-        Debug.Log("lowestHealth:" + lowestHealth);
 
         if (heroToHeal != null) {
-            target = heroToHeal.transform;
+            targetHeroTransform = heroToHeal.transform;
             targetHero = heroToHeal.GetComponent<BaseHero>();
         } else {
-            target = null;
+            targetHeroTransform = null;
         }
 
         //update property
-        this.Target = target;
+        this.Target = targetHeroTransform;
         this.TargetHero = targetHero;
     }
 
@@ -70,7 +69,7 @@ public class Priest : BaseHero {
 
     void Heal() {
         float amount = 0.8f * MATKValue;
-        amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue : amount;
+        amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
         TargetHero.TakeDamage(-amount); 
         Debug.Log("heal: " + amount + ", current health: " + TargetHero.CurHP);
     }
@@ -78,8 +77,6 @@ public class Priest : BaseHero {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
-        Debug.Log("init attr");
-
         CharacterName = PriestConfig.CharacterName;
         CharacterDescription = PriestConfig.CharacterDescription;
 

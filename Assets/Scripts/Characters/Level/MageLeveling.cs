@@ -12,6 +12,7 @@ public class MageLeveling : LevelingController {
 
         //int bonus = Mathf.FloorToInt(Mathf.Log(Level + 1));
 
+        //all mages use same level up bonus, set in IceMageConfig
         mage.MaxHPValue += IceMageConfig.MaxHPBonus;
         mage.ATKValue += IceMageConfig.ATKBonus;
         mage.MATKValue += IceMageConfig.MATKBonus;
