@@ -14,6 +14,7 @@ public class CharacterAttribute {
     protected float _value;
     public virtual float Value {
         get {
+
             if (isDirty || Math.Abs(lastBaseValue - BaseValue) > precision) {
                 lastBaseValue = BaseValue;
                 _value = Evaluate();

@@ -7,6 +7,7 @@ public class BaseCharacter : MonoBehaviour {
     public string CharacterName { get; set; }
     public string CharacterDescription { get; set; }
 
+
     public CharacterAttribute MaxHP = new CharacterAttribute();
     public float MaxHPValue { get { return MaxHP.Value; } set { MaxHP.BaseValue = value; } }
 
@@ -53,11 +54,33 @@ public class BaseCharacter : MonoBehaviour {
     public CharacterAttribute ATKSpeed;
     public float ATKSpeedValue { get { return ATKSpeed.Value; } set { ATKSpeed.BaseValue = value; } }
 
-    //public float startHealth = 100;
 
-    //private bool isDead = false;
 
+    [Header("Unity Stuff")]
     public Image healthBar;
+    public GameObject deathEffect;
+
+    [Header("Other Attribute")]
+    public int worth = 50;
+
+    protected bool isDead;
+
+    private void Awake()
+    {
+        CurHP = MaxHPValue;
+    }
+
+    protected virtual void Die()
+    {
+        isDead = true;
+
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
+    }
+
+
 
     //TODO: damage formula
     //need two object: hero and enemy
@@ -67,13 +90,21 @@ public class BaseCharacter : MonoBehaviour {
     }
 
     //TODO: take damage
-    public void TakeDamage(float amount) {
+    public void TakeDamage(float amount)
+    {
         CurHP -= amount;
 
-        healthBar.fillAmount = CurHP / MaxHPValue;
+        //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector
+        if (healthBar != null)
+        {
+            healthBar.fillAmount = CurHP / MaxHPValue;
+        }
 
-        //if (CurHP <= 0 && !isDead) {
-        //    Die();
-        //}
+
+        Debug.Log(this.name + "CurHP " + CurHP + " amount = " + amount + " curHp is " + CurHP);
+        if (CurHP <= 0 && !isDead)
+        {
+            Die();
+        }
     }
 }

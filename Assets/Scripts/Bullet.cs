@@ -6,6 +6,7 @@ public class Bullet : MonoBehaviour {
 
     public float speed = 70f;
 
+
     public float damage = 50f;
 
     public float explosionRadius = 0f;
@@ -59,7 +60,8 @@ public class Bullet : MonoBehaviour {
     }
 
     void Damage(Transform enemy) {
-        Enemy e = enemy.GetComponent<Enemy>();
+
+        BaseCharacter e = enemy.GetComponent<BaseCharacter>();
 
         if (e != null) {
             e.TakeDamage(damage);
