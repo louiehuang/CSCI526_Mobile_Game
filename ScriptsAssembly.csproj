@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\Characters\FireMage.cs" />
     <Compile Include="Assets\Scripts\Characters\IceMage.cs" />
     <Compile Include="Assets\Scripts\Characters\Knight.cs" />
+    <Compile Include="Assets\Scripts\Characters\Level\KnightLeveling.cs" />
     <Compile Include="Assets\Scripts\Characters\Level\LevelingController.cs" />
     <Compile Include="Assets\Scripts\Characters\Level\MageLeveling.cs" />
     <Compile Include="Assets\Scripts\Characters\Level\PriestLeveling.cs" />
@@ -79,6 +80,7 @@
     <Compile Include="Assets\Scripts\CompleteLevel.cs" />
     <Compile Include="Assets\Scripts\Config\FireMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
+    <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
     <Compile Include="Assets\Scripts\Config\PriestConfig.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\Scripts\EnemyMovement.cs" />

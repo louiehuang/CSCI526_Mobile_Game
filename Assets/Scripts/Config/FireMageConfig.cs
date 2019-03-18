@@ -15,7 +15,6 @@ public static class FireMageConfig {
     public static string CharacterDescription = "Default Fire Mage Description";
 
     public static float MaxHPValue = 100f;
-    public static float CurHP = 100f;
 
     public static float ATKValue = 2f;
     public static float MATKValue = 25f;

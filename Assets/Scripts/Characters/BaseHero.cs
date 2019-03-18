@@ -66,7 +66,7 @@ public class BaseHero : BaseCharacter {
 
      
         if (attackCountdown <= 0f) {
-            Shoot();
+            Attack();
             attackCountdown = 1f / attackRate;
         }
 
@@ -81,7 +81,7 @@ public class BaseHero : BaseCharacter {
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
     }
 
-    protected virtual void Shoot() {
+    protected virtual void Attack() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 

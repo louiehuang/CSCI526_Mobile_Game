@@ -20,7 +20,6 @@ public static class IceMageConfig {
     public static string CharacterDescription = "Default Description";
 
     public static float MaxHPValue = 100f;
-    public static float CurHP = 100f;
 
     public static float ATKValue = 10f;
     public static float MATKValue = 32f;
