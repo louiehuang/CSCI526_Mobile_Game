@@ -8,7 +8,7 @@ public class Node : MonoBehaviour {
     public Vector3 positionOffset;
 
     [HideInInspector]
-    public GameObject turret;
+    public GameObject hero;  //the hero on this node
     [HideInInspector]
     public TurretBlueprint turretBlueprint;
     [HideInInspector]
@@ -34,7 +34,7 @@ public class Node : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
-        if (turret != null) {
+        if (hero != null) {
             buildManager.SelectNode(this);
             return;
         }
@@ -54,7 +54,7 @@ public class Node : MonoBehaviour {
         PlayerStats.Money -= blueprint.cost;
 
         GameObject _turret = (GameObject)Instantiate(blueprint.prefab, GetBuildPosition(), Quaternion.identity);
-        turret = _turret;
+        hero = _turret;
 
         turretBlueprint = blueprint;
 
@@ -62,6 +62,12 @@ public class Node : MonoBehaviour {
         Destroy(effect, 5f);
 
         Debug.Log("Turret build!");
+    }
+
+    public void UseHeroSkill() {
+        Debug.Log("Node Use Skills");
+        BaseHero h = hero.GetComponent<BaseHero>();
+        h.UseSkill();
     }
 
     public void UpgradeTurret() {
@@ -73,11 +79,11 @@ public class Node : MonoBehaviour {
         PlayerStats.Money -= turretBlueprint.upgradeCost;
 
         //Get rid of the old turret
-        Destroy(turret);
+        Destroy(hero);
 
         //Build a new one
         GameObject _turret = (GameObject)Instantiate(turretBlueprint.upgradedPrefab, GetBuildPosition(), Quaternion.identity);
-        turret = _turret;
+        hero = _turret;
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
@@ -93,7 +99,7 @@ public class Node : MonoBehaviour {
         GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
 
-        Destroy(turret);
+        Destroy(hero);
         turretBlueprint = null;
     }
 

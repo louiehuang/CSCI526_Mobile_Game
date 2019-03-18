@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 /// <summary>
 /// Priest.
@@ -66,12 +67,41 @@ public class Priest : BaseHero {
         healCountdown -= Time.deltaTime;
     }
 
-
     void Heal() {
-        float amount = 0.8f * MATKValue;
-        amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
-        TargetHero.TakeDamage(-amount); 
-        Debug.Log("heal: " + amount + ", current health: " + TargetHero.CurHP);
+        //float amount = 0.8f * MATKValue;
+        //amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
+        //TargetHero.TakeDamage(-amount); 
+        //Debug.Log("heal: " + amount + ", current health: " + TargetHero.CurHP);
+    }
+
+    public override void UseSkill() {
+        //hero on this node uses kill
+        //TODO: consume energy, check CD
+        ExSkill();
+    }
+
+    void ExSkill() {
+        //heal heroes within a range
+        float skillRange = 30f;
+
+        GameObject[] heroes = GameObject.FindGameObjectsWithTag(heroTag);
+        List<GameObject> heroesToHeal = new List<GameObject>();
+        foreach (GameObject hero in heroes) {
+            float distanceToHero = Vector3.Distance(transform.position, hero.transform.position);
+            if (distanceToHero <= skillRange) {
+                heroesToHeal.Add(hero);
+            }
+        }
+
+        if (heroesToHeal.Count > 0) {
+            float amount = 1.0f * MATKValue;
+            foreach (GameObject hero in heroesToHeal) {
+                BaseHero th = hero.GetComponent<BaseHero>();
+                float realAmount = th.CurHP + amount > th.MaxHPValue ? th.MaxHPValue - th.CurHP : amount;
+                th.TakeDamage(-realAmount);
+                Debug.Log("Exskill, heal: " + realAmount + ", current health: " + TargetHero.CurHP);
+            }
+        }
     }
 
 
