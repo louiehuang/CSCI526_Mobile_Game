@@ -8,9 +8,22 @@ public class GameManager : MonoBehaviour {
     public GameObject gameOverUI;
     public GameObject completeLevelUI;
 
+
     void Start() {
         GameIsOver = false;
+
+        StartCoroutine("IncreaseEnergyOverTime");
     }
+
+
+    IEnumerator IncreaseEnergyOverTime() {
+        float delay = 1f;
+        while (PlayerStats.Energy <= 100) {
+            yield return new WaitForSeconds(delay);
+            PlayerStats.Energy += 1;
+        }
+    }
+
 
     // Update is called once per frame
     void Update() {
@@ -22,10 +35,12 @@ public class GameManager : MonoBehaviour {
         }
     }
 
+
     void EndGame() {
         GameIsOver = true;
         gameOverUI.SetActive(true);
     }
+
 
     public void WinLevel() {
         GameIsOver = true;

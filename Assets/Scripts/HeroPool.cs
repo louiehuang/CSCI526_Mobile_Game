@@ -2,11 +2,11 @@ using UnityEngine;
 
 public class HeroPool : MonoBehaviour {
 
-    public TurretBlueprint knight;
-    public TurretBlueprint archer;
-    public TurretBlueprint fireMage;
-    public TurretBlueprint iceMage;
-    public TurretBlueprint priest;
+    public HeroBlueprint knight;
+    public HeroBlueprint archer;
+    public HeroBlueprint fireMage;
+    public HeroBlueprint iceMage;
+    public HeroBlueprint priest;
 
     BuildManager buildManager;
 
