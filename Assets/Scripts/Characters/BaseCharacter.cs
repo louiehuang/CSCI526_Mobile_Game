@@ -87,6 +87,7 @@ public class BaseCharacter : MonoBehaviour {
 
     //TODO: take damage
     public void TakeDamage(float amount) {
+        Debug.Log(this.name+" damage "+CurHP +" - "+amount);
         CurHP -= amount;
 
         //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector

@@ -34,6 +34,7 @@ public class EnemyUsingBullet : BaseEnemy
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = ATKValue;
+        Debug.Log("attack damage" + bullet.damage);
         if (bullet != null)
             bullet.Seek(AttackTarget);
     }
