@@ -4,7 +4,7 @@ using System.Collections;
 public class Turret : MonoBehaviour {
 
     private Transform target;
-    private Enemy targetEnemy;
+    private BaseEnemy targetEnemy;
 
     [Header("General")]
 
@@ -53,7 +53,8 @@ public class Turret : MonoBehaviour {
 
         if (nearestEnemy != null && shortestDistance <= range) {
             target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            targetEnemy = nearestEnemy.GetComponent<BaseEnemy>();
+
         } else {
             target = null;
         }

@@ -5,8 +5,8 @@ public class BaseHero : BaseCharacter {
     private Transform target;
     public Transform Target { get; set; }
 
-    private Enemy targetEnemy; 
-    public Enemy TargetEnemy { get; set; }
+    private BaseEnemy targetEnemy; 
+    public BaseEnemy TargetEnemy { get; set; }
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -41,7 +41,7 @@ public class BaseHero : BaseCharacter {
 
         if (nearestEnemy != null && shortestDistance <= RangeValue) {
             target = nearestEnemy.transform;
-            targetEnemy = nearestEnemy.GetComponent<Enemy>();
+            targetEnemy = nearestEnemy.GetComponent<BaseEnemy>();
         } else {
             target = null;
         }
@@ -59,18 +59,18 @@ public class BaseHero : BaseCharacter {
 
         LockOnTarget();
 
-     
         if (attackCountdown <= 0f) {
             Attack();
             attackCountdown = 1f / attackRate;
         }
 
         attackCountdown -= Time.deltaTime;
-
     }
 
     protected void LockOnTarget() {
         Vector3 dir = Target.position - transform.position;
+        if (dir.Equals(Vector3.zero))
+            return;
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
@@ -82,6 +82,10 @@ public class BaseHero : BaseCharacter {
 
         if (bullet != null)
             bullet.Seek(target);
+    }
+
+    public virtual void UseSkill() {
+        Debug.Log("BaseHero Use Skills");
     }
 
     void OnDrawGizmosSelected() {

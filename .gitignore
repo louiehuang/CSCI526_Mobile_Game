@@ -4,6 +4,10 @@
 
 Assembly-CSharp.csproj
 
+<<<<<<< HEAD
+CSCI526_Mobile_Game.sln
+
+=======
 ScriptsAssembly.csproj
 
 CSCI526_Mobile_Game.sln
@@ -12,6 +16,7 @@ Tests.csproj
 
 ProjectSettings/ProjectVersion.txt
 
+>>>>>>> e48fd4c0380605507819d29bf26d6c59fb361a8c
 Library/
 
 Logs/
