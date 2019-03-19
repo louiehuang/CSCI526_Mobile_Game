@@ -5,6 +5,12 @@ public static class KnightConfig {
     //special attrs
     public static float SkillCooldownTime = 5f;
 
+    //skill effects
+    public static float PDEFPercent = 0.5f;  //PDEF value increase 100%
+    public static float MDEFPercent = 0.5f;  //MDEF value increase 100%
+    public static float DodgeFlat = 0.1f;  //dodge prob inceares 10%
+    public static float BlockFlat = 0.1f;  //block prob inceares 10%
+
     //level up related bonus
     public static float MaxHPBonus = 30f;
     public static float ATKBonus = 2f;
@@ -12,8 +18,7 @@ public static class KnightConfig {
     public static float PDEFBonus = 5f;
     public static float MDEFBonus = 5f;
 
-
-    //common
+    //common base value
     public static int Level = 1;
     public static float Range = 8f;
 

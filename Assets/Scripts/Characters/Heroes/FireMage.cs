@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using System.Collections;
 
 
 /// <summary>
 /// Fire mage
-/// Range attack
-/// Low attack speed
+/// Feature: range attack
 /// </summary>
 public class FireMage : Mage {
 
@@ -15,6 +14,8 @@ public class FireMage : Mage {
 
     new void Start() {
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
+
+        SkillIsReady = true;
 
         LoadAttr();
 
@@ -31,15 +32,25 @@ public class FireMage : Mage {
             bullet.Seek(Target);
     }
 
-    public override void UseSkill() {
-        //hero on this node uses kill
-        //TODO: consume energy, check CD
-        ExSkill();
+
+    public override void ExSkill() {
+        //do damage on all enemies
+        Debug.Log("Do damage on all enemies");
+
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        if (enemies != null && enemies.Length > 0) {
+            float amount = 1.85f * MATKValue;
+            foreach (GameObject enemy in enemies) {
+                BaseEnemy te = enemy.GetComponent<BaseEnemy>();
+                te.TakeDamage(amount);
+            }
+        }
     }
 
-    void ExSkill() {
-        //attack speed up
 
+    public override IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(FireMageConfig.SkillCooldownTime);
+        SkillIsReady = true;
     }
 
 

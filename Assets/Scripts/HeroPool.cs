@@ -3,7 +3,7 @@ using UnityEngine;
 public class HeroPool : MonoBehaviour {
 
     public TurretBlueprint knight;
-    public TurretBlueprint archor;
+    public TurretBlueprint archer;
     public TurretBlueprint fireMage;
     public TurretBlueprint iceMage;
     public TurretBlueprint priest;
@@ -19,9 +19,9 @@ public class HeroPool : MonoBehaviour {
         buildManager.SelectTurretToBuild(knight);
     }
 
-    public void SelectArchor() {
-        Debug.Log("Archor Selected");
-        buildManager.SelectTurretToBuild(archor);
+    public void SelectArcher() {
+        Debug.Log("Archer Selected");
+        buildManager.SelectTurretToBuild(archer);
     }
 
     public void SelectFireMage() {

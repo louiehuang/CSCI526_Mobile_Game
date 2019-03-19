@@ -3,6 +3,10 @@
 [Serializable]
 public static class ArcherConfig {
     //special attrs
+    public static float SkillCooldownTime = 5f;
+
+    //skill effects
+    public static float ATKSpeedPercent = 1.0f;  //atk speed increase 100%
 
     //level up related bonus
     public static float MaxHPBonus = 15f;
@@ -10,7 +14,6 @@ public static class ArcherConfig {
     public static float MATKBonus = 1f;
     public static float PDEFBonus = 2f;
     public static float MDEFBonus = 2f;
-
 
     //common base value
     public static int Level = 1;
@@ -36,6 +39,6 @@ public static class ArcherConfig {
     public static float BlockValue = 0f;
     public static float CritResistanceValue = 0.1f;
 
-    public static float ATKSpeedValue = 5f;  // 5 attack per second
+    public static float ATKSpeedValue = 3f;  // 3 attack per second
 
 }
