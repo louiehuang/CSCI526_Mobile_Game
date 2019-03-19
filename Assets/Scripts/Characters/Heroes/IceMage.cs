@@ -17,6 +17,8 @@ public class IceMage : Mage {
     new void Start() {
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
+        SkillIsReady = true;
+
         LoadAttr();
 
         //string json = JsonUtility.ToJson(ATK);

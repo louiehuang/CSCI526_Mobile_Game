@@ -65,7 +65,6 @@ public class Node : MonoBehaviour {
     }
 
     public void UseHeroSkill() {
-        Debug.Log("Node Use Skills");
         BaseHero h = hero.GetComponent<BaseHero>();
         h.UseSkill();
     }

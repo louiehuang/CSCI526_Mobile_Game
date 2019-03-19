@@ -3,6 +3,7 @@
 [Serializable]
 public static class FireMageConfig {
     //special attrs
+    public static float SkillCooldownTime = 5f;
     public static float Radius = 8f;  //explosion radius
 
     //level up related bonus (set in IceMageConfig)

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class BaseHero : BaseCharacter {
 
@@ -7,6 +8,8 @@ public class BaseHero : BaseCharacter {
 
     private BaseEnemy targetEnemy; 
     public BaseEnemy TargetEnemy { get; set; }
+
+    public bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -84,8 +87,24 @@ public class BaseHero : BaseCharacter {
             bullet.Seek(target);
     }
 
-    public virtual void UseSkill() {
-        Debug.Log("BaseHero Use Skills");
+    public void UseSkill() {
+        if (SkillIsReady) {  // Check CD
+            Debug.Log("use skill");
+            SkillIsReady = false;
+            ExSkill();  //TODO: for test
+            StartCoroutine("SkillCooldown");
+        } else {
+            Debug.Log("skill not ready");
+        }
+    }
+
+    public virtual void ExSkill() {
+        //pass
+    }
+
+    public virtual IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(15f);  //default cooldown time
+        SkillIsReady = true;
     }
 
     void OnDrawGizmosSelected() {
