@@ -2,6 +2,8 @@ using UnityEngine;
 using System.Collections;
 
 public class PlayerStats : MonoBehaviour {
+    //As time passes by, player gains energy used to summon heroes
+    public static int Energy;
 
     public static int Money;
     public int startMoney = 400;
