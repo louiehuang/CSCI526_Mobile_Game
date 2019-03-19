@@ -84,5 +84,20 @@ namespace Tests {
             Assert.AreEqual(12f, knight.ATKValue);
             Assert.AreEqual(11f, knight.MATKValue);
         }
+
+
+        [Test]
+        public void ArcherGoLevel2() {
+            Archer archer = gameObject.AddComponent<Archer>();
+            archer.LoadAttr();
+            archer.LevelManager = new ArcherLeveling(archer, 1);
+
+            archer.LevelManager.AddEXP(700);
+            Assert.AreEqual(2, archer.LevelManager.Level);
+
+            Assert.AreEqual(135f, archer.MaxHPValue);
+            Assert.AreEqual(31f, archer.ATKValue);
+            Assert.AreEqual(13f, archer.MATKValue);
+        }
     }
 }

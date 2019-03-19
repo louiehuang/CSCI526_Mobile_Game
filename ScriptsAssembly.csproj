@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\Characters\Heroes\Knight.cs" />
     <Compile Include="Assets\Scripts\Characters\Heroes\Mage.cs" />
     <Compile Include="Assets\Scripts\Characters\Heroes\Priest.cs" />
+    <Compile Include="Assets\Scripts\Characters\HeroLeveling\ArcherLeveling.cs" />
     <Compile Include="Assets\Scripts\Characters\HeroLeveling\KnightLeveling.cs" />
     <Compile Include="Assets\Scripts\Characters\HeroLeveling\LevelingController.cs" />
     <Compile Include="Assets\Scripts\Characters\HeroLeveling\MageLeveling.cs" />
@@ -81,6 +82,7 @@
     <Compile Include="Assets\Scripts\Characters\Stats\CharacterAttribute.cs" />
     <Compile Include="Assets\Scripts\Characters\Stats\StatModifier.cs" />
     <Compile Include="Assets\Scripts\CompleteLevel.cs" />
+    <Compile Include="Assets\Scripts\Config\ArcherConfig.cs" />
     <Compile Include="Assets\Scripts\Config\FireMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />

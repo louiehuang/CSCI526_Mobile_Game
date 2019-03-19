@@ -29,7 +29,7 @@ public class Knight : BaseHero {
         CharacterDescription = KnightConfig.CharacterDescription;
 
         MaxHP = new CharacterAttribute(KnightConfig.MaxHPValue);
-        CurHP = MaxHPValue;
+        CurHP = 10f; //TODO: change back to MaxHPValue;
 
         ATK = new CharacterAttribute(KnightConfig.ATKValue);
         MATK = new CharacterAttribute(KnightConfig.MATKValue);
