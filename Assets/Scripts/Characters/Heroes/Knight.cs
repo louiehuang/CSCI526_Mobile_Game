@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Knight : BaseHero {
 
@@ -20,6 +21,32 @@ public class Knight : BaseHero {
 
         if (bullet != null)
             bullet.Seek(Target);
+    }
+
+
+    public override void UseSkill() {
+        //hero on this node uses kill
+        //TODO: consume energy
+
+        //check CD
+        if (SkillIsReady) {
+            Debug.Log("use skill");
+            SkillIsReady = false;
+            ExSkill();
+            StartCoroutine("SkillCooldown");
+        } else {
+            Debug.Log("skill not ready");
+        }
+    }
+
+    void ExSkill() {
+        Debug.Log("DEF up");
+    }
+
+
+    IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(KnightConfig.SkillCooldownTime);
+        SkillIsReady = true;
     }
 
 

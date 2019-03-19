@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// Priest.
@@ -16,6 +17,8 @@ public class Priest : BaseHero {
 
     new void Start() {
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
+
+        SkillIsReady = true;
 
         LoadAttr();
 
@@ -68,19 +71,44 @@ public class Priest : BaseHero {
     }
 
     void Heal() {
-        //float amount = 0.8f * MATKValue;
-        //amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
-        //TargetHero.TakeDamage(-amount); 
+        float amount = 0.8f * MATKValue;
+        amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
+        TargetHero.TakeDamage(-amount); 
         //Debug.Log("heal: " + amount + ", current health: " + TargetHero.CurHP);
     }
 
     public override void UseSkill() {
-        //hero on this node uses kill
-        //TODO: consume energy, check CD
-        ExSkill();
+        //check CD
+        if (SkillIsReady) {
+            Debug.Log("use skill");
+            SkillIsReady = false;
+            ExSkillTest();  //TODO: for test
+            StartCoroutine("SkillCooldown");
+        } else {
+            Debug.Log("skill not ready");
+        }
     }
 
+    void ExSkillTest() {
+        //duration time
+        Debug.Log("DEF up");
+        StartCoroutine("SkillDuration");
+    }
+
+
+    IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(PriestConfig.SkillCooldownTime);
+        SkillIsReady = true;
+    }
+
+    IEnumerator SkillDuration() {
+        yield return new WaitForSeconds(2f);
+        Debug.Log("DEF back to normal");
+    }
+
+
     void ExSkill() {
+        //TODO: consume energy
         //heal heroes within a range
         float skillRange = 30f;
 

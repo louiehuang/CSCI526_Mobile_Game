@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
+
 
 /// <summary>
 /// Fire mage
@@ -27,6 +29,17 @@ public class FireMage : Mage {
 
         if (bullet != null)
             bullet.Seek(Target);
+    }
+
+    public override void UseSkill() {
+        //hero on this node uses kill
+        //TODO: consume energy, check CD
+        ExSkill();
+    }
+
+    void ExSkill() {
+        //attack speed up
+
     }
 
 

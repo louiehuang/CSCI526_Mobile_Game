@@ -8,6 +8,8 @@ public class BaseHero : BaseCharacter {
     private BaseEnemy targetEnemy; 
     public BaseEnemy TargetEnemy { get; set; }
 
+    public bool SkillIsReady = true;
+
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
     public float attackRate = 1f;  //TODO: convert attackSpeed to attackRate

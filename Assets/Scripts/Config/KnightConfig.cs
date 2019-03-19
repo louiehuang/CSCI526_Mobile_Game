@@ -3,6 +3,7 @@
 [Serializable]
 public static class KnightConfig {
     //special attrs
+    public static float SkillCooldownTime = 5f;
 
     //level up related bonus
     public static float MaxHPBonus = 30f;
