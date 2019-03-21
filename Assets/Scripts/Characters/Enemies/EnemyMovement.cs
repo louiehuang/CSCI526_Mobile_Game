@@ -17,6 +17,7 @@ public class EnemyMovement : MonoBehaviour {
 
     private string stopTag = "Knight";
     private float stopRange = 2f;
+    public float turnSpeed = 10f;
     void Start() {
         enemy = GetComponent<BaseEnemy>();
 
@@ -59,6 +60,9 @@ public class EnemyMovement : MonoBehaviour {
 
         wavepointIndex++;
         target = Waypoints.points[wavepointIndex];
+        LockOnTarget();
+
+
     }
 
     void EndPath() {
@@ -108,6 +112,19 @@ public class EnemyMovement : MonoBehaviour {
 
         knightTarget = UpdateTarget(stopTag, stopRange);
 
+
+    }
+
+    protected void LockOnTarget() {
+        Vector3 rtmp = enemy.canvas.transform.eulerAngles;
+        Vector3 dir = target.position - transform.position;
+        if (dir.Equals(Vector3.zero))
+            return;
+        Quaternion lookRotation = Quaternion.LookRotation(dir);
+        Vector3 rotation = Quaternion.Lerp(enemy.transform.rotation, lookRotation, 1000f).eulerAngles;
+        enemy.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+        enemy.canvas.transform.eulerAngles = rtmp;
 
     }
 

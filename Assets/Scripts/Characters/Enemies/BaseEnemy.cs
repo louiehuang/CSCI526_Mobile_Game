@@ -12,6 +12,7 @@ public class BaseEnemy : BaseCharacter
     [Header("Unity Setup Fields")]
     public string enemyTag = "Hero";
     public float range = 30f;
+    public GameObject canvas;
 
     private Transform target;
     private Transform attackTarget;
