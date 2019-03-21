@@ -9,16 +9,19 @@ public class EnemyMovement : MonoBehaviour {
 
     private BaseEnemy enemy;
     private Transform attackTarget;
+    private Transform knightTarget;
 
 
-    private string enemyTag;
-    private float range;
+    public string attackTag = "Hero";
+    public float attackRange;
 
+    private string stopTag = "Knight";
+    private float stopRange = 2f;
     void Start() {
         enemy = GetComponent<BaseEnemy>();
 
-        this.enemyTag = enemy.enemyTag;
-        this.range = enemy.range;
+        this.attackTag = enemy.enemyTag;
+        this.attackRange = enemy.range;
 
         Animation anim = GetComponent<Animation>();
         if(anim != null)
@@ -34,9 +37,9 @@ public class EnemyMovement : MonoBehaviour {
 
     void Update() {
         Vector3 dir = target.position - transform.position;
-        if (attackTarget != null)
+        if (knightTarget != null)
         {
-            //Debug.Log("see turret");
+            Debug.Log("see Knight");
             dir = Vector3.zero;
         }
         transform.Translate(dir.normalized * enemy.speed * Time.deltaTime, Space.World);
@@ -64,32 +67,48 @@ public class EnemyMovement : MonoBehaviour {
         Destroy(gameObject);
     }
 
-    void UpdateTarget()
-    {
-        GameObject[] heroTargets = GameObject.FindGameObjectsWithTag(enemyTag);
+    private Transform UpdateTarget(string tagName, float range) {
+        GameObject[] targets = GameObject.FindGameObjectsWithTag(tagName);
+        Transform curTransform = null;
         float shortestDistance = Mathf.Infinity;
         GameObject nearestEnemy = null;
-        foreach (GameObject heroTarget in heroTargets)
-        {
+        foreach (GameObject heroTarget in targets) {
             float distanceToEnemy = Vector3.Distance(transform.position, heroTarget.transform.position);
-            if (distanceToEnemy < shortestDistance)
-            {
+            if (distanceToEnemy < shortestDistance) {
                 shortestDistance = distanceToEnemy;
                 nearestEnemy = heroTarget;
             }
         }
-        //Debug.Log("shortestDistance  " + shortestDistance);
-        if (nearestEnemy != null && shortestDistance < range)
-        {
-            //Debug.Log("change attachTarget  " + shortestDistance);
-            attackTarget = nearestEnemy.transform;
-            enemy.AttackTarget = attackTarget;
-            //targetEnemy = nearestEnemy.GetComponent<Enemy>();
-        }
-        else
-        {
+        if (nearestEnemy != null && shortestDistance < range) {
+            curTransform = nearestEnemy.transform;
+            //enemy.AttackTarget = targetTrans;
+        } else {
             attackTarget = null;
         }
+        return curTransform;
+    }
+
+    private Transform getNearesetTransform(Transform t1, Transform t2) {
+        if (t1 == null && t2 == null) return null;
+        if (t1 == null) return t2;
+        if (t2 == null) return t1;
+        float d1 = Vector3.Distance(transform.position, t1.position);
+        float d2 = Vector3.Distance(transform.position, t2.position);
+        if (d1 <= d2) return t1;
+        return t2;
+    }
+    void UpdateTarget()
+    {
+
+        Transform attackTarget1 = UpdateTarget(attackTag, attackRange);
+        Transform attackTarget2 = UpdateTarget(stopTag, attackRange);
+
+        attackTarget = getNearesetTransform(attackTarget1, attackTarget2);
+        enemy.AttackTarget = attackTarget;
+
+        knightTarget = UpdateTarget(stopTag, stopRange);
+
+
     }
 
 }
