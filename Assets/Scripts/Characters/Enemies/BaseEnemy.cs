@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BaseEnemy : BaseCharacter
-{
+public class BaseEnemy : BaseCharacter {
 
     public CharacterAttribute MoveSpeed;
     public float MoveSpeedValue { get { return MoveSpeed.Value; } set { MoveSpeed.BaseValue = value; } }
@@ -11,7 +10,8 @@ public class BaseEnemy : BaseCharacter
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Hero";
-    private float range = 0f;
+    public float range{get; set;}
+
     public GameObject canvas;
 
     private Transform target;
