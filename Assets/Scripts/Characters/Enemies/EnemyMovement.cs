@@ -12,8 +12,8 @@ public class EnemyMovement : MonoBehaviour {
     private Transform knightTarget;
 
 
-    public string attackTag = "Hero";
-    public float attackRange;
+    private string attackTag = "Hero";
+    private float attackRange;
 
     private string stopTag = "Knight";
     private float stopRange = 2f;
