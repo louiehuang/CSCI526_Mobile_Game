@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class Node : MonoBehaviour {
@@ -58,6 +59,11 @@ public class Node : MonoBehaviour {
 
         GameObject effect = (GameObject)Instantiate(buildManager.buildEffect, GetBuildPosition(), Quaternion.identity);
         Destroy(effect, 5f);
+
+        Debug.Log(blueprint.prefab.name);
+
+        Image heroImage = GameObject.Find(blueprint.prefab.name + "Item").GetComponent<Image>();
+        heroImage.color = new Color(0.5f, 0.5f, 0.5f);
 
         Debug.Log("Hero Summoned!");
     }
