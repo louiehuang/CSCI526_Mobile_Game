@@ -78,13 +78,6 @@ public class BaseCharacter : MonoBehaviour {
     }
 
 
-    //TODO: damage formula
-    //need two object: hero and enemy
-    public float CalculateDamageOnEnemy(BaseHero hero) {
-
-        return 0f;
-    }
-
     //TODO: take damage
     public void TakeDamage(float amount) {
         //Debug.Log(this.name+" damage "+CurHP +" - "+amount);

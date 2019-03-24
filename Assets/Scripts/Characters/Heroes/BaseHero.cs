@@ -25,7 +25,6 @@ public class BaseHero : BaseCharacter {
 
     // Default initialization
     protected void Start() {
-        Range = new CharacterAttribute(10f);  //default
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
@@ -106,6 +105,16 @@ public class BaseHero : BaseCharacter {
     public virtual IEnumerator SkillCooldown() {
         yield return new WaitForSeconds(15f);  //default cooldown time
         SkillIsReady = true;
+    }
+
+    //TODO: damage formula
+    public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
+        bool isCrit = (Random.Range(0f, 1f) > (CritValue - enemy.CritResistanceValue));
+        bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
+
+        float damage = ((ATKValue - enemy.PDEFValue) + (MATKValue - enemy.MDEFValue)) * (isCrit ? 1.5f : 1.0f) * (isHit ? 1.0f : 0.0f);
+
+        return damage;
     }
 
     void OnDrawGizmosSelected() {

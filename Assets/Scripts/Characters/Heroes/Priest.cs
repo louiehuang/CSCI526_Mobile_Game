@@ -8,6 +8,7 @@ using System.Collections;
 public class Priest : BaseHero {
     public PriestLeveling LevelManager;
     private float healCountdown = 0f;
+    public string knightTag = "Knight";
 
     private Transform targetHeroTransform;
     //public Transform Target { get; set; }
@@ -39,6 +40,16 @@ public class Priest : BaseHero {
             if (heroHealth < lowestHealth && distanceToHero <= RangeValue) {
                 lowestHealth = heroHealth;
                 heroToHeal = hero;
+            }
+        }
+
+        GameObject[] knights = GameObject.FindGameObjectsWithTag(knightTag);
+        foreach (GameObject knight in knights) {
+            float heroHealth = knight.GetComponent<BaseHero>().CurHP;
+            float distanceToHero = Vector3.Distance(transform.position, knight.transform.position);
+            if (heroHealth < lowestHealth && distanceToHero <= RangeValue) {
+                lowestHealth = heroHealth;
+                heroToHeal = knight;
             }
         }
 
@@ -89,6 +100,14 @@ public class Priest : BaseHero {
             float distanceToHero = Vector3.Distance(transform.position, hero.transform.position);
             if (distanceToHero <= skillRange) {
                 heroesToHeal.Add(hero);
+            }
+        }
+
+        GameObject[] knights = GameObject.FindGameObjectsWithTag(knightTag);
+        foreach (GameObject knight in knights) {
+            float distanceToHero = Vector3.Distance(transform.position, knight.transform.position);
+            if (distanceToHero <= skillRange) {
+                heroesToHeal.Add(knight);
             }
         }
 
