@@ -11,7 +11,7 @@ public class BaseEnemy : BaseCharacter
 
     [Header("Unity Setup Fields")]
     public string enemyTag = "Hero";
-    public float range = 30f;
+    private float range = 0f;
     public GameObject canvas;
 
     private Transform target;
@@ -23,7 +23,8 @@ public class BaseEnemy : BaseCharacter
     void Start() {
         speed = MoveSpeedValue;
         CurHP = MaxHPValue;
-        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP);
+        range = RangeValue;
+        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
     }
 
 
