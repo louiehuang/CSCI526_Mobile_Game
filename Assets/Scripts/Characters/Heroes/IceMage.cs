@@ -13,11 +13,13 @@ public class IceMage : Mage {
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
+    protected Animator animator;
 
     new void Start() {
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -28,18 +30,23 @@ public class IceMage : Mage {
     }
 
     protected override void Update() {
-        if (this.Target == null) { 
-            if (lineRenderer.enabled) {
-                lineRenderer.enabled = false;
-                impactEffect.Stop();
-                impactLight.enabled = false;
+        if (animator) {
+            if (this.Target == null) {
+                if (lineRenderer.enabled) {
+                    animator.SetBool("Ice_Attack", false);
+
+                    lineRenderer.enabled = false;
+                    impactEffect.Stop();
+                    impactLight.enabled = false;
+                }
+                return;
             }
-            return;
+
+            LockOnTarget();
+            this.transform.LookAt(this.Target);
+
+            Laser();
         }
-
-        LockOnTarget();
-
-        Laser();
     }
 
 
@@ -48,6 +55,8 @@ public class IceMage : Mage {
         this.TargetEnemy.Slow(slowAmount);
 
         if (!lineRenderer.enabled) {
+            animator.SetBool("Ice_Attack", true);
+
             lineRenderer.enabled = true;
             impactEffect.Play();
             impactLight.enabled = true;
@@ -56,7 +65,7 @@ public class IceMage : Mage {
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, this.Target.position);
 
-        Vector3 dir = firePoint.position - this.Target.position;
+        Vector3 dir = firePoint.position - this.Target.position; 
 
         impactEffect.transform.position = this.Target.position + dir.normalized;
 
