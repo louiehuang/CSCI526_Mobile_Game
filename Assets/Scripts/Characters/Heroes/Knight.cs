@@ -1,11 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Knight : BaseHero {
 
     public KnightLeveling LevelManager;
 
+    //Skill fields
+    StatModifier PDEFModifierBySkill;
+    StatModifier MDEFModifierBySkill;
+    StatModifier DodgeModifierBySkill;
+    StatModifier BlockModifierBySkill;
+
     new void Start() {
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
+
+        SkillIsReady = true;
 
         LoadAttr();
 
@@ -23,8 +32,44 @@ public class Knight : BaseHero {
     }
 
 
+    public override void ExSkill() {
+        //duration time
+        Debug.Log("DEF up");
+        PDEF.AddModifier(PDEFModifierBySkill);
+        MDEF.AddModifier(MDEFModifierBySkill);
+        Dodge.AddModifier(DodgeModifierBySkill);
+        Block.AddModifier(BlockModifierBySkill);
+        StartCoroutine("SkillDuration");
+    }
+
+
+    public override IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(PriestConfig.SkillCooldownTime);
+        SkillIsReady = true;
+    }
+
+
+    IEnumerator SkillDuration() {
+        yield return new WaitForSeconds(2f);
+        PDEF.RemoveModifier(PDEFModifierBySkill);
+        MDEF.RemoveModifier(MDEFModifierBySkill);
+        Dodge.RemoveModifier(DodgeModifierBySkill);
+        Block.RemoveModifier(BlockModifierBySkill);
+        Debug.Log("DEF back to normal");
+    }
+
+
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        //special
+        Range = new CharacterAttribute(KnightConfig.Range);
+
+        //skill
+        PDEFModifierBySkill = new StatModifier(KnightConfig.PDEFPercent, StatModType.PercentAdd);
+        MDEFModifierBySkill = new StatModifier(KnightConfig.MDEFPercent, StatModType.PercentAdd);
+        DodgeModifierBySkill = new StatModifier(KnightConfig.DodgeFlat, StatModType.Flat);
+        BlockModifierBySkill = new StatModifier(KnightConfig.BlockFlat, StatModType.Flat);
+
         CharacterName = KnightConfig.CharacterName;
         CharacterDescription = KnightConfig.CharacterDescription;
 
@@ -48,9 +93,6 @@ public class Knight : BaseHero {
 
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
-
-        //special
-        Range = new CharacterAttribute(KnightConfig.Range);
     }
 }
 

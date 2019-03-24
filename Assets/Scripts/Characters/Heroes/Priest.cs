@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Collections;
 
 /// <summary>
 /// Priest.
@@ -16,6 +17,8 @@ public class Priest : BaseHero {
 
     new void Start() {
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
+
+        SkillIsReady = true;
 
         LoadAttr();
 
@@ -60,27 +63,23 @@ public class Priest : BaseHero {
         LockOnTarget();
 
         if (healCountdown <= 0f) {
-            Heal();
+            Heal(TargetHero);
             healCountdown = 1f / ATKSpeedValue;
         }
 
         healCountdown -= Time.deltaTime;
     }
 
-    void Heal() {
-        //float amount = 0.8f * MATKValue;
-        //amount = TargetHero.CurHP + amount > TargetHero.MaxHPValue ? TargetHero.MaxHPValue - TargetHero.CurHP : amount;
-        //TargetHero.TakeDamage(-amount); 
-        //Debug.Log("heal: " + amount + ", current health: " + TargetHero.CurHP);
+    void Heal(BaseHero hero) {
+        float amount = 0.8f * MATKValue;
+        float realAmount = hero.CurHP + amount > hero.MaxHPValue ? hero.MaxHPValue - hero.CurHP : amount;
+        TargetHero.TakeDamage(-realAmount);
+        //Debug.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
     }
 
-    public override void UseSkill() {
-        //hero on this node uses kill
-        //TODO: consume energy, check CD
-        ExSkill();
-    }
 
-    void ExSkill() {
+    public override void ExSkill() {
+        //TODO: consume energy
         //heal heroes within a range
         float skillRange = 30f;
 
@@ -96,12 +95,15 @@ public class Priest : BaseHero {
         if (heroesToHeal.Count > 0) {
             float amount = 1.0f * MATKValue;
             foreach (GameObject hero in heroesToHeal) {
-                BaseHero th = hero.GetComponent<BaseHero>();
-                float realAmount = th.CurHP + amount > th.MaxHPValue ? th.MaxHPValue - th.CurHP : amount;
-                th.TakeDamage(-realAmount);
-                Debug.Log("Exskill, heal: " + realAmount + ", current health: " + TargetHero.CurHP);
+                Heal(hero.GetComponent<BaseHero>());
             }
         }
+    }
+
+
+    public override IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(PriestConfig.SkillCooldownTime);
+        SkillIsReady = true;
     }
 
 

@@ -21,23 +21,19 @@ public class BaseEnemy : BaseCharacter
     public Transform AttackTarget { get; set; }
 
     void Start() {
-        
-
         speed = MoveSpeedValue;
         CurHP = MaxHPValue;
         Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP);
     }
 
 
-
     public void Slow(float pct) {
         speed = MoveSpeedValue * (1f - pct);
     }
 
-   protected override void Die() {
-        base.isDead = true;
 
-        PlayerStats.Money += worth;
+    protected override void Die() {
+        base.isDead = true;
 
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(effect, 5f);

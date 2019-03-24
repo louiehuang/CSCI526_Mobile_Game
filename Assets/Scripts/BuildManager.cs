@@ -15,13 +15,13 @@ public class BuildManager : MonoBehaviour {
     public GameObject buildEffect;
     public GameObject sellEffect;
 
-    private TurretBlueprint turretToBuild;
+    private HeroBlueprint heroToBuild;
     private Node selectedNode;
 
     public NodeUI nodeUI;
 
-    public bool CanBuild { get { return turretToBuild != null; } }
-    public bool HasMoney { get { return PlayerStats.Money >= turretToBuild.cost; } }
+    public bool CanBuild { get { return heroToBuild != null; } }
+    public bool HasEnergy { get { return PlayerStats.Energy >= heroToBuild.cost; } }
 
     public void SelectNode(Node node) {
         if (selectedNode == node) {
@@ -30,7 +30,7 @@ public class BuildManager : MonoBehaviour {
         }
 
         selectedNode = node;
-        turretToBuild = null;
+        heroToBuild = null;
 
         nodeUI.SetTarget(node);
     }
@@ -41,13 +41,13 @@ public class BuildManager : MonoBehaviour {
     }
 
 
-    public void SelectTurretToBuild(TurretBlueprint hero) {
-        turretToBuild = hero;
+    public void SelectTurretToBuild(HeroBlueprint hero) {
+        heroToBuild = hero;
         DeselectNode();
     }
 
-    public TurretBlueprint GetTurretToBuild() {
-        return turretToBuild;
+    public HeroBlueprint GetTurretToBuild() {
+        return heroToBuild;
     }
 
 }
