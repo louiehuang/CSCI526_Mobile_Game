@@ -80,6 +80,7 @@ public class BaseHero : BaseCharacter {
     }
 
     protected virtual void Attack() {
+        Debug.Log("1233");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 

@@ -12,10 +12,13 @@ public class Archer : BaseHero {
     //Skill fields
     StatModifier ATKSpeedModifierBySkill;
 
+    protected Animator animator;
+
     new void Start() {
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
 
         SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -24,12 +27,16 @@ public class Archer : BaseHero {
     }
 
     protected override void Attack() {
+        Debug.Log("here");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.3f * ATKValue;
 
-        if (bullet != null)
-            bullet.Seek(Target);
+        if (bullet != null) {
+        	bullet.Seek(Target);
+        }
+
+        animator.SetBool("CanAttack", true);
     }
 
 
