@@ -27,7 +27,6 @@ public class Archer : BaseHero {
     }
 
     protected override void Attack() {
-        Debug.Log("here");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.3f * ATKValue;
