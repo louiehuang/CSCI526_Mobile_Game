@@ -22,7 +22,6 @@ public class Knight : BaseHero {
         LoadAttr();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In Knight");
     }
 
     protected override void Attack() {

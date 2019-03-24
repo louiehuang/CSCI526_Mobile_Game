@@ -27,7 +27,6 @@ public class Priest : BaseHero {
         LoadAttr();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
-        Debug.Log("In Priest");
     }
 
 

@@ -22,7 +22,6 @@ public class FireMage : Mage {
         LoadAttr();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In fireMage");
     }
 
     protected override void Attack() {
