@@ -33,7 +33,7 @@ public class IceMage : Mage {
         if (animator) {
             if (this.Target == null) {
                 if (lineRenderer.enabled) {
-                    animator.SetBool("Ice_Attack", false);
+                    animator.SetBool("CanAttack", false);
 
                     lineRenderer.enabled = false;
                     impactEffect.Stop();
@@ -55,7 +55,7 @@ public class IceMage : Mage {
         this.TargetEnemy.Slow(slowAmount);
 
         if (!lineRenderer.enabled) {
-            animator.SetBool("Ice_Attack", true);
+            animator.SetBool("CanAttack", true);
 
             lineRenderer.enabled = true;
             impactEffect.Play();
