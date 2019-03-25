@@ -11,13 +11,13 @@ public class Knight : BaseHero {
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
 
-    // protected Animator animator;
+    protected Animator animator;
 
     new void Start() {
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         SkillIsReady = true;
-        // animator = GetComponent<Animator>();
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -33,7 +33,7 @@ public class Knight : BaseHero {
         if (bullet != null)
             bullet.Seek(Target);
 
-        // animator.SetBool("CanAttack", true);
+        animator.SetBool("CanAttack", true);
     }
 
 
