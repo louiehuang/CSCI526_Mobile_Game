@@ -11,11 +11,13 @@ public class FireMage : Mage {
     //use large range bulletPrefab, missile
     public float radius = 0f;
 
+    protected Animator animator;
 
     new void Start() {
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -30,6 +32,8 @@ public class FireMage : Mage {
 
         if (bullet != null)
             bullet.Seek(Target);
+
+        animator.SetBool("CanAttack", true);
     }
 
 

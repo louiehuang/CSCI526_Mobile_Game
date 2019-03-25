@@ -16,10 +16,13 @@ public class Priest : BaseHero {
     private BaseHero targetHero;
     public BaseHero TargetHero { get; set; }
 
+    protected Animator animator;
+
     new void Start() {
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
         SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -74,6 +77,7 @@ public class Priest : BaseHero {
         LockOnTarget();
 
         if (healCountdown <= 0f) {
+            animator.SetBool("CanAttack", true);
             Heal(TargetHero);
             healCountdown = 1f / ATKSpeedValue;
         }
