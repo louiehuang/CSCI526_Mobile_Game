@@ -5,7 +5,6 @@
 /// Slow down the enemies and give them DOT
 /// </summary>
 public class IceMage : Mage {
-
     [Header("Ice Mage Fileds")]
     public float damageOverTime = 0f;
     public float slowAmount = 0.5f;
@@ -13,39 +12,34 @@ public class IceMage : Mage {
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
-    protected Animator animator;
 
     new void Start() {
+
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         SkillIsReady = true;
-        animator = GetComponent<Animator>();
 
         LoadAttr();
 
         //string json = JsonUtility.ToJson(ATK);
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        Debug.Log("In IceMage");
     }
 
     protected override void Update() {
-        if (animator) {
-            if (this.Target == null) {
-                if (lineRenderer.enabled) {
-                    animator.SetBool("CanAttack", false);
-
-                    lineRenderer.enabled = false;
-                    impactEffect.Stop();
-                    impactLight.enabled = false;
-                }
-                return;
+        if (this.Target == null) { 
+            if (lineRenderer.enabled) {
+                lineRenderer.enabled = false;
+                impactEffect.Stop();
+                impactLight.enabled = false;
             }
-
-            LockOnTarget();
-            this.transform.LookAt(this.Target);
-
-            Laser();
+            return;
         }
+
+        LockOnTarget();
+
+        Laser();
     }
 
 
@@ -54,8 +48,6 @@ public class IceMage : Mage {
         this.TargetEnemy.Slow(slowAmount);
 
         if (!lineRenderer.enabled) {
-            animator.SetBool("CanAttack", true);
-
             lineRenderer.enabled = true;
             impactEffect.Play();
             impactLight.enabled = true;
@@ -64,7 +56,7 @@ public class IceMage : Mage {
         lineRenderer.SetPosition(0, firePoint.position);
         lineRenderer.SetPosition(1, this.Target.position);
 
-        Vector3 dir = firePoint.position - this.Target.position; 
+        Vector3 dir = firePoint.position - this.Target.position;
 
         impactEffect.transform.position = this.Target.position + dir.normalized;
 
