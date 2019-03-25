@@ -16,15 +16,17 @@ public class Priest : BaseHero {
     private BaseHero targetHero;
     public BaseHero TargetHero { get; set; }
 
+    protected Animator animator;
+
     new void Start() {
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
         SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
-        Debug.Log("In Priest");
     }
 
 
@@ -68,6 +70,7 @@ public class Priest : BaseHero {
 
     protected override void Update() {
         if (this.Target == null) {
+            animator.SetBool("CanAttack", false);
             return;
         }
 
@@ -82,6 +85,7 @@ public class Priest : BaseHero {
     }
 
     void Heal(BaseHero hero) {
+        animator.SetBool("CanAttack", true);
         float amount = 0.8f * MATKValue;
         float realAmount = hero.CurHP + amount > hero.MaxHPValue ? hero.MaxHPValue - hero.CurHP : amount;
         TargetHero.TakeDamage(-realAmount);

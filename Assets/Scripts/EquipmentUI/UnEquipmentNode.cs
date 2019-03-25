@@ -35,6 +35,12 @@ public class UnEquipmentNode : MonoBehaviour
         {
             Destroy(tempList[index]);
             tempList.Remove(tempList[index]);
+            for(int i = index; i < tempList.Count; i++)
+            {
+                GameObject ob = tempList[i];
+                UnEquipmentNode m = ob.GetComponent<UnEquipmentNode>();
+                m.transform.position = new Vector3(m.transform.position.x, m.transform.position.y + 150f, m.transform.position.z);
+            }
         }
         Set(temp);
     }

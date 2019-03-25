@@ -26,7 +26,6 @@ public class IceMage : Mage {
         //string json = JsonUtility.ToJson(ATK);
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In IceMage");
     }
 
     protected override void Update() {

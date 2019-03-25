@@ -61,8 +61,6 @@ public class EnemyMovement : MonoBehaviour {
         wavepointIndex++;
         target = Waypoints.points[wavepointIndex];
         LockOnTarget();
-
-
     }
 
     void EndPath() {
@@ -125,7 +123,5 @@ public class EnemyMovement : MonoBehaviour {
         enemy.transform.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
         enemy.canvas.transform.eulerAngles = rtmp;
-
     }
-
 }

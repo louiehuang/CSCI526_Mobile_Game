@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour {
 
     IEnumerator IncreaseEnergyOverTime() {
         float delay = 1f;
-        while (PlayerStats.Energy <= 100) {
+        while (PlayerStats.Energy <= 99) {
             yield return new WaitForSeconds(delay);
             PlayerStats.Energy += 1;
         }
