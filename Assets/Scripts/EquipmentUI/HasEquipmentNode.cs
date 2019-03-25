@@ -214,6 +214,7 @@ public class HasEquipmentNode : MonoBehaviour
         tempG = GameObject.Find("/EquipmentUI/Equipments/Weapon");
         tempS = tempG.GetComponent<SingleEquipment>();
         tempS.ui.SetActive(true);
+        if (equipment == null) return;
         if(equipment.EquipmentType == EquipmentType.Helmet)
         {
             tempG = GameObject.Find("/EquipmentUI/Equipments/Helmet");
@@ -244,8 +245,11 @@ public class HasEquipmentNode : MonoBehaviour
             tempS = tempG.GetComponent<SingleEquipment>();
             tempS.setEquipment(equipment);
         }
-        tempG = GameObject.Find("/EquipmentUI/Equipments/Weapon");
-        tempS = tempG.GetComponent<SingleEquipment>();
-        tempS.setEquipment(equipment);
+        else
+        {
+            tempG = GameObject.Find("/EquipmentUI/Equipments/Weapon");
+            tempS = tempG.GetComponent<SingleEquipment>();
+            tempS.setEquipment(equipment);
+        }
     }
 }
