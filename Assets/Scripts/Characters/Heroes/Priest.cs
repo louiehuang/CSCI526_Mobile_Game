@@ -27,7 +27,6 @@ public class Priest : BaseHero {
         LoadAttr();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
-        Debug.Log("In Priest");
     }
 
 
@@ -71,13 +70,13 @@ public class Priest : BaseHero {
 
     protected override void Update() {
         if (this.Target == null) {
+            animator.SetBool("CanAttack", false);
             return;
         }
 
         LockOnTarget();
 
         if (healCountdown <= 0f) {
-            animator.SetBool("CanAttack", true);
             Heal(TargetHero);
             healCountdown = 1f / ATKSpeedValue;
         }
@@ -86,6 +85,7 @@ public class Priest : BaseHero {
     }
 
     void Heal(BaseHero hero) {
+        animator.SetBool("CanAttack", true);
         float amount = 0.8f * MATKValue;
         float realAmount = hero.CurHP + amount > hero.MaxHPValue ? hero.MaxHPValue - hero.CurHP : amount;
         TargetHero.TakeDamage(-realAmount);

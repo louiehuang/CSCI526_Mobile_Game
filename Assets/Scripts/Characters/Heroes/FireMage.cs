@@ -11,29 +11,28 @@ public class FireMage : Mage {
     //use large range bulletPrefab, missile
     public float radius = 0f;
 
-    protected Animator animator;
-
     new void Start() {
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         SkillIsReady = true;
-        animator = GetComponent<Animator>();
+        HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In fireMage");
     }
 
     protected override void Attack() {
+        if (HeroAnimator != null) {
+            HeroAnimator.SetBool("CanAttack", true);
+        }
+
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.5f * MATKValue;
 
         if (bullet != null)
             bullet.Seek(Target);
-
-        animator.SetBool("CanAttack", true);
     }
 
 

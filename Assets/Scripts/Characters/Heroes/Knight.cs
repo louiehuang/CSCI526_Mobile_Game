@@ -11,29 +11,30 @@ public class Knight : BaseHero {
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
 
-    protected Animator animator;
 
     new void Start() {
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         SkillIsReady = true;
-        animator = GetComponent<Animator>();
+        HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In Knight");
     }
 
+
     protected override void Attack() {
+        if (HeroAnimator != null) {
+            HeroAnimator.SetBool("CanAttack", true);
+        }
+
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = ATKValue;
 
         if (bullet != null)
             bullet.Seek(Target);
-
-        animator.SetBool("CanAttack", true);
     }
 
 
