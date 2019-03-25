@@ -9,6 +9,8 @@ public class BaseHero : BaseCharacter {
     private BaseEnemy targetEnemy; 
     public BaseEnemy TargetEnemy { get; set; }
 
+    public Animator HeroAnimator;
+
     public bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
@@ -56,6 +58,9 @@ public class BaseHero : BaseCharacter {
     // Update is called once per frame
     protected virtual void Update() {
         if (target == null) {
+            if (HeroAnimator != null) {
+                HeroAnimator.SetBool("CanAttack", false);
+            }
             return;
         }
 
