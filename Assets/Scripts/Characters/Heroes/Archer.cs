@@ -96,5 +96,3 @@ public class Archer : BaseHero {
         attackRate = ATKSpeedValue;  //3 attacks per second
     }
 }
-
-
