@@ -25,7 +25,7 @@ public static class KnightConfig {
     public static string CharacterName = "Loman";
     public static string CharacterDescription = "A descendant of Loman’s family, who has been gatekeeping the Orvelia for generations.";
 
-    public static float MaxHPValue = 200f;
+    public static float MaxHPValue = 500f;
 
     public static float ATKValue = 10f;
     public static float MATKValue = 10f;
