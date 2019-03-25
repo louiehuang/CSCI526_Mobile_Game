@@ -20,6 +20,7 @@ public class EquipmentManager : MonoBehaviour
     public FireMage fireMage;
     public Priest priest;
     public Archer archer;
+    private Vector3 fixedPosition;
 
     void Awake()
     {   
@@ -39,6 +40,7 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
         instance = this;
+        fixedPosition = new Vector3(150f, 323f, 0f);
         unEquipped = new Dictionary<EquipmentType, List<Equipment>>();
         Equipped = new Dictionary<BaseHero, List<Equipment>>();
         List<Equipment> tem1 = new List<Equipment>();

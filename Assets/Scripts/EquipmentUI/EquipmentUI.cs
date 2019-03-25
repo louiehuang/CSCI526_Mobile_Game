@@ -16,13 +16,23 @@ public class EquipmentUI : MonoBehaviour
     public SingleEquipment shoes;
     public BaseHero initialHero;
     private bool[] hasEquipment;
+    private Vector3 fixedPosition;
+    private Vector3 outposition;
+    private BaseHero prev;
+
+    void Awake()
+    {
+        fixedPosition = new Vector3(150f, 320f, 0f);
+        outposition = new Vector3(-1000f, -1000f, 0f);
+        initialHero = EquipmentManager.instance.knight;
+        EquipmentManager.instance.knight.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.knight;
+    }
 
     void Start()
-    {
+    {   
         hasEquipment = new bool[6];
         ui.SetActive(true);
-        initialHero = EquipmentManager.instance.knight;
-        Debug.Log(initialHero);
         GetHeroEquiments(initialHero);
         helmet.type = EquipmentType.Helmet;
         gloves.type = EquipmentType.Gloves;
@@ -41,7 +51,6 @@ public class EquipmentUI : MonoBehaviour
             else if (equipments[i].EquipmentType == EquipmentType.Gloves)
             {
                 gloves.setEquipment(equipments[i]);
-                Debug.Log(equipments[i].ename);
                 hasEquipment[1] = true;
             }
             else if(equipments[i].EquipmentType == EquipmentType.Pants)
@@ -86,26 +95,91 @@ public class EquipmentUI : MonoBehaviour
     public void changeKnight()
     {
         changeHero(EquipmentManager.instance.knight);
+        if (prev != null)
+        {
+            if (prev == EquipmentManager.instance.priest)
+            {
+                GameObject priest1 = GameObject.Find("Priest1");
+                priest1.transform.position = outposition;
+            }
+            else
+            {
+                prev.transform.position = outposition;
+            }
+        }
+        EquipmentManager.instance.knight.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.knight;
     }
 
     public void changeArcher()
     {
         changeHero(EquipmentManager.instance.archer);
+        if (prev != null)
+        {
+            if (prev == EquipmentManager.instance.priest)
+            {
+                GameObject priest1 = GameObject.Find("Priest1");
+                priest1.transform.position = outposition;
+            }
+            else
+            {
+                prev.transform.position = outposition;
+            }
+        }
+        EquipmentManager.instance.archer.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.archer;
     }
 
     public void changeIceMage()
     {
         changeHero(EquipmentManager.instance.iceMage);
+        if (prev != null)
+        {
+            if (prev == EquipmentManager.instance.priest)
+            {
+                GameObject priest1 = GameObject.Find("Priest1");
+                priest1.transform.position = outposition;
+            }
+            else
+            {
+                prev.transform.position = outposition;
+            }
+           
+        }
+        EquipmentManager.instance.iceMage.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.iceMage;
     }
 
     public void changeFireMage()
     {
         changeHero(EquipmentManager.instance.fireMage);
+        if (prev != null) { 
+            if (prev == EquipmentManager.instance.priest)
+            {
+                GameObject priest1 = GameObject.Find("Priest1");
+                priest1.transform.position = outposition;
+            }
+            else
+            {
+                prev.transform.position = outposition;
+            }
+        }
+        EquipmentManager.instance.fireMage.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.fireMage;
     }
 
     public void changePreist()
-    {
+    {   
         changeHero(EquipmentManager.instance.priest);
+        GameObject priest1 = GameObject.Find("Priest1");
+        priest1.transform.position = fixedPosition;
+        if (prev != null && prev)
+            if (prev != EquipmentManager.instance.priest)
+            {
+                prev.transform.position = outposition;
+            }
+        EquipmentManager.instance.priest.transform.position = fixedPosition;
+        prev = EquipmentManager.instance.priest;
     }
 
     public void changeHero(BaseHero hero)
