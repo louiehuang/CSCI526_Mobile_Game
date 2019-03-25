@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class BaseHero : BaseCharacter {
 
@@ -7,6 +8,8 @@ public class BaseHero : BaseCharacter {
 
     private BaseEnemy targetEnemy; 
     public BaseEnemy TargetEnemy { get; set; }
+
+    public bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -22,7 +25,6 @@ public class BaseHero : BaseCharacter {
 
     // Default initialization
     protected void Start() {
-        Range = new CharacterAttribute(10f);  //default
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
@@ -77,6 +79,7 @@ public class BaseHero : BaseCharacter {
     }
 
     protected virtual void Attack() {
+        Debug.Log("1233");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -84,8 +87,34 @@ public class BaseHero : BaseCharacter {
             bullet.Seek(target);
     }
 
-    public virtual void UseSkill() {
-        Debug.Log("BaseHero Use Skills");
+    public void UseSkill() {
+        if (SkillIsReady) {  // Check CD
+            Debug.Log("use skill");
+            SkillIsReady = false;
+            ExSkill();  //TODO: for test
+            StartCoroutine("SkillCooldown");
+        } else {
+            Debug.Log("skill not ready");
+        }
+    }
+
+    public virtual void ExSkill() {
+        //pass
+    }
+
+    public virtual IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(15f);  //default cooldown time
+        SkillIsReady = true;
+    }
+
+    //TODO: damage formula
+    public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
+        bool isCrit = (Random.Range(0f, 1f) > (CritValue - enemy.CritResistanceValue));
+        bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
+
+        float damage = ((ATKValue - enemy.PDEFValue) + (MATKValue - enemy.MDEFValue)) * (isCrit ? 1.5f : 1.0f) * (isHit ? 1.0f : 0.0f);
+
+        return damage;
     }
 
     void OnDrawGizmosSelected() {

@@ -60,7 +60,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Tests\TestAttr.cs" />
     <Compile Include="Assets\Tests\TestEquip.cs" />
     <Compile Include="Assets\Tests\TestLevelUp.cs" />
     <Reference Include="UnityEngine.AIModule">

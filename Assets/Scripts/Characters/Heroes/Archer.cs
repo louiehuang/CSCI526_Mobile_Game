@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+
 
 /// <summary>
 /// Archer.
@@ -7,8 +9,16 @@ public class Archer : BaseHero {
 
     public ArcherLeveling LevelManager;
 
+    //Skill fields
+    StatModifier ATKSpeedModifierBySkill;
+
+    protected Animator animator;
+
     new void Start() {
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
+
+        SkillIsReady = true;
+        animator = GetComponent<Animator>();
 
         LoadAttr();
 
@@ -21,13 +31,47 @@ public class Archer : BaseHero {
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.3f * ATKValue;
 
-        if (bullet != null)
-            bullet.Seek(Target);
+        if (bullet != null) {
+        	bullet.Seek(Target);
+        }
+
+        animator.SetBool("CanAttack", true);
+    }
+
+
+    public override void ExSkill() {
+        //duration time
+        Debug.Log("Attack Speed Up");
+
+        ATKSpeed.AddModifier(ATKSpeedModifierBySkill);
+        attackRate = ATKSpeedValue;
+        StartCoroutine("SkillDuration");
+    }
+
+
+    public override IEnumerator SkillCooldown() {
+        yield return new WaitForSeconds(ArcherConfig.SkillCooldownTime);
+        SkillIsReady = true;
+    }
+
+
+    IEnumerator SkillDuration() {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("Attack Speed back to normal");
+
+        ATKSpeed.RemoveModifier(ATKSpeedModifierBySkill);
+        attackRate = ATKSpeedValue;  //3 attacks per second
     }
 
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        //special
+        Range = new CharacterAttribute(ArcherConfig.Range);
+
+        //skill
+        ATKSpeedModifierBySkill = new StatModifier(ArcherConfig.ATKSpeedPercent, StatModType.PercentAdd);
+
         CharacterName = ArcherConfig.CharacterName;
         CharacterDescription = ArcherConfig.CharacterDescription;
 
@@ -51,9 +95,6 @@ public class Archer : BaseHero {
 
         ATKSpeed = new CharacterAttribute(ArcherConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
-
-        //special
-        Range = new CharacterAttribute(ArcherConfig.Range);
     }
 }
 

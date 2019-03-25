@@ -1,12 +1,13 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HeroPool : MonoBehaviour {
 
-    public TurretBlueprint knight;
-    public TurretBlueprint archor;
-    public TurretBlueprint fireMage;
-    public TurretBlueprint iceMage;
-    public TurretBlueprint priest;
+    public HeroBlueprint knight;
+    public HeroBlueprint archer;
+    public HeroBlueprint fireMage;
+    public HeroBlueprint iceMage;
+    public HeroBlueprint priest;
 
     BuildManager buildManager;
 
@@ -19,9 +20,9 @@ public class HeroPool : MonoBehaviour {
         buildManager.SelectTurretToBuild(knight);
     }
 
-    public void SelectArchor() {
-        Debug.Log("Archor Selected");
-        buildManager.SelectTurretToBuild(archor);
+    public void SelectArcher() {
+        Debug.Log("Archer Selected");
+        buildManager.SelectTurretToBuild(archer);
     }
 
     public void SelectFireMage() {
