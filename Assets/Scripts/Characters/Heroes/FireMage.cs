@@ -63,7 +63,7 @@ public class FireMage : Mage {
         CharacterDescription = FireMageConfig.CharacterDescription;
 
         MaxHP = new CharacterAttribute(FireMageConfig.MaxHPValue);
-        CurHP = 10;  //TODO: change back to MaxHPValue
+        CurHP = MaxHPValue;  //TODO: change back to MaxHPValue
 
         ATK = new CharacterAttribute(FireMageConfig.ATKValue);
         MATK = new CharacterAttribute(FireMageConfig.MATKValue);
