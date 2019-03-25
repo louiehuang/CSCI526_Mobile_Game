@@ -22,7 +22,8 @@ public class SceneFader : MonoBehaviour {
         while (t > 0f) {
             t -= Time.deltaTime;
             float a = curve.Evaluate(t);
-            img.color = new Color(0f, 0f, 0f, a);
+            if(img != null)
+                img.color = new Color(0f, 0f, 0f, a);
             yield return 0;
         }
     }
@@ -33,7 +34,8 @@ public class SceneFader : MonoBehaviour {
         while (t < 1f) {
             t += Time.deltaTime;
             float a = curve.Evaluate(t);
-            img.color = new Color(0f, 0f, 0f, a);
+            if(img != null)
+                img.color = new Color(0f, 0f, 0f, a);
             yield return 0;
         }
 

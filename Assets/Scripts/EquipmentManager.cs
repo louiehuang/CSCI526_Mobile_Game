@@ -41,6 +41,7 @@ public class EquipmentManager : MonoBehaviour
         }
         instance = this;
         fixedPosition = new Vector3(150f, 323f, 0f);
+        knight.transform.position = fixedPosition;
         unEquipped = new Dictionary<EquipmentType, List<Equipment>>();
         Equipped = new Dictionary<BaseHero, List<Equipment>>();
         List<Equipment> tem1 = new List<Equipment>();
