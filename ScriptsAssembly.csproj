@@ -87,6 +87,7 @@
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
     <Compile Include="Assets\Scripts\Config\PriestConfig.cs" />
+    <Compile Include="Assets\Scripts\DragObject.cs" />
     <Compile Include="Assets\Scripts\EnergyUI.cs" />
     <Compile Include="Assets\Scripts\EquipmentManager.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\EquipmentUI.cs" />
