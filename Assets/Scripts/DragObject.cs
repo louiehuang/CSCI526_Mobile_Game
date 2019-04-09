@@ -4,6 +4,8 @@ using System.Collections;
 public class DragObject : MonoBehaviour {
     Transform myTransform;
     Vector3 selfScenePosition;
+    Vector3 previousScenePosition;
+
 
     void Start() {
         myTransform = transform;
@@ -16,21 +18,27 @@ public class DragObject : MonoBehaviour {
     {
         //获取拖拽点鼠标坐标
         print(Input.mousePosition.x + "     y  " + Input.mousePosition.y + "     z  " + Input.mousePosition.z);
+
         //新的屏幕点坐标
         Vector3 currentScenePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, selfScenePosition.z);
+
         //将屏幕坐标转换为世界坐标
+           
         Vector3 crrrentWorldPosition = Camera.main.ScreenToWorldPoint(currentScenePosition);
+        Vector3 previousWorldPosition = Camera.main.ScreenToWorldPoint(previousScenePosition);
+
         crrrentWorldPosition.y = transform.localPosition.y;
+        crrrentWorldPosition.x = crrrentWorldPosition.x - previousWorldPosition.x + transform.localPosition.x;
+        crrrentWorldPosition.z = crrrentWorldPosition.z - previousWorldPosition.z + transform.localPosition.z;
         //设置对象位置为鼠标的世界位置
         myTransform.position = crrrentWorldPosition;
-    }
 
-    //void OnMouseDrag() {
-    //    print("鼠标拖动该模型区域时");
-    //}
+        previousScenePosition = currentScenePosition;
+    }
 
     void OnMouseDown() {
         print("鼠标按下时");
+        previousScenePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, selfScenePosition.z);
     }
 
     void OnMouseUp() {
