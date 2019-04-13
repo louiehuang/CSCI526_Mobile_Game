@@ -25,11 +25,18 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
+    public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
+
+    public Vector3 GetBuildPosition() {
+        return transform.position + positionOffset;
+    }
+
     // Default initialization
     protected void Start() {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
+
 
     protected void UpdateTarget() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);

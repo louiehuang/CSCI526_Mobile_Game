@@ -24,10 +24,15 @@ public class BuildManager : MonoBehaviour {
     public bool HasEnergy { get { return PlayerStats.Energy >= heroToBuild.cost; } }
 
     public void SelectNode(Node node) {
+
+        Debug.Log("Before SelectNode");
+
         if (selectedNode == node) {
             DeselectNode();
             return;
         }
+
+        Debug.Log("SelectNode");
 
         selectedNode = node;
         heroToBuild = null;
@@ -36,6 +41,7 @@ public class BuildManager : MonoBehaviour {
     }
 
     public void DeselectNode() {
+        Debug.Log("DeselectNode");
         selectedNode = null;
         nodeUI.Hide();
     }

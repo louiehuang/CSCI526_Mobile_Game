@@ -35,8 +35,11 @@ public class Node : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
+        Debug.Log("hero: " + hero);
+
+        //TODO: bind skill bar with hero instead of node
         if (hero != null) {
-            buildManager.SelectNode(this);
+            //buildManager.SelectNode(this);
             return;
         }
 
