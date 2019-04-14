@@ -12,9 +12,6 @@ public class Knight : BaseHero {
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
 
-    public SkillUI skillUI;
-    //public GameObject skillCanvas;
-
     new void Start() {
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
@@ -26,19 +23,6 @@ public class Knight : BaseHero {
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
-
-    //TODO: Create a HeroClicker script for listening click events? https://www.youtube.com/watch?v=0sFrDJKwsdM
-    //Remeber to add box collider so to click this hero object
-    void OnMouseDown() {
-        Debug.Log("OnMouseDown, skillUI: " + skillUI.IsActive);
-
-        if (!skillUI.IsActive) {
-            skillUI.SetTarget(this);
-            skillUI.Show();
-        } else {
-            skillUI.Hide();
-        }
-    }
 
     protected override void Attack() {
         if (HeroAnimator != null) {

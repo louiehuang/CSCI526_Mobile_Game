@@ -89,7 +89,6 @@ public class Node : MonoBehaviour {
     void OnMouseEnter() {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        Debug.Log(transform.name + " OnMouseEnter");
         if (!buildManager.CanBuild)
             return;
 
@@ -104,5 +103,4 @@ public class Node : MonoBehaviour {
     void OnMouseExit() {
         rend.material.color = startColor;
     }
-
 }
