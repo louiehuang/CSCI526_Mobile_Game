@@ -1,15 +1,12 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillUI : MonoBehaviour
-{
+public class SkillUI : MonoBehaviour {
     public GameObject ui;
 
     public Text upgradeCost;
     public Button upgradeButton;
-
     public Text sellAmount;
-
     private BaseHero target;
 
 
@@ -20,9 +17,11 @@ public class SkillUI : MonoBehaviour
         //sellAmount.text = "E " + target.heroBlueprint.GetSellAmount();
     }
 
+
     public void Show() {
         ui.SetActive(true);
     }
+
 
     public void Hide() {
         ui.SetActive(false);
@@ -36,8 +35,9 @@ public class SkillUI : MonoBehaviour
         target.UseSkill();
     }
 
-    //public void Sell() {
-    //    target.SellTurret();
-    //    BuildManager.instance.DeselectNode();
-    //}
+
+    public void Sell() {
+        //target.SellSelf();
+        //BuildManager.instance.DeselectNode();
+    }
 }
