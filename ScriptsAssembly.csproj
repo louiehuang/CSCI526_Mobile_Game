@@ -110,6 +110,8 @@
     <Compile Include="Assets\Scripts\NodeUI.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
+    <Compile Include="Assets\Scripts\QTE.cs" />
+    <Compile Include="Assets\Scripts\QTESystem.cs" />
     <Compile Include="Assets\Scripts\RoundsSurvived.cs" />
     <Compile Include="Assets\Scripts\SceneFader.cs" />
     <Compile Include="Assets\Scripts\SkillUI.cs" />

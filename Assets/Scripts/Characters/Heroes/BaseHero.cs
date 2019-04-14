@@ -30,6 +30,10 @@ public class BaseHero : BaseCharacter {
     private Vector3 skillPos;  //used to fix skill ui position
     public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
 
+    //[HideInInspector]
+    //public HeroBlueprint heroBlueprint;
+    //BuildManager buildManager;
+
     public Vector3 GetBuildPosition() {
         return transform.position + positionOffset;
     }
@@ -52,6 +56,17 @@ public class BaseHero : BaseCharacter {
             skillUI.Hide();
         }
     }
+
+
+    //public void SellSelf() {
+    //    PlayerStats.Energy += heroBlueprint.GetSellAmount();
+
+    //    GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
+    //    Destroy(effect, 5f);
+
+    //    Destroy(this);
+    //    heroBlueprint = null;
+    //}
 
 
     protected void UpdateTarget() {
@@ -78,6 +93,7 @@ public class BaseHero : BaseCharacter {
         this.TargetEnemy = targetEnemy;
     }
 
+
     // Update is called once per frame
     protected virtual void Update() {
         if (target == null) {
@@ -97,6 +113,7 @@ public class BaseHero : BaseCharacter {
         attackCountdown -= Time.deltaTime;
     }
 
+
     protected void LockOnTarget() {
         Vector3 dir = Target.position - transform.position;
         if (dir.Equals(Vector3.zero))
@@ -108,6 +125,7 @@ public class BaseHero : BaseCharacter {
         skillUI.transform.eulerAngles = skillPos;  
     }
 
+
     protected virtual void Attack() {
         Debug.Log("1233");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -116,6 +134,7 @@ public class BaseHero : BaseCharacter {
         if (bullet != null)
             bullet.Seek(target);
     }
+
 
     public void UseSkill() {
         if (SkillIsReady) {  // Check CD
@@ -128,14 +147,17 @@ public class BaseHero : BaseCharacter {
         }
     }
 
+
     public virtual void ExSkill() {
         //pass
     }
+
 
     public virtual IEnumerator SkillCooldown() {
         yield return new WaitForSeconds(15f);  //default cooldown time
         SkillIsReady = true;
     }
+
 
     //TODO: damage formula
     public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
@@ -146,6 +168,7 @@ public class BaseHero : BaseCharacter {
 
         return damage;
     }
+
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
