@@ -15,8 +15,8 @@ public class Priest : BaseHero {
 
     private BaseHero targetHero;
     public BaseHero TargetHero { get; set; }
-
     protected Animator animator;
+
 
     new void Start() {
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
@@ -34,24 +34,30 @@ public class Priest : BaseHero {
         //select hero based on current health
         //TODO: if mutiple heroes has same lowest health, give priority to DPS
         GameObject[] heroes = GameObject.FindGameObjectsWithTag(heroTag);
-        float lowestHealth = Mathf.Infinity;
+
+        float lowestHealthPercent = Mathf.Infinity;
+
         GameObject heroToHeal = null;
-        foreach (GameObject hero in heroes) {
-            float heroHealth = hero.GetComponent<BaseHero>().CurHP;
-            float distanceToHero = Vector3.Distance(transform.position, hero.transform.position);
-            if (heroHealth < lowestHealth && distanceToHero <= RangeValue) {
-                lowestHealth = heroHealth;
-                heroToHeal = hero;
+        foreach (GameObject heroGO in heroes) {
+            BaseHero baseHero = heroGO.GetComponent<BaseHero>();
+            float curHealth = baseHero.CurHP, maxHealth = baseHero.MaxHPValue;
+            float currentHealthPercent = curHealth / maxHealth;
+            float distanceToHero = Vector3.Distance(transform.position, heroGO.transform.position);
+            if (currentHealthPercent < lowestHealthPercent && distanceToHero <= RangeValue) {
+                lowestHealthPercent = currentHealthPercent;
+                heroToHeal = heroGO;
             }
         }
 
         GameObject[] knights = GameObject.FindGameObjectsWithTag(knightTag);
-        foreach (GameObject knight in knights) {
-            float heroHealth = knight.GetComponent<BaseHero>().CurHP;
-            float distanceToHero = Vector3.Distance(transform.position, knight.transform.position);
-            if (heroHealth < lowestHealth && distanceToHero <= RangeValue) {
-                lowestHealth = heroHealth;
-                heroToHeal = knight;
+        foreach (GameObject knightGO in knights) {
+            BaseHero baseHero = knightGO.GetComponent<BaseHero>();
+            float curHealth = baseHero.CurHP, maxHealth = baseHero.MaxHPValue;
+            float currentHealthPercent = curHealth / maxHealth;
+            float distanceToHero = Vector3.Distance(transform.position, knightGO.transform.position);
+            if (currentHealthPercent < lowestHealthPercent && distanceToHero <= RangeValue) {
+                lowestHealthPercent = currentHealthPercent;
+                heroToHeal = knightGO;
             }
         }
 
@@ -89,11 +95,12 @@ public class Priest : BaseHero {
         healCountdown -= Time.deltaTime;
     }
 
+
     void Heal(BaseHero hero) {
         float amount = 0.8f * MATKValue;
         float realAmount = hero.CurHP + amount > hero.MaxHPValue ? hero.MaxHPValue - hero.CurHP : amount;
         TargetHero.TakeDamage(-realAmount);
-        //Debug.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
+        Debug.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
     }
 
 
