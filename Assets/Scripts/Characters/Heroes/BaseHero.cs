@@ -25,11 +25,34 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
+    // Skill bar
+    public SkillUI skillUI;
+    private Vector3 skillPos;  //used to fix skill ui position
+    public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
+
+    public Vector3 GetBuildPosition() {
+        return transform.position + positionOffset;
+    }
+
     // Default initialization
     protected void Start() {
+        skillPos = skillUI.transform.eulerAngles;  
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("Say something");
     }
+
+
+    //TODO: Create a HeroClicker script for listening click events? https://www.youtube.com/watch?v=0sFrDJKwsdM
+    //Remeber to add box collider so to click this hero object
+    void OnMouseDown() {
+        if (!skillUI.IsActive) {
+            skillUI.SetTarget(this);
+            skillUI.Show();
+        } else {
+            skillUI.Hide();
+        }
+    }
+
 
     protected void UpdateTarget() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -78,9 +101,11 @@ public class BaseHero : BaseCharacter {
         Vector3 dir = Target.position - transform.position;
         if (dir.Equals(Vector3.zero))
             return;
+
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+        skillUI.transform.eulerAngles = skillPos;  
     }
 
     protected virtual void Attack() {

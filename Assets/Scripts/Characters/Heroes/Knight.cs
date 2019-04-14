@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.EventSystems;
 
 public class Knight : BaseHero {
 
@@ -10,7 +11,6 @@ public class Knight : BaseHero {
     StatModifier MDEFModifierBySkill;
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
-
 
     new void Start() {
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
@@ -100,5 +100,6 @@ public class Knight : BaseHero {
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
     }
+
 }
 

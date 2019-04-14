@@ -35,8 +35,11 @@ public class Node : MonoBehaviour {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
 
+        Debug.Log("hero: " + hero);
+
+        //TODO: bind skill bar with hero instead of node
         if (hero != null) {
-            buildManager.SelectNode(this);
+            //buildManager.SelectNode(this);
             return;
         }
 
@@ -86,7 +89,6 @@ public class Node : MonoBehaviour {
     void OnMouseEnter() {
         if (EventSystem.current.IsPointerOverGameObject())
             return;
-        Debug.Log(transform.name + " OnMouseEnter");
         if (!buildManager.CanBuild)
             return;
 
@@ -101,5 +103,4 @@ public class Node : MonoBehaviour {
     void OnMouseExit() {
         rend.material.color = startColor;
     }
-
 }
