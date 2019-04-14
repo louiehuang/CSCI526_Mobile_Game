@@ -63,6 +63,7 @@
     <Compile Include="Assets\Scripts\BuildManager.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CameraMove.cs" />
     <Compile Include="Assets\Scripts\Characters\BaseCharacter.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemies\BaseEnemy.cs" />
     <Compile Include="Assets\Scripts\Characters\Enemies\EnemyMovement.cs" />
