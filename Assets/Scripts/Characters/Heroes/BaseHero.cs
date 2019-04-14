@@ -42,7 +42,6 @@ public class BaseHero : BaseCharacter {
     protected void Start() {
         skillPos = skillUI.transform.eulerAngles;  
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("Say something");
     }
 
 
