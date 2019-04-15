@@ -28,6 +28,7 @@ public class Node : MonoBehaviour {
     }
 
     public Vector3 GetBuildPosition() {
+
         return transform.position + positionOffset;
     }
 
@@ -86,25 +87,5 @@ public class Node : MonoBehaviour {
 
         Destroy(hero);
         heroBlueprint = null;
-    }
-
-    void OnMouseEnter() {
-        if (EventSystem.current.IsPointerOverGameObject())
-            return;
-        if (!buildManager.CanBuild)
-            return;
-
-
-
-        if (buildManager.HasEnergy) {
-            rend.material.color = hoverColor;
-        } else {
-            rend.material.color = notEnoughMoneyColor;
-        }
-
-    }
-
-    void OnMouseExit() {
-        rend.material.color = startColor;
     }
 }
