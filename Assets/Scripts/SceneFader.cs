@@ -28,6 +28,7 @@ public class SceneFader : MonoBehaviour {
 
     private void updateEdgeData() {
         GameObject nodes = GameObject.Find("Nodes");
+        if (nodes == null) return;
         foreach (Transform child in nodes.transform) {
             //Debug.Log(child.gameObject.name);
             minX = Math.Min(minX, child.position.x);
