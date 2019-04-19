@@ -9,9 +9,9 @@ public class HeroBlueprint {
     public int cost;
     public bool hasBuilt = false;
 
+
     public int GetSellAmount() {
         return (int) (0.4 * cost);
     }
-
 
 }
