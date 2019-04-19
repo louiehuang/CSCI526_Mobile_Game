@@ -88,6 +88,7 @@
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
     <Compile Include="Assets\Scripts\Config\PriestConfig.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyMybgm.cs" />
     <Compile Include="Assets\Scripts\DragCreat.cs" />
     <Compile Include="Assets\Scripts\DragObject.cs" />
     <Compile Include="Assets\Scripts\EnergyUI.cs" />
@@ -111,6 +112,7 @@
     <Compile Include="Assets\Scripts\Node.cs" />
     <Compile Include="Assets\Scripts\NodeUI.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\PlayBgm.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
     <Compile Include="Assets\Scripts\QTE.cs" />
     <Compile Include="Assets\Scripts\QTESystem.cs" />
@@ -349,6 +351,12 @@
     <Reference Include="UnityEditor.Graphs">
       <HintPath>/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.Graphs.dll</HintPath>
     </Reference>
+    <Reference Include="UnityEditor.Android.Extensions">
+      <HintPath>/Applications/Unity/PlaybackEngines/AndroidPlayer/UnityEditor.Android.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEditor.iOS.Extensions">
+      <HintPath>/Applications/Unity/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.dll</HintPath>
+    </Reference>
     <Reference Include="UnityEditor.OSXStandalone.Extensions">
       <HintPath>/Applications/Unity/Unity.app/Contents/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
     </Reference>
@@ -369,6 +377,12 @@
     </Reference>
     <Reference Include="UnityEditor.Purchasing">
       <HintPath>/Users/richardtu/Documents/gitfiles/CSCI526_Mobile_Game/Library/PackageCache/com.unity.purchasing@2.0.3/Editor/UnityEditor.Purchasing.dll</HintPath>
+    </Reference>
+    <Reference Include="ChannelPurchase">
+      <HintPath>/Users/richardtu/Documents/gitfiles/CSCI526_Mobile_Game/Library/PackageCache/com.unity.xiaomi@1.0.3/ChannelPurchase.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityStore">
+      <HintPath>/Users/richardtu/Documents/gitfiles/CSCI526_Mobile_Game/Library/PackageCache/com.unity.xiaomi@1.0.3/UnityStore.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>/Applications/Unity/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
