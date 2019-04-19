@@ -6,11 +6,17 @@ public class Bullet : MonoBehaviour {
 
     public float speed = 70f;
 
-
-    public float damage = 50f;
+    public float critical = 0.0f;
+    public float penertration = 0.0f;
+    public float ACC = 0.0f;
+    public float ATK = 20f;
+    public float MATK = 0f;
+    public float criticalDamage = 0f;
 
     public float explosionRadius = 0f;
     public GameObject impactEffect;
+
+    public float damage = 0f;
 
     public void Seek(Transform _target) {
         target = _target;
@@ -64,6 +70,7 @@ public class Bullet : MonoBehaviour {
         BaseCharacter e = enemy.GetComponent<BaseCharacter>();
 
         if (e != null) {
+            damage = calculateDamage(e);
             e.TakeDamage(damage);
         }
     }
@@ -71,5 +78,20 @@ public class Bullet : MonoBehaviour {
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, explosionRadius);
+    }
+
+
+    private float calculateDamage(BaseCharacter e)
+    {
+        bool isCrit = (Random.Range(0f, 1f) > (critical - e.CritResistanceValue));
+        bool isHit = (Random.Range(0f, 1f) > (ACC - e.DodgeValue));
+        bool isBlock = (Random.Range(0f, 1f) > (e.BlockValue));
+
+        if (!isHit)
+        {
+            return 0;
+        }
+        float res = ((ATK > e.PDEFValue) ? ATK - e.PDEFValue : 5f) + ((MATK > e.MDEFValue) ? (MATK - e.MDEFValue) : 5f) * (isCrit ? (1.0f + criticalDamage) : 1.0f) * (isBlock ? 1.0f : 0.5f);
+        return res;
     }
 }

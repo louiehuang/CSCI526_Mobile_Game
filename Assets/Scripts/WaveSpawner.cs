@@ -53,7 +53,7 @@ public class WaveSpawner : MonoBehaviour {
             SpawnEnemy(wave.enemy);
             yield return new WaitForSeconds(1f / wave.rate);
         }
-
+        EnemyConfig.waveCount++;
         waveIndex++;
     }
 

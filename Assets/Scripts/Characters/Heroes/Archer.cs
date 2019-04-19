@@ -6,14 +6,28 @@ using System.Collections;
 /// Archer.
 /// </summary>
 public class Archer : BaseHero {
+    public static Archer instance = null;
+
+    private static readonly object padlock = new object();
 
     public ArcherLeveling LevelManager;
 
     //Skill fields
     StatModifier ATKSpeedModifierBySkill;
 
-
     new void Start() {
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new Archer();
+                }
+            }
+        }
+        instance = this;
+      //  Object.DontDestroyOnLoad(instance);
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
 
         SkillIsReady = true;
@@ -31,7 +45,9 @@ public class Archer : BaseHero {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.3f * ATKValue;
-
+        bullet.ACC = ACCValue;
+        bullet.criticalDamage = CritDMGValue;
+        bullet.critical = CritValue;
         if (bullet != null) {
         	bullet.Seek(Target);
         }

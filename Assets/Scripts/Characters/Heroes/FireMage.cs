@@ -7,11 +7,25 @@ using System.Collections;
 /// Feature: range attack
 /// </summary>
 public class FireMage : Mage {
+    public static FireMage instance;
 
+    private static readonly object padlock = new object();
     //use large range bulletPrefab, missile
     public float radius = 0f;
 
     new void Start() {
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new FireMage();
+                }
+            }
+        }
+        instance = this;
+       // Object.DontDestroyOnLoad(instance);
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         SkillIsReady = true;
@@ -63,7 +77,7 @@ public class FireMage : Mage {
         CharacterDescription = FireMageConfig.CharacterDescription;
 
         MaxHP = new CharacterAttribute(FireMageConfig.MaxHPValue);
-        CurHP = 10;  //TODO: change back to MaxHPValue
+        CurHP = MaxHPValue;  //TODO: change back to MaxHPValue
 
         ATK = new CharacterAttribute(FireMageConfig.ATKValue);
         MATK = new CharacterAttribute(FireMageConfig.MATKValue);
