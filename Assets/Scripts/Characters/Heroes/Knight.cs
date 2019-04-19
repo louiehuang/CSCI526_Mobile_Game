@@ -3,8 +3,10 @@ using System.Collections;
 using UnityEngine.EventSystems;
 
 public class Knight : BaseHero {
-
+    public static Knight instance;
     public KnightLeveling LevelManager;
+
+    private static readonly object padlock = new object();
 
     //Skill fields
     StatModifier PDEFModifierBySkill;
@@ -13,6 +15,18 @@ public class Knight : BaseHero {
     StatModifier BlockModifierBySkill;
 
     new void Start() {
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new Knight();
+                }
+            }
+        }
+        instance = this;
+     //   Object.DontDestroyOnLoad(instance);
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         SkillIsReady = true;
@@ -31,8 +45,11 @@ public class Knight : BaseHero {
 
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.damage = ATKValue;
-
+        bullet.ATK = ATKValue;
+        bullet.MATK = MATKValue;
+        bullet.critical = CritValue;
+        bullet.criticalDamage = CritDMGValue;
+        bullet.ACC = ACCValue;
         if (bullet != null)
             bullet.Seek(Target);
     }

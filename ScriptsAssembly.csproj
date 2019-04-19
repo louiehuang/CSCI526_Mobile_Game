@@ -84,6 +84,8 @@
     <Compile Include="Assets\Scripts\Characters\Stats\StatModifier.cs" />
     <Compile Include="Assets\Scripts\CompleteLevel.cs" />
     <Compile Include="Assets\Scripts\Config\ArcherConfig.cs" />
+    <Compile Include="Assets\Scripts\Config\EnemyConfig.cs" />
+    <Compile Include="Assets\Scripts\Config\EnermyUsingBulletConfig.cs" />
     <Compile Include="Assets\Scripts\Config\FireMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
@@ -91,9 +93,12 @@
     <Compile Include="Assets\Scripts\DragObject.cs" />
     <Compile Include="Assets\Scripts\EnergyUI.cs" />
     <Compile Include="Assets\Scripts\EquipmentManager.cs" />
+    <Compile Include="Assets\Scripts\EquipmentUI\EquipGenerator.cs" />
+    <Compile Include="Assets\Scripts\EquipmentUI\EquipmentStorage.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\EquipmentUI.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\HasEquipmentNode.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\NonEquipmentUI.cs" />
+    <Compile Include="Assets\Scripts\EquipmentUI\ScrollViewManager.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\SingleEquipment.cs" />
     <Compile Include="Assets\Scripts\EquipmentUI\UnEquipmentNode.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />

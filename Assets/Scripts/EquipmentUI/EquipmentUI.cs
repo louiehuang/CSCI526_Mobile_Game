@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class EquipmentUI : MonoBehaviour
 {
-    private EquipmentType type;
     public List<Equipment> equipments;
 
     public GameObject ui;
@@ -14,32 +13,42 @@ public class EquipmentUI : MonoBehaviour
     public SingleEquipment armor;
     public SingleEquipment pants;
     public SingleEquipment shoes;
+    public GameObject Scroller;
     public BaseHero initialHero;
     private bool[] hasEquipment;
     private Vector3 fixedPosition;
     private Vector3 outposition;
-    private BaseHero prev;
+    private GameObject prev;
 
     void Awake()
     {
+        prev = GameObject.Find("Knight1");
         fixedPosition = new Vector3(150f, 320f, 0f);
         outposition = new Vector3(-1000f, -1000f, 0f);
-        initialHero = EquipmentManager.instance.knight;
-        EquipmentManager.instance.knight.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.knight;
+        prev.transform.position = fixedPosition;
     }
 
-    void Start()
-    {   
+   void Start()
+    {
+        initialHero = EquipmentManager.instance.knight;
         hasEquipment = new bool[6];
         ui.SetActive(true);
         GetHeroEquiments(initialHero);
         helmet.type = EquipmentType.Helmet;
         gloves.type = EquipmentType.Gloves;
-        weapon.type = EquipmentType.Helmet;
+        weapon.type = EquipmentType.Sword;
         armor.type = EquipmentType.Armor;
         pants.type = EquipmentType.Pants;
         shoes.type = EquipmentType.Shoes;
+
+        Scroller = GameObject.Find("Canvas/UnEquipments");
+        if (Scroller != null)
+        {
+            Scroller.transform.position = new Vector3(-1000f, -1000f, 0f);
+           /* ScrollViewManager manager = Scroller.GetComponent<ScrollViewManager>();
+            manager.ui.SetActive(false);*/
+        }
+
 
         for (int i = 0; i < equipments.Count; i++)
         {
@@ -95,97 +104,85 @@ public class EquipmentUI : MonoBehaviour
     public void changeKnight()
     {
         changeHero(EquipmentManager.instance.knight);
-        if (prev != null)
-        {
-            if (prev == EquipmentManager.instance.priest)
-            {
-                GameObject priest1 = GameObject.Find("Priest1");
-                priest1.transform.position = outposition;
-            }
-            else
-            {
-                prev.transform.position = outposition;
-            }
-        }
-        EquipmentManager.instance.knight.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.knight;
+        GameObject t = GameObject.Find("Knight1");
+        weapon.type = EquipmentType.Sword;
+        prev.transform.position = outposition;
+        t.transform.position = fixedPosition;
+        prev = t;
     }
 
     public void changeArcher()
     {
         changeHero(EquipmentManager.instance.archer);
-        if (prev != null)
-        {
-            if (prev == EquipmentManager.instance.priest)
-            {
-                GameObject priest1 = GameObject.Find("Priest1");
-                priest1.transform.position = outposition;
-            }
-            else
-            {
-                prev.transform.position = outposition;
-            }
-        }
-        EquipmentManager.instance.archer.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.archer;
+        GameObject t = GameObject.Find("Archer1");
+        weapon.type = EquipmentType.Bow;
+        prev.transform.position = outposition;
+        t.transform.position = fixedPosition;
+        prev = t;
     }
 
     public void changeIceMage()
     {
         changeHero(EquipmentManager.instance.iceMage);
-        if (prev != null)
-        {
-            if (prev == EquipmentManager.instance.priest)
-            {
-                GameObject priest1 = GameObject.Find("Priest1");
-                priest1.transform.position = outposition;
-            }
-            else
-            {
-                prev.transform.position = outposition;
-            }
-           
-        }
-        EquipmentManager.instance.iceMage.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.iceMage;
+        GameObject t = GameObject.Find("IceMage1");
+        weapon.type = EquipmentType.Staff;
+        prev.transform.position = outposition;
+        t.transform.position = fixedPosition;
+        prev = t;
     }
 
     public void changeFireMage()
     {
         changeHero(EquipmentManager.instance.fireMage);
-        if (prev != null) { 
-            if (prev == EquipmentManager.instance.priest)
-            {
-                GameObject priest1 = GameObject.Find("Priest1");
-                priest1.transform.position = outposition;
-            }
-            else
-            {
-                prev.transform.position = outposition;
-            }
-        }
-        EquipmentManager.instance.fireMage.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.fireMage;
+        GameObject t = GameObject.Find("FireMage1");
+        weapon.type = EquipmentType.Staff;
+        prev.transform.position = outposition;
+        t.transform.position = fixedPosition;
+        prev = t;
     }
 
     public void changePreist()
     {   
         changeHero(EquipmentManager.instance.priest);
-        GameObject priest1 = GameObject.Find("Priest1");
-        priest1.transform.position = fixedPosition;
-        if (prev != null && prev)
-            if (prev != EquipmentManager.instance.priest)
-            {
-                prev.transform.position = outposition;
-            }
-        EquipmentManager.instance.priest.transform.position = fixedPosition;
-        prev = EquipmentManager.instance.priest;
+        GameObject t = GameObject.Find("Priest1");
+        weapon.type = EquipmentType.Staff;
+        prev.transform.position = outposition;
+        t.transform.position = fixedPosition;
+        prev = t;
     }
 
     public void changeHero(BaseHero hero)
     {
+        EquipmentManager.instance.nodeUI1.hero = hero;
         GetHeroEquiments(hero);
         initialHero = hero;
+        GameObject temp;
+        SingleEquipment tempS;
+        temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/EquipmentUI/Equipments/Armor");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/EquipmentUI/Equipments/Pants");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/EquipmentUI/Equipments/Shoes");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/EquipmentUI/Equipments/Gloves");
+        tempS = temp.GetComponent<SingleEquipment>();
+        tempS.ui.SetActive(true);
+        temp = GameObject.Find("/HasEquipmentNode");
+        if (temp != null)
+        {
+            HasEquipmentNode tempH;
+            tempH = temp.GetComponent<HasEquipmentNode>();
+            tempH.close();
+        }
         helmet.setEquipment(null);
         gloves.setEquipment(null);
         weapon.setEquipment(null);
@@ -225,12 +222,16 @@ public class EquipmentUI : MonoBehaviour
                 hasEquipment[3] = true;
             }
             else
-            {
+            {   
                 weapon.setEquipment(equipments[i]);
+              /*  if(equipments[i].EquipmentType == EquipmentType.Sword)
+                {
+
+                }*/
                 hasEquipment[2] = true;
             }
         }
-        GameObject temp;
+        /*GameObject temp;
         SingleEquipment tempS;
         temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
         tempS = temp.GetComponent<SingleEquipment>();
@@ -254,7 +255,7 @@ public class EquipmentUI : MonoBehaviour
         if (temp == null) return;
         HasEquipmentNode tempH;
         tempH = temp.GetComponent<HasEquipmentNode>();
-        tempH.close();
+        tempH.close();*/
     }
 
 }

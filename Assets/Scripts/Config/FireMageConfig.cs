@@ -28,8 +28,8 @@ public static class FireMageConfig {
 
     public static float PernetrationValue = 0f;
     public static float ACCValue = 1f;
-    public static float DodgeValue = 0f;
-    public static float BlockValue = 0f;
+    public static float DodgeValue = 0.05f;
+    public static float BlockValue = 0.05f;
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 2f;  // 2 attacks per second

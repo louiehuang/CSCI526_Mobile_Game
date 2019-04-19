@@ -162,9 +162,13 @@ public class BaseHero : BaseCharacter {
     public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
         bool isCrit = (Random.Range(0f, 1f) > (CritValue - enemy.CritResistanceValue));
         bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
+        bool isBlock = (Random.Range(0f, 1f) > (enemy.BlockValue));
 
-        float damage = ((ATKValue - enemy.PDEFValue) + (MATKValue - enemy.MDEFValue)) * (isCrit ? 1.5f : 1.0f) * (isHit ? 1.0f : 0.0f);
-
+        if (!isHit)
+        {
+            return 0;
+        }
+        float damage = ((ATKValue > enemy.PDEFValue)? ATKValue - enemy.PDEFValue:0) + ((MATKValue > enemy.MDEFValue)? (MATKValue - enemy.MDEFValue):0) * (isCrit ? (1.0f+CritDMGValue) : 1.0f) * (isBlock ? 1.0f : 0.5f);
         return damage;
     }
 

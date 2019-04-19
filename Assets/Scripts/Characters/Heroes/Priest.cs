@@ -6,9 +6,12 @@ using System.Collections;
 /// Priest.
 /// </summary>
 public class Priest : BaseHero {
+    public static Priest instance;
     public PriestLeveling LevelManager;
     private float healCountdown = 0f;
     public string knightTag = "Knight";
+
+    private static readonly object padlock = new object();
 
     private Transform targetHeroTransform;
     //public Transform Target { get; set; }
@@ -19,6 +22,18 @@ public class Priest : BaseHero {
 
 
     new void Start() {
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new Priest();
+                }
+            }
+        }
+        instance = this;
+       // Object.DontDestroyOnLoad(instance);
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
         SkillIsReady = true;
@@ -48,7 +63,6 @@ public class Priest : BaseHero {
                 heroToHeal = heroGO;
             }
         }
-
         GameObject[] knights = GameObject.FindGameObjectsWithTag(knightTag);
         foreach (GameObject knightGO in knights) {
             BaseHero baseHero = knightGO.GetComponent<BaseHero>();
@@ -60,7 +74,6 @@ public class Priest : BaseHero {
                 heroToHeal = knightGO;
             }
         }
-
         if (heroToHeal != null) {
             targetHeroTransform = heroToHeal.transform;
             targetHero = heroToHeal.GetComponent<BaseHero>();
