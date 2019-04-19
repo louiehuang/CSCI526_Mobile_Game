@@ -9,7 +9,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public HeroPool heroPool;
     Vector3 selfScenePosition;
     HeroBlueprint bluePrint;
-
+    public LayerMask mask = 1 << 8;
     //地形所在平面
     public SceneFader sceneFader;
 
@@ -32,27 +32,55 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
 
     }
-
     public void OnDrag(PointerEventData eventData) {
 
-        if(go == null) {
+        if (go == null) {
             return;
         }
 
-        //新的屏幕点坐标
-        Vector3 currentScenePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, selfScenePosition.z);
 
-        //将屏幕坐标转换为世界坐标
+        if (go != null) {
+            Debug.Log("go != null start drag");
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 500, mask)) {
+                Debug.DrawLine(ray.origin, hit.point);
+                go.transform.position = hit.point;
+                //Vector3 currentScenePosition = Camera.main.WorldToScreenPoint(go.transform.position);
+                //Vector3 crrrentWorldPosition = Camera.main.ScreenToWorldPoint(currentScenePosition);
+                //go.transform.position = crrrentWorldPosition;
+            } else {
+            }
 
-        Vector3 crrrentWorldPosition = Camera.main.ScreenToWorldPoint(currentScenePosition);
-
-        crrrentWorldPosition.y = transform.localPosition.y;
-
-        //设置对象位置为鼠标的世界位置
-        go.transform.position = crrrentWorldPosition;
+        }
 
 
     }
+    //public void OnDrag(PointerEventData eventData) {
+
+    //    if(go == null) {
+    //        return;
+    //    }
+
+
+    //    //新的屏幕点坐标
+    //    Vector3 currentScenePosition = new Vector3(Input.mousePosition.x, Input.mousePosition.y, selfScenePosition.z);
+
+    //    //将屏幕坐标转换为世界坐标
+
+    //    Vector3 crrrentWorldPosition = Camera.main.ScreenToWorldPoint(currentScenePosition);
+
+    //    crrrentWorldPosition.y = transform.localPosition.y;
+    //    //将屏幕坐标转换为世界坐标
+
+    //    //设置对象位置为鼠标的世界位置
+    //    go.transform.position = crrrentWorldPosition;
+
+
+    //}
+
+
+
     public void OnEndDrag(PointerEventData eventData) {
         Debug.Log("OnEndDrag");
         if(go == null) {
