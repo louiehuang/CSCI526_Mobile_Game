@@ -90,6 +90,8 @@
     <Compile Include="Assets\Scripts\Config\IceMageConfig.cs" />
     <Compile Include="Assets\Scripts\Config\KnightConfig.cs" />
     <Compile Include="Assets\Scripts\Config\PriestConfig.cs" />
+    <Compile Include="Assets\Scripts\DontDestroyMybgm.cs" />
+    <Compile Include="Assets\Scripts\DragCreat.cs" />
     <Compile Include="Assets\Scripts\DragObject.cs" />
     <Compile Include="Assets\Scripts\EnergyUI.cs" />
     <Compile Include="Assets\Scripts\EquipmentManager.cs" />
@@ -113,10 +115,9 @@
     <Compile Include="Assets\Scripts\LivesUI.cs" />
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\Node.cs" />
-    <Compile Include="Assets\Scripts\NodeUI.cs" />
     <Compile Include="Assets\Scripts\PauseMenu.cs" />
+    <Compile Include="Assets\Scripts\PlayBgm.cs" />
     <Compile Include="Assets\Scripts\PlayerStats.cs" />
-    <Compile Include="Assets\Scripts\QTE.cs" />
     <Compile Include="Assets\Scripts\QTESystem.cs" />
     <Compile Include="Assets\Scripts\RoundsSurvived.cs" />
     <Compile Include="Assets\Scripts\SceneFader.cs" />

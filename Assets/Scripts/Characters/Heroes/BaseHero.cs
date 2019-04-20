@@ -30,17 +30,20 @@ public class BaseHero : BaseCharacter {
     private Vector3 skillPos;  //used to fix skill ui position
     public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
 
-    //[HideInInspector]
-    //public HeroBlueprint heroBlueprint;
-    //BuildManager buildManager;
+    [HideInInspector]
+    public GameObject hero;
+    [HideInInspector]
+    public HeroBlueprint heroBlueprint;
+
 
     public Vector3 GetBuildPosition() {
         return transform.position + positionOffset;
     }
 
+
     // Default initialization
-    protected void Start() {
-        skillPos = skillUI.transform.eulerAngles;  
+    void Start() {
+        skillPos = skillUI.transform.eulerAngles;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -55,17 +58,6 @@ public class BaseHero : BaseCharacter {
             skillUI.Hide();
         }
     }
-
-
-    //public void SellSelf() {
-    //    PlayerStats.Energy += heroBlueprint.GetSellAmount();
-
-    //    GameObject effect = (GameObject)Instantiate(buildManager.sellEffect, GetBuildPosition(), Quaternion.identity);
-    //    Destroy(effect, 5f);
-
-    //    Destroy(this);
-    //    heroBlueprint = null;
-    //}
 
 
     protected void UpdateTarget() {
@@ -126,7 +118,6 @@ public class BaseHero : BaseCharacter {
 
 
     protected virtual void Attack() {
-        Debug.Log("1233");
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
 
@@ -137,13 +128,26 @@ public class BaseHero : BaseCharacter {
 
     public void UseSkill() {
         if (SkillIsReady) {  // Check CD
-            Debug.Log("use skill");
+            Debug.Log("Use skill");
             SkillIsReady = false;
             ExSkill();  //TODO: for test
             StartCoroutine("SkillCooldown");
         } else {
-            Debug.Log("skill not ready");
+            Debug.Log("Skill not ready");
         }
+    }
+
+
+    public void SellSelf() {
+        Debug.Log("Sell: " + heroBlueprint.GetSellAmount());
+        PlayerStats.Energy += heroBlueprint.GetSellAmount();
+
+        GameObject effect = (GameObject)Instantiate(BuildManager.instance.sellEffect, GetBuildPosition(), Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(hero);
+        hero = null;
+        heroBlueprint = null;
     }
 
 
