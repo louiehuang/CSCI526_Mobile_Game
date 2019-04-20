@@ -41,8 +41,8 @@ public class QTESystem : MonoBehaviour {
         //Debug.Log("CreateQTEButton");
         //int ni = 200;
         //int nj = 200;
-        int ni = Random.Range(50, 600);
-        int nj = Random.Range(100, 400);
+        int ni = Random.Range(50, 300);
+        int nj = Random.Range(100, 230);
         var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -58,8 +58,8 @@ public class QTESystem : MonoBehaviour {
         //Debug.Log("CreateQTEButton");
         //int ni = 600;
         //int nj = 200;
-        int ni = Random.Range(50, 600);
-        int nj = Random.Range(100, 400);
+        int ni = Random.Range(350, 600);
+        int nj = Random.Range(100, 230);
         var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -75,8 +75,8 @@ public class QTESystem : MonoBehaviour {
         //Debug.Log("CreateQTEButton");
         //int ni = 600;
         //int nj = 400;
-        int ni = Random.Range(50, 600);
-        int nj = Random.Range(100, 400);
+        int ni = Random.Range(350, 600);
+        int nj = Random.Range(270, 400);
         var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -92,8 +92,8 @@ public class QTESystem : MonoBehaviour {
         //Debug.Log("CreateQTEButton");
         //int ni = 200;
         //int nj = 400;
-        int ni = Random.Range(50, 600);
-        int nj = Random.Range(100, 400);
+        int ni = Random.Range(50, 300);
+        int nj = Random.Range(270, 400);
         var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
