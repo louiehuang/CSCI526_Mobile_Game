@@ -4,117 +4,232 @@ using System.Collections;
 
 public class QTESystem : MonoBehaviour {
 
-    public Button QTEPrefab;
+    float times = 5f;
+    private bool hasButton1 = false;
+    private bool hasButton2 = false;
+    private bool hasButton3 = false; 
+    private bool hasButton4 = false;
+
+    private int intervalTime = 50;
+
+    private bool clickButton1 = false;
+    private bool clickButton2 = false;
+    private bool clickButton3 = false;
+    private bool clickButton4 = false;
+
+
+    public Button QTEPrefab1;
+    public Button QTEPrefab2;
+    public Button QTEPrefab3;
+    public Button QTEPrefab4;
     //public Canvas Canvas;
     public Transform QTEPannel;
+    public Transform LosePannel;
 
-    //public GameObject DisplayBox;
-    //public GameObject PassBox;
-    //public int QTEGen;
-    //public int WaitingForKey;
-    //public int CorrectKey;
-    //public int CountingDown;
+    private Button button1;
+    private Button button2;
+    private Button button3;
+    private Button button4;
 
     private void Start() {
-        CreateQTEButton();
-
+        QTEPannel.gameObject.SetActive(false);
+        LosePannel.gameObject.SetActive(false);
     }
 
 
-    public Button CreateQTEButton() {
-        Debug.Log("CreateQTEButton");
-        var button = Instantiate(QTEPrefab, Vector3.zero, Quaternion.identity) as Button;
+    private Button CreateQTEButton1() {
+        //Debug.Log("CreateQTEButton");
+        //int ni = 200;
+        //int nj = 200;
+        int ni = Random.Range(50, 600);
+        int nj = Random.Range(100, 400);
+        var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
         rectTransform.SetParent(QTEPannel.transform);
+        button.onClick.AddListener(OnClick1);
 
-
-
-        //rectTransform.anchorMax = new Vector2(0.5f, 0.5f); // cornerTopRight;
-        //rectTransform.anchorMin = new Vector2(0.5f, 0.5f); // cornerBottomLeft;
-        //rectTransform.offsetMax = Vector2.zero;
-        //rectTransform.offsetMin = Vector2.zero;
+        hasButton1 = true;
 
         return button;
     }
 
+    private Button CreateQTEButton2() {
+        //Debug.Log("CreateQTEButton");
+        //int ni = 600;
+        //int nj = 200;
+        int ni = Random.Range(50, 600);
+        int nj = Random.Range(100, 400);
+        var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
-    //void Update() {
-    //    if (WaitingForKey == 0) {
-    //        QTEGen = Random.Range(1, 2);
-    //        CountingDown = 1;
+        var rectTransform = button.GetComponent<RectTransform>();
+        rectTransform.SetParent(QTEPannel.transform);
+        button.onClick.AddListener(OnClick2);
 
-    //        //TODO create button
-    //        CreateQTEButton();
+        hasButton2 = true;
 
-    //        StartCoroutine(CountDown());
+        return button;
+    }
 
-    //        if (QTEGen == 1) {
-    //            WaitingForKey = 1;
-    //            DisplayBox.GetComponent<Text>().text = "E";
-    //        }
-    //    }
+    private Button CreateQTEButton3() {
+        //Debug.Log("CreateQTEButton");
+        //int ni = 600;
+        //int nj = 400;
+        int ni = Random.Range(50, 600);
+        int nj = Random.Range(100, 400);
+        var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
-    //    if (QTEGen == 1) {
-    //        if (Input.anyKeyDown) { 
-    //            if (Input.GetButtonDown("EKey")) {
-    //                CorrectKey = 1;
-    //            } else {
-    //                CorrectKey = 2;
-    //            }
-    //            StartCoroutine(KeyPressing());
-    //        }
-    //    }
-    //}
+        var rectTransform = button.GetComponent<RectTransform>();
+        rectTransform.SetParent(QTEPannel.transform);
+        button.onClick.AddListener(OnClick3);
+
+        hasButton3 = true;
+
+        return button;
+    }
+
+    private Button CreateQTEButton4() {
+        //Debug.Log("CreateQTEButton");
+        //int ni = 200;
+        //int nj = 400;
+        int ni = Random.Range(50, 600);
+        int nj = Random.Range(100, 400);
+        var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
+
+        var rectTransform = button.GetComponent<RectTransform>();
+        rectTransform.SetParent(QTEPannel.transform);
+        button.onClick.AddListener(OnClick4);
+
+        hasButton4 = true;
+
+        return button;
+    }
+
+    private void TriggerFail() {
+        LosePannel.gameObject.SetActive(true);
+        Debug.Log("Cai Start!");
+        StartCoroutine(Wait(2f));
+    }
+
+    IEnumerator Wait(float t) {
+        yield return new WaitForSeconds(t);
+        LosePannel.gameObject.SetActive(false);
+        Debug.Log("Cai End!");
+        hasButton1 = false;
+        hasButton2 = false;
+        hasButton3 = false;
+        hasButton4 = false;
+
+        QTEPannel.DetachChildren();
+
+        clickButton1 = false;
+        clickButton2 = false;
+        clickButton3 = false;
+        clickButton4 = false;
+
+        button1 = null;
+        button2 = null;
+        button3 = null;
+        button4 = null;
+
+        QTEPannel.gameObject.SetActive(false);
+        times = Random.Range(0, intervalTime);
+    }
 
 
-    //IEnumerator KeyPressing() {
-    //    QTEGen = 4;
-    //    if (CorrectKey == 1) {
-    //        CountingDown = 2;
-    //        PassBox.GetComponent<Text>().text = "Pass";
-    //        yield return new WaitForSeconds(1.5f);
+    void Update() {
+        times -= Time.deltaTime;
+        if (times < 0) {
+            QTEPannel.gameObject.SetActive(true);
+            if (!hasButton1) {
+                button1 = CreateQTEButton1();
+            }
+            if (!hasButton2) {
+                button2 = CreateQTEButton2();
+            }
+            if (!hasButton3) {
+                button3 = CreateQTEButton3();
+            }
+            if (!hasButton4) {
+                button4 = CreateQTEButton4();
+            }
+            //times = Random.Range(0, intervalTime);
+        }
+    }
 
-    //        CorrectKey = 0;
-    //        PassBox.GetComponent<Text>().text = "";
-    //        DisplayBox.GetComponent<Text>().text = "";
-    //        yield return new WaitForSeconds(1.5f);
-    //        WaitingForKey = 0;
-    //        CountingDown = 1;
-    //    }
+    private void OnClick1() {
+        if (hasButton1 && hasButton2 && hasButton3 && hasButton4
+            && !clickButton2 && !clickButton3 && !clickButton4) {
+            clickButton1 = true;
+        } else {
+            clickButton1 = false;
+            clickButton2 = false;
+            clickButton3 = false;
+            clickButton4 = false;
+            Debug.Log("fail!");
+            TriggerFail();
+        }
+    }
 
-    //    if (CorrectKey == 2) {
-    //        CountingDown = 2;
-    //        PassBox.GetComponent<Text>().text = "Fail";
-    //        yield return new WaitForSeconds(1.5f);
+    private void OnClick2() {
+        if (hasButton1 && hasButton2 && hasButton3 && hasButton4
+            && clickButton1 && !clickButton3 && !clickButton4) {
+            clickButton2 = true;
+        } else {
+            clickButton1 = false;
+            clickButton2 = false;
+            clickButton3 = false;
+            clickButton4 = false;
+            Debug.Log("fail!");
+            TriggerFail();
+        }
+    }
 
-    //        CorrectKey = 0;
-    //        PassBox.GetComponent<Text>().text = "";
-    //        DisplayBox.GetComponent<Text>().text = "";
-    //        yield return new WaitForSeconds(1.5f);
-    //        WaitingForKey = 0;
-    //        CountingDown = 1;
-    //    }
-    //}
+    private void OnClick3() {
+        if (hasButton1 && hasButton2 && hasButton3 && hasButton4
+            && clickButton1 && clickButton2 && !clickButton4) {
+            clickButton3 = true;
+        } else {
+            clickButton1 = false;
+            clickButton2 = false;
+            clickButton3 = false;
+            clickButton4 = false;
+            Debug.Log("fail!");
+            TriggerFail();
+        }
+    }
 
+    private void OnClick4() {
+        if (hasButton1 && hasButton2 && hasButton3 && hasButton4
+            && clickButton1 && clickButton2 && clickButton3) {
+            clickButton4 = true;
+            Debug.Log("success!");
+            hasButton1 = false;
+            hasButton2 = false;
+            hasButton3 = false;
+            hasButton4 = false;
 
-    //IEnumerator CountDown() {
-    //    yield return new WaitForSeconds(3.5f);
-    //    if (CountingDown == 1) {
-    //        QTEGen = 4;
+            QTEPannel.DetachChildren();
 
-    //        CountingDown = 2;
+            clickButton1 = false;
+            clickButton2 = false;
+            clickButton3 = false;
+            clickButton4 = false;
 
-    //        PassBox.GetComponent<Text>().text = "Fail";
-    //        yield return new WaitForSeconds(1.5f);
+            button1 = null;
+            button2 = null;
+            button3 = null;
+            button4 = null;
 
-    //        CorrectKey = 0;
-    //        PassBox.GetComponent<Text>().text = "";
-    //        DisplayBox.GetComponent<Text>().text = "";
-    //        yield return new WaitForSeconds(1.5f);
-    //        WaitingForKey = 0;
-    //        CountingDown = 1;
-    //    }
-    //}
-
+            QTEPannel.gameObject.SetActive(false);
+            times = Random.Range(0, intervalTime);
+        } else {
+            clickButton1 = false;
+            clickButton2 = false;
+            clickButton3 = false;
+            clickButton4 = false;
+            Debug.Log("fail!");
+            TriggerFail();
+        }
+    }
 }
