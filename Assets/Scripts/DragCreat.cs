@@ -10,6 +10,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     Vector3 selfScenePosition;
     HeroBlueprint bluePrint;
     public LayerMask mask = 1 << 8;
+    BuildManager buildManager;
     //地形所在平面
     public SceneFader sceneFader;
 
@@ -18,6 +19,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         bluePrint  = heroPool.GetBlueprintByName(gameObject.name);
         go = BuildTurret(bluePrint);
         //Debug.Log("OnDrag");
+        buildManager.hasDraged = true;
         if (go != null) {
             Debug.Log("go != null start drag");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -57,7 +59,8 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData) {
         //Debug.Log("OnEndDrag");
-        if(go == null) {
+        buildManager.hasDraged = false;
+        if (go == null) {
             return;
         }
 
@@ -76,7 +79,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     // Use this for initialization
     void Start() {
-        //Name = transform.FindChild("Text").GetComponent<Text>();
+        buildManager = BuildManager.instance;
     }
 
 

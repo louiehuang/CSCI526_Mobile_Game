@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class DragObject : MonoBehaviour{
     Transform myTransform;
     Vector3 selfScenePosition;
+    private BuildManager buildManager;
     Vector3 previousScenePosition;
 
     Vector3 offSetWorldPosition;
@@ -14,7 +15,7 @@ public class DragObject : MonoBehaviour{
         myTransform = transform;
         //将自身坐标转换为屏幕坐标
         selfScenePosition = Camera.main.WorldToScreenPoint(myTransform.position);
-        //print("scenePosition   :  " + selfScenePosition);
+        buildManager = BuildManager.instance;
     }
 
 
@@ -51,6 +52,7 @@ public class DragObject : MonoBehaviour{
 
     void OnMouseDown() {
         //print("OnMouseDown");
+        buildManager.hasDraged = true;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
         if (Physics.Raycast(ray, out hit, 500, mask)) {
@@ -65,6 +67,10 @@ public class DragObject : MonoBehaviour{
         } else {
 
         }
+    }
+
+    void OnMouseUp() {
+        buildManager.hasDraged = false;
     }
 
 }
