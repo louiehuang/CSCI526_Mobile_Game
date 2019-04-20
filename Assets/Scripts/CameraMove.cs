@@ -16,6 +16,7 @@ public class CameraMove : MonoBehaviour
     private Vector2 lastSingleTouchPosition;
 
     private Vector3 mCameraOffset;
+    private BuildManager buildManager;
     private Camera mCamera;
 
     //the range that the camera works within
@@ -30,10 +31,14 @@ public class CameraMove : MonoBehaviour
     void Start() {
         mCamera = this.GetComponent<Camera>();
         mCameraOffset = mCamera.transform.position;
+        buildManager = BuildManager.instance;
     }
 
     void Update() {
         if (Input.touchCount == 1) {
+            if (buildManager.hasDraged) {
+                return;
+            }
             Touch touch = Input.GetTouch(0);
             //from 0 fingers to 1 finger || from 2 fingers to 1 finger
             if (touch.phase == TouchPhase.Began || !isSingleFinger) {
