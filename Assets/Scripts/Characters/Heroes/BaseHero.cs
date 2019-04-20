@@ -30,7 +30,6 @@ public class BaseHero : BaseCharacter {
     private Vector3 skillPos;  //used to fix skill ui position
     public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
 
-
     [HideInInspector]
     public GameObject hero;
     [HideInInspector]
