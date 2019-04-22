@@ -19,6 +19,10 @@ public class WaveSpawner : MonoBehaviour {
 
     private int waveIndex = 0;
 
+    void Start() {
+        EnemiesAlive = 0;
+    }
+
     void Update() {
         if (EnemiesAlive > 0) {
             return;
@@ -36,7 +40,6 @@ public class WaveSpawner : MonoBehaviour {
         }
 
         countdown -= Time.deltaTime;
-
         countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
 
         waveCountdownText.text = string.Format("{0:00.00}", countdown);
