@@ -23,7 +23,7 @@ public class SceneFader : MonoBehaviour {
     void Start() {
         StartCoroutine(FadeIn());
         updateEdgeData();
-        Debug.Log("edge is : (" + minX+", "+minZ+") and ("+maxX+", "+maxZ+")");
+        //Debug.Log("edge is : (" + minX+", "+minZ+") and ("+maxX+", "+maxZ+")");
     }
 
     private void updateEdgeData() {
