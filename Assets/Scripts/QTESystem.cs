@@ -32,7 +32,12 @@ public class QTESystem : MonoBehaviour {
     private Button button3;
     private Button button4;
 
+    private int width;
+    private int height;
+
     private void Start() {
+        width = Screen.width;
+        height = Screen.height;
         QTEPannel.gameObject.SetActive(false);
         LosePannel.gameObject.SetActive(false);
     }
@@ -44,8 +49,9 @@ public class QTESystem : MonoBehaviour {
         //int ni = 2800;
         //int nj = 400;
         //int nj = 1500;
-        int ni = Random.Range(200, 1300);
-        int nj = Random.Range(400, 750);
+        
+        int ni = Random.Range(50, (width - 100) / 2);
+        int nj = Random.Range(50, (height - 100) / 2);
         Debug.Log("1: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -60,8 +66,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton2() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range(1700, 2800);
-        int nj = Random.Range(400, 750);
+        int ni = Random.Range((width + 100) / 2, width);
+        int nj = Random.Range(50, (height - 100) / 2);
         Debug.Log("2: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -76,8 +82,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton3() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range(1700, 2800);
-        int nj = Random.Range(1150, 1500);
+        int ni = Random.Range((width + 100) / 2, width);
+        int nj = Random.Range((height + 100) / 2, height);
         Debug.Log("3: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -92,8 +98,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton4() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range(200, 1300);
-        int nj = Random.Range(1150, 1500);
+        int ni = Random.Range(50, (width - 100) / 2);
+        int nj = Random.Range((height + 100) / 2, height);
         Debug.Log("4: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
