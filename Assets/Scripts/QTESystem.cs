@@ -10,6 +10,7 @@ public class QTESystem : MonoBehaviour {
     private bool hasButton3 = false; 
     private bool hasButton4 = false;
 
+    private int startTime = 30;
     private int intervalTime = 50;
 
     private bool clickButton1 = false;
@@ -40,9 +41,12 @@ public class QTESystem : MonoBehaviour {
     private Button CreateQTEButton1() {
         //Debug.Log("CreateQTEButton");
         //int ni = 200;
-        //int nj = 200;
-        int ni = Random.Range(50, 300);
-        int nj = Random.Range(100, 230);
+        //int ni = 2800;
+        //int nj = 400;
+        //int nj = 1500;
+        int ni = Random.Range(200, 1300);
+        int nj = Random.Range(400, 750);
+        Debug.Log("1: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -56,10 +60,9 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton2() {
         //Debug.Log("CreateQTEButton");
-        //int ni = 600;
-        //int nj = 200;
-        int ni = Random.Range(350, 600);
-        int nj = Random.Range(100, 230);
+        int ni = Random.Range(1700, 2800);
+        int nj = Random.Range(400, 750);
+        Debug.Log("2: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -73,10 +76,9 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton3() {
         //Debug.Log("CreateQTEButton");
-        //int ni = 600;
-        //int nj = 400;
-        int ni = Random.Range(350, 600);
-        int nj = Random.Range(270, 400);
+        int ni = Random.Range(1700, 2800);
+        int nj = Random.Range(1150, 1500);
+        Debug.Log("3: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -90,10 +92,9 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton4() {
         //Debug.Log("CreateQTEButton");
-        //int ni = 200;
-        //int nj = 400;
-        int ni = Random.Range(50, 300);
-        int nj = Random.Range(270, 400);
+        int ni = Random.Range(200, 1300);
+        int nj = Random.Range(1150, 1500);
+        Debug.Log("4: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -133,13 +134,17 @@ public class QTESystem : MonoBehaviour {
         button4 = null;
 
         QTEPannel.gameObject.SetActive(false);
-        times = Random.Range(0, intervalTime);
+        times = Random.Range(startTime, intervalTime);
     }
 
 
     void Update() {
         times -= Time.deltaTime;
         if (times < 0) {
+            BuildManager build = BuildManager.instance;
+            if (build.hasDraged) {
+                return;
+            }
             QTEPannel.gameObject.SetActive(true);
             if (!hasButton1) {
                 button1 = CreateQTEButton1();
@@ -153,7 +158,7 @@ public class QTESystem : MonoBehaviour {
             if (!hasButton4) {
                 button4 = CreateQTEButton4();
             }
-            //times = Random.Range(0, intervalTime);
+            //times = Random.Range(startTime, intervalTime);
         }
     }
 
@@ -222,7 +227,7 @@ public class QTESystem : MonoBehaviour {
             button4 = null;
 
             QTEPannel.gameObject.SetActive(false);
-            times = Random.Range(0, intervalTime);
+            times = Random.Range(startTime, intervalTime);
         } else {
             clickButton1 = false;
             clickButton2 = false;
