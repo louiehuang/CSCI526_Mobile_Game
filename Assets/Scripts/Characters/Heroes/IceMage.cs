@@ -5,6 +5,10 @@
 /// Slow down the enemies and give them DOT
 /// </summary>
 public class IceMage : Mage {
+    public static IceMage instance;
+
+    private static readonly object padlock = new object();
+
     [Header("Ice Mage Fileds")]
     public float damageOverTime = 0f;
     public float slowAmount = 0.5f;
@@ -14,7 +18,18 @@ public class IceMage : Mage {
     public Light impactLight;
 
     new void Start() {
-
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new IceMage();
+                }
+            }
+        }
+        instance = this;
+       // Object.DontDestroyOnLoad(instance);
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         SkillIsReady = true;

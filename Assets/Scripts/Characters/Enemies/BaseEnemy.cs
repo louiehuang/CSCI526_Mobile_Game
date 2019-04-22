@@ -20,14 +20,6 @@ public class BaseEnemy : BaseCharacter {
     public Transform Target { get; set; }
     public Transform AttackTarget { get; set; }
 
-    void Start() {
-        speed = MoveSpeedValue;
-        CurHP = MaxHPValue;
-        range = RangeValue;
-        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
-    }
-
-
     public void Slow(float pct) {
         speed = MoveSpeedValue * (1f - pct);
     }

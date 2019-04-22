@@ -13,25 +13,27 @@ public class EquipmentManager : MonoBehaviour
     public NonEquipmentUI nonequipmentUI;
     public BaseHero hero;
     public int ElimatedEnermy;
+    public GameObject cubeF;
     private int levelCount;
-    private double factor;
+    private double factor = 0.5;
     public Knight knight;
     public IceMage iceMage;
     public FireMage fireMage;
     public Priest priest;
     public Archer archer;
+    private EquipGenerator generator;
     private Vector3 fixedPosition;
 
     void Awake()
-    {   
+    {
         if (instance != null)
-        {   
+        {
             if (nodeUI != null)
             {
                 nodeUI.ui.SetActive(false);
                 nonequipmentUI.ui.SetActive(true);
             }
-            else if(nodeUI1 != null)
+            else if (nodeUI1 != null)
             {
                 nodeUI1.ui.SetActive(false);
                 nodeUI1.hero = knight;
@@ -40,96 +42,41 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
         instance = this;
+        //Object.DontDestroyOnLoad(instance);
+        /*if (GameObject.Find("/CheckResult") != null)
+        {
+            CalculateAfterGame();
+            return;
+        }*/
         fixedPosition = new Vector3(150f, 323f, 0f);
-        knight.transform.position = fixedPosition;
-        unEquipped = new Dictionary<EquipmentType, List<Equipment>>();
-        Equipped = new Dictionary<BaseHero, List<Equipment>>();
-        List<Equipment> tem1 = new List<Equipment>();
-        List<Equipment> tem2 = new List<Equipment>();
-        List<Equipment> tem3 = new List<Equipment>();
-        List<Equipment> tem4 = new List<Equipment>();
-        List<Equipment> tem5 = new List<Equipment>();
-        Equipment e1 = (Equipment)ScriptableObject.CreateInstance("Equipment");
-        e1.ename = "iron helmet";
-        e1.ATK = 1;
-        e1.ATKPercent = 2.0f;
-        e1.isUsed = true;
-        e1.hero = knight;
-        e1.EquipmentType = EquipmentType.Helmet;
-        e1.value = 97;
-        e1.CritPercent = 0.5f;
-
-        Equipment e2 = (Equipment)ScriptableObject.CreateInstance("Equipment");
-        e2.ename = "iron sowrd";
-        e2.ATK = 5;
-        e2.ATKPercent = 1.0f;
-        e2.isUsed = true;
-        e2.hero = knight;
-        e2.EquipmentType = EquipmentType.Sword;
-        e2.value = 103;
-        e2.CritPercent = 1.4f;
-
-        Equipment e3 = (Equipment)ScriptableObject.CreateInstance("Equipment");
-        e3.ename = "Wooden Staff";
-        e3.ATK = 3;
-        e3.ATKPercent = 2.0f;
-        e3.isUsed = true;
-        e3.hero = iceMage;
-        e3.EquipmentType = EquipmentType.Staff;
-        e3.value = 93;
-        e3.CritPercent = 1.2f;
-        /*Equipment e1 = new Equipment
-        {   
-            ename = "iron helmet",
-            ATK = 20,
-            ATKPercent = 1.0f,
-            isUsed = true,
-            hero = knight,
-            EquipmentType = EquipmentType.Helmet,
-            value = 97,
-            CritPercent = 1.2f,
-        };
-        Equipment e2 = new Equipment
+        if(knight != null)
         {
-            ename = "iron sword",
-            ATK = 40,
-            ATKPercent = 1.0f,
-            isUsed = true,
-            hero = knight,
-            EquipmentType = EquipmentType.Sword,
-            value = 97,
-            CritPercent = 1.2f,
-        };
-        Equipment e3 = new Equipment
+            knight.transform.position = fixedPosition;
+        }
+        else
         {
-            ename = "magic hat",
-            ATK = 40,
-            ATKPercent = 1.0f,
-            isUsed = false,
-            hero = knight,
-            EquipmentType = EquipmentType.Helmet,
-            value = 97,
-            CritPercent = 1.2f,
-        };*/
-        tem1.Add(e1);
-        tem1.Add(e2);
-        tem2.Add(e3);
-        Equipped[knight] = tem1;
-        Equipped[iceMage] = tem2;
-        Equipped[fireMage] = tem3;
-        Equipped[priest] = tem4;
-        Equipped[archer] = tem5;
+            knight = new Knight();
+            iceMage = new IceMage();
+            fireMage = new FireMage();
+            archer = new Archer();
+            priest = new Priest();
+            EquipmentStorage.getEquippped()[knight] = new List<Equipment>();
+            EquipmentStorage.getEquippped()[iceMage] = new List<Equipment>();
+            EquipmentStorage.getEquippped()[fireMage] = new List<Equipment>();
+            EquipmentStorage.getEquippped()[archer] = new List<Equipment>();
+            EquipmentStorage.getEquippped()[priest] = new List<Equipment>();
+        }
+        generator = new EquipGenerator();
 
-        unEquipped[EquipmentType.Sword] = new List<Equipment>();
+        /*unEquipped[EquipmentType.Sword] = new List<Equipment>();
         unEquipped[EquipmentType.Shield] = new List<Equipment>();
         unEquipped[EquipmentType.Staff] = new List<Equipment>();
         unEquipped[EquipmentType.Bow] = new List<Equipment>();
         unEquipped[EquipmentType.Helmet] = new List<Equipment>();
-        //unEquipped[EquipmentType.Helmet].Add(e3);
         unEquipped[EquipmentType.Armor] = new List<Equipment>();
         unEquipped[EquipmentType.Gloves] = new List<Equipment>();
         unEquipped[EquipmentType.Pants] = new List<Equipment>();
-        unEquipped[EquipmentType.Shoes] = new List<Equipment>();
+        unEquipped[EquipmentType.Shoes] = new List<Equipment>();*/
         if (nodeUI != null)
         {
             nodeUI.ui.SetActive(false);
@@ -144,12 +91,10 @@ public class EquipmentManager : MonoBehaviour
         levelCount = 0;
         factor = 0.5;
         this.hero = null;
-        for(int i = 0; i < 2; i++)
+        if (GameObject.Find("/CheckResult") != null)
         {
-            Equipment e = (Equipment) ScriptableObject.CreateInstance("Equipment");
-            //Equipment e = new Equipment();
-            e.EquipmentType = EquipmentType.Armor;
-            unEquipped[e.EquipmentType].Add(e);
+            CalculateAfterGame();
+            return;
         }
     }
 
@@ -161,12 +106,18 @@ public class EquipmentManager : MonoBehaviour
 
     public List<Equipment> getHeroEquipment(BaseHero hero)
     {
-        return Equipped[hero];
+        if (!EquipmentStorage.getEquippped().ContainsKey(hero))
+        {
+            EquipmentStorage.getEquippped()[hero] = new List<Equipment>();
+        }
+        return EquipmentStorage.getEquippped()[hero];
+        //return Equipped[hero];
     }
 
     public List<Equipment> getUnequippedEquipment(EquipmentType type)
     {
-        return unEquipped[type];
+        return EquipmentStorage.getUnEquippped()[type];
+        //return unEquipped[type];
     }
 
     public void selectEquippedEuipment(Equipment p, EquipmentType type)
@@ -187,49 +138,78 @@ public class EquipmentManager : MonoBehaviour
         nodeUI.Set(p);
     }
 
-    private void addEquipment(List<Equipment> equipments)
+   /* private void addEquipment(List<Equipment> equipments)
     {
         for (int i = 0; i < equipments.Count; i++)
         {
             unEquipped[equipments[i].EquipmentType].Add(equipments[i]);
         }
-    }
+    }*/
 
     public void CalculateAfterGame()
     {
-        ElimatedEnermy = 20;
+        Transform tempG;
         levelCount = 1;
-        int numEquipment = (int)(ElimatedEnermy * levelCount * factor);
-        int normalATK = 0;
-        float normalATKPercent = 0.0f;
-        float normalCritiPercent = 0.0f;
-        List<Equipment> list = new List<Equipment>();
+       //int numEquipment = 7;
+        int numEquipment = (int)((levelCount*2+5) * factor * Random.Range(0.7f,1.0f));
+        List <Equipment> list = new List<Equipment>();
         for (int i = 0; i < numEquipment; i++)
         {
-            int randomATK = Random.Range(-10, 10);
-            float randomATKPercent = Random.Range(-3.0f, 3.0f);
-            float randomCritiPercent = Random.Range(-2.0f, 2.0f);
-            Equipment e = (Equipment)ScriptableObject.CreateInstance("Equipment");
-            e.EquipmentType = (EquipmentType)Random.Range(0, 6);
-            e.ATKPercent = normalATKPercent + randomATKPercent;
-            e.ATK = normalATK + randomATK;
-            e.hero = null;
-            e.isUsed = false;
-            e.value = (int)((normalATK + randomATK) * (1 + randomATKPercent / normalATKPercent));
-            e.CritPercent = normalCritiPercent + randomATKPercent;
-            //unEquipped[e.EquipmentType].Add(e);
-            /*Equipment equipment = new Equipment
-            {    
-            ATK = normalATK + randomATK,
-                ATKPercent = normalATKPercent + randomATKPercent,
-                isUsed = false,
-                hero = null,
-                EquipmentType = (EquipmentType)Random.Range(0, 6),
-                value = (int)((normalATK + randomATK) * (1 + randomATKPercent / normalATKPercent)),
-                CritPercent = normalCritiPercent + randomATKPercent,
-            };*/
-            list.Add(e);
+            EquipmentType k = (EquipmentType)Random.Range(0, 6);
+            Equipment newEquipment;
+            if (k == EquipmentType.Armor)
+            {
+                newEquipment = generator.GenerateArmor(levelCount);
+                list.Add(newEquipment);
+            }
+            else if (k == EquipmentType.Helmet)
+            {   
+                newEquipment = generator.GenerateHelmet(levelCount);
+                list.Add(newEquipment);
+            }
+            else if (k == EquipmentType.Pants)
+            {   
+                newEquipment = generator.GeneratePants(levelCount);
+                list.Add(newEquipment);
+            }
+            else if (k == EquipmentType.Shoes)
+            {
+                newEquipment = generator.GenerateShoes(levelCount);
+                list.Add(newEquipment);
+            }
+            else if (k == EquipmentType.Gloves)
+            {
+               newEquipment = generator.GenerateGloves(levelCount);
+                list.Add(newEquipment);
+            }
+            else
+            {
+                newEquipment = generator.GenerateWeapon(levelCount);
+                list.Add(newEquipment);
+            }
+            EquipmentStorage.getUnEquippped()[newEquipment.EquipmentType].Add(newEquipment);
+            //unEquipped[k].Add(newEquipment);
+            Debug.Log(k);
+            Debug.Log(EquipmentStorage.getUnEquippped()[k].Count);
         }
-        addEquipment(list);
-    }
+        //addEquipment(list);
+       // Destroy(tempG);
+        for(int i = 0;i < numEquipment; i++)
+        {
+            tempG = GameObject.Find("CheckResult").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0);
+            GameObject temp1 = (GameObject)Instantiate(cubeF, transform.position, transform.rotation);
+            UnEquipmentNode newEquipment = temp1.GetComponent<UnEquipmentNode>();
+            temp1.transform.SetParent(tempG.transform);
+            temp1.transform.localScale = new Vector3(0.5f, 0.5f, 0.3f);
+            if (i % 2 == 0)
+            {
+                newEquipment.transform.position = new Vector3(231, -50 - 170 * (i / 2), 0f);
+            }
+            else
+            {
+                newEquipment.transform.position = new Vector3(231 + 400, -50 - 170 * (i / 2), 0f);
+            }
+            newEquipment.Set(list[i]);
+        }
+    }          
 }

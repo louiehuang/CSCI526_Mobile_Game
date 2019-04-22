@@ -41,7 +41,6 @@ public class EnemyMovement : MonoBehaviour {
         Vector3 dir = target.position - transform.position;
         if (knightTarget != null)
         {
-            Debug.Log("see Knight");
             dir = Vector3.zero;
         }
         transform.Translate(dir.normalized * enemy.speed * Time.deltaTime, Space.World);

@@ -30,7 +30,7 @@ public class NonEquipmentUI : MonoBehaviour
             temp.transform.position = Camera.main.transform.position + Camera.main.transform.forward * 5.0f;
             temp.AddComponent<TextMesh>();
             var style = temp.GetComponent<TextMesh>();
-            style.text = "You don't have equipments of this type.";
+            style.text = "You don't have this type of equipments.";
             style.anchor = TextAnchor.MiddleCenter;
             style.fontSize = 8;
             style.color = Color.black;
