@@ -21,7 +21,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         //Debug.Log("OnDrag");
         buildManager.hasDraged = true;
         if (go != null) {
-            Debug.Log("go != null start drag");
+            //Debug.Log("go != null start drag");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
