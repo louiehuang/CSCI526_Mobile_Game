@@ -13,7 +13,7 @@ public class SkillUI : MonoBehaviour {
     public void SetTarget(BaseHero _target) {
         target = _target;
         transform.position = target.GetBuildPosition();
-        sellAmount.text = "E " + target.heroBlueprint.GetSellAmount();
+        //sellAmount.text = "E " + target.heroBlueprint.GetSellAmount();
     }
 
 
