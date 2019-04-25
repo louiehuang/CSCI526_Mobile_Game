@@ -1,0 +1,134 @@
+fileFormatVersion: 2
+guid: 7d3d1e7632955ff45a749c38d2b29a64
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Factice001
+    100002: Factice002
+    100004: Factice003
+    100006: Factice004
+    100008: Factice008
+    100010: TRIPODONTE_BODY
+    100012: TRIPODONTE_JAW
+    100014: TRIPODONTE_LEG_L_1
+    100016: TRIPODONTE_LEG_L_2
+    100018: TRIPODONTE_LEG_L_3
+    100020: TRIPODONTE_LEG_M_01
+    100022: TRIPODONTE_LEG_M_02
+    100024: TRIPODONTE_LEG_M_03
+    100026: TRIPODONTE_LEG_R_1
+    100028: TRIPODONTE_LEG_R_2
+    100030: TRIPODONTE_LEG_R_3
+    100032: TRIPODONTE_ROOT_
+    100034: //RootNode
+    100036: TRIPOSAURUS
+    400000: Factice001
+    400002: Factice002
+    400004: Factice003
+    400006: Factice004
+    400008: Factice008
+    400010: TRIPODONTE_BODY
+    400012: TRIPODONTE_JAW
+    400014: TRIPODONTE_LEG_L_1
+    400016: TRIPODONTE_LEG_L_2
+    400018: TRIPODONTE_LEG_L_3
+    400020: TRIPODONTE_LEG_M_01
+    400022: TRIPODONTE_LEG_M_02
+    400024: TRIPODONTE_LEG_M_03
+    400026: TRIPODONTE_LEG_R_1
+    400028: TRIPODONTE_LEG_R_2
+    400030: TRIPODONTE_LEG_R_3
+    400032: TRIPODONTE_ROOT_
+    400034: TRIPOSAURUS
+    400036: //RootNode
+    4300000: TRIPOSAURUS
+    7400000: Take 001
+    9500000: //RootNode
+    11100000: //RootNode
+    13700000: TRIPOSAURUS
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 0
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 0
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 2
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.01
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 0
+    importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 4
+    normalCalculationMode: 0
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 1
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 1
+  humanoidOversampling: 1
+  additionalBone: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
