@@ -5,6 +5,9 @@ using System.Collections;
 public class QTESystem : MonoBehaviour {
 
     float times = 5f;
+    private float hasButtonTime = 0f;
+    private int waitTime = 5;
+
     private bool hasButton1 = false;
     private bool hasButton2 = false;
     private bool hasButton3 = false; 
@@ -50,8 +53,8 @@ public class QTESystem : MonoBehaviour {
         //int nj = 400;
         //int nj = 1500;
         
-        int ni = Random.Range(50, (width - 100) / 2);
-        int nj = Random.Range(50, (height - 100) / 2);
+        int ni = Random.Range(100, (width - 100) / 2);
+        int nj = Random.Range(100, (height - 100) / 2);
         Debug.Log("1: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -66,8 +69,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton2() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range((width + 100) / 2, width);
-        int nj = Random.Range(50, (height - 100) / 2);
+        int ni = Random.Range((width + 100) / 2, width - 100);
+        int nj = Random.Range(100, (height - 100) / 2);
         Debug.Log("2: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -82,8 +85,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton3() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range((width + 100) / 2, width);
-        int nj = Random.Range((height + 100) / 2, height);
+        int ni = Random.Range((width + 100) / 2, width - 100);
+        int nj = Random.Range((height + 100) / 2, height - 100);
         Debug.Log("3: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -98,8 +101,8 @@ public class QTESystem : MonoBehaviour {
 
     private Button CreateQTEButton4() {
         //Debug.Log("CreateQTEButton");
-        int ni = Random.Range(50, (width - 100) / 2);
-        int nj = Random.Range((height + 100) / 2, height);
+        int ni = Random.Range(100, (width - 100) / 2);
+        int nj = Random.Range((height + 100) / 2, height - 100);
         Debug.Log("4: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
@@ -113,6 +116,7 @@ public class QTESystem : MonoBehaviour {
     }
 
     private void TriggerFail() {
+        hasButtonTime = 0f;
         LosePannel.gameObject.SetActive(true);
         Debug.Log("Cai Start!");
         StartCoroutine(Wait(2f));
@@ -164,7 +168,12 @@ public class QTESystem : MonoBehaviour {
             if (!hasButton4) {
                 button4 = CreateQTEButton4();
             }
-            //times = Random.Range(startTime, intervalTime);
+            if (hasButton1 && hasButton2 && hasButton3 && hasButton4 && hasButtonTime >= 0) {
+                hasButtonTime = times;
+            }
+            if (hasButtonTime - times >= waitTime) {
+                TriggerFail();
+            }
         }
     }
 
@@ -231,6 +240,8 @@ public class QTESystem : MonoBehaviour {
             button2 = null;
             button3 = null;
             button4 = null;
+
+            hasButtonTime = 0f;
 
             QTEPannel.gameObject.SetActive(false);
             times = Random.Range(startTime, intervalTime);
