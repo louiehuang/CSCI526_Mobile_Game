@@ -74,6 +74,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
         PlayerStats.Energy -= bluePrint.cost;
         bluePrint.hasBuilt = true;
+        buildManager.buildHerosNumber++;
     }
 
 

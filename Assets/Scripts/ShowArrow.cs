@@ -10,25 +10,25 @@ public class ShowArrow : MonoBehaviour {
     public int FlashCount;
     public bool IsHead;
 
-
+    BuildManager buildManager;
     void Start() {
         imgs = new Sprite[3];
         imgs[0] = img1;
         imgs[1] = img2;
         imgs[2] = img3;
-
+        buildManager = BuildManager.instance;
         curImg = gameObject.GetComponent<Image>();
         StartCoroutine(ImageFlash(FlashCount, IsHead));
     }
 
 
     IEnumerator ImageFlash(int flashCount, bool isHide) {
-        for (int i = 0; i < flashCount; i++) {
+        while(buildManager.buildHerosNumber == 0) {
             foreach(Sprite img in imgs) {
 
                 curImg.sprite = img;
                 Debug.Log(curImg.name);
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.5f);
             }
 
 
