@@ -99,6 +99,7 @@ public class IceMage : Mage {
         SkillTimer = 0f;
         SkillCooldownTime = IceMageConfig.SkillCooldownTime;
         SkillCDImage = GameObject.Find(CommonConfig.IceMageSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 

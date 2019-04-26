@@ -165,6 +165,7 @@ public class Priest : BaseHero {
         SkillTimer = 0f;
         SkillCooldownTime = PriestConfig.SkillCooldownTime;
         SkillCDImage = GameObject.Find(CommonConfig.PriestSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 

@@ -73,6 +73,7 @@ public class FireMage : Mage {
         SkillTimer = 0f;
         SkillCooldownTime = FireMageConfig.SkillCooldownTime;
         SkillCDImage = GameObject.Find(CommonConfig.FireMageSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 

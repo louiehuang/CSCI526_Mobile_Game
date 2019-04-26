@@ -44,9 +44,6 @@ public class BaseHero : BaseCharacter {
     // Default initialization
     void Start() {
         heroCanvasPos = HeroCanvas.transform.eulerAngles;
-
-        //TODO: set skill image color
-
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -140,6 +137,17 @@ public class BaseHero : BaseCharacter {
 
     public virtual void ExSkill() {
         //pass
+    }
+
+
+    protected override void Die() {
+        isDead = true;
+        SkillCDImage.fillAmount = 1f;  //disable skill button UI
+
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
     }
 
 

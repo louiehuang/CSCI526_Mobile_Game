@@ -65,9 +65,11 @@ public class BaseCharacter : MonoBehaviour {
 
     protected bool isDead;
 
+
     private void Awake() {
         CurHP = MaxHPValue;
     }
+
 
     protected virtual void Die() {
         isDead = true;

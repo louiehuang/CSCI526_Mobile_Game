@@ -86,26 +86,46 @@ public class HeroPool : MonoBehaviour {
 
 
     public void UseKnightSkill() {
+        if (knightObj == null) {
+            Debug.Log("knightObj is null, cannot use skill");
+            return;
+        }
         knightObj.UseSkill();
     }
 
 
     public void UseArcherSkill() {
+        if (archerObj == null) {
+            Debug.Log("archerObj is null, cannot use skill");
+            return;
+        }
         archerObj.UseSkill();
     }
 
 
     public void UseFireMageSkill() {
+        if (fireMageObj == null) {
+            Debug.Log("fireMageObj is null, cannot use skill");
+            return;
+        }
         fireMageObj.UseSkill();
     }
 
 
     public void UseIceMageSkill() {
+        if (iceMageObj == null) {
+            Debug.Log("iceMageObj is null, cannot use skill");
+            return;
+        }
         iceMageObj.UseSkill();
     }
 
 
     public void UsePriestSkill() {
+        if (priestObj == null) {
+            Debug.Log("priestObj is null, cannot use skill");
+            return;
+        }
         priestObj.UseSkill();
     }
 

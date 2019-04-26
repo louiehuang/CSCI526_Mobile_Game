@@ -85,6 +85,7 @@ public class Knight : BaseHero {
         SkillTimer = 0f;
         SkillCooldownTime = KnightConfig.SkillCooldownTime;
         SkillCDImage = GameObject.Find(CommonConfig.KnightSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
 
         PDEFModifierBySkill = new StatModifier(KnightConfig.PDEFPercent, StatModType.PercentAdd);
         MDEFModifierBySkill = new StatModifier(KnightConfig.MDEFPercent, StatModType.PercentAdd);

@@ -80,6 +80,7 @@ public class Archer : BaseHero {
         SkillTimer = 0f;
         SkillCooldownTime = ArcherConfig.SkillCooldownTime;
         SkillCDImage = GameObject.Find(CommonConfig.ArcherSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 
