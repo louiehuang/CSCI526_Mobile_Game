@@ -56,7 +56,8 @@ public class BaseCharacter : MonoBehaviour {
 
 
     [Header("Unity Stuff")]
-    public Image healthBar;
+    public Canvas HeroCanvas;
+    public Image HealthBarUI;
     public GameObject deathEffect;
 
     [Header("Other Attribute")]
@@ -64,9 +65,11 @@ public class BaseCharacter : MonoBehaviour {
 
     protected bool isDead;
 
+
     private void Awake() {
         CurHP = MaxHPValue;
     }
+
 
     protected virtual void Die() {
         isDead = true;
@@ -84,8 +87,8 @@ public class BaseCharacter : MonoBehaviour {
         CurHP -= amount;
 
         //still cause NullPointer Exception with following if-condition. So must be added a healthBar in the inspector
-        if (healthBar != null) {
-            healthBar.fillAmount = CurHP / MaxHPValue;
+        if (HealthBarUI != null) {
+            HealthBarUI.fillAmount = CurHP / MaxHPValue;
         }
 
         //Debug.Log(this.name + "CurHP " + CurHP + " amount = " + amount + " curHp is " + CurHP);

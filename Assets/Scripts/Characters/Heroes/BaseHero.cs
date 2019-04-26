@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BaseHero : BaseCharacter {
@@ -11,7 +12,7 @@ public class BaseHero : BaseCharacter {
 
     public Animator HeroAnimator;
 
-    public bool SkillIsReady = true;
+    protected bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -25,38 +26,25 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
-    // Skill bar
-    public SkillUI skillUI;
-    private Vector3 skillPos;  //used to fix skill ui position
-    public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
+    // Skill CD
+    public Image SkillCDImage;
+    public float SkillTimer = 0f;
+    public float SkillCooldownTime = 10f;  //default cooldown time
+    protected bool HasSkillUsed = false;  //has the skill has ever been used?
 
     [HideInInspector]
     public GameObject hero;
     [HideInInspector]
     public HeroBlueprint heroBlueprint;
 
-
-    public Vector3 GetBuildPosition() {
-        return transform.position + positionOffset;
-    }
+    //Hero Name and Health Bar
+    private Vector3 heroCanvasPos;  //used to fix skill ui position
 
 
     // Default initialization
     void Start() {
-        skillPos = skillUI.transform.eulerAngles;
+        heroCanvasPos = HeroCanvas.transform.eulerAngles;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-    }
-
-
-    //TODO: Create a HeroClicker script for listening click events? https://www.youtube.com/watch?v=0sFrDJKwsdM
-    //Remeber to add box collider so to click this hero object
-    void OnMouseDown() {
-        if (!skillUI.IsActive) {
-            skillUI.SetTarget(this);
-            skillUI.Show();
-        } else {
-            skillUI.Hide();
-        }
     }
 
 
@@ -87,6 +75,13 @@ public class BaseHero : BaseCharacter {
 
     // Update is called once per frame
     protected virtual void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
+        //Enemy
         if (target == null) {
             if (HeroAnimator != null) {
                 HeroAnimator.SetBool("CanAttack", false);
@@ -113,7 +108,8 @@ public class BaseHero : BaseCharacter {
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-        skillUI.transform.eulerAngles = skillPos;  
+
+        HeroCanvas.transform.eulerAngles = heroCanvasPos;
     }
 
 
@@ -127,27 +123,15 @@ public class BaseHero : BaseCharacter {
 
 
     public void UseSkill() {
-        if (SkillIsReady) {  // Check CD
+        Debug.Log("skillCDImage: " + SkillCDImage);
+        if (!HasSkillUsed || SkillTimer > SkillCooldownTime) {
             Debug.Log("Use skill");
-            SkillIsReady = false;
-            ExSkill();  //TODO: for test
-            StartCoroutine("SkillCooldown");
+            ExSkill();
+            SkillTimer = 0;
         } else {
             Debug.Log("Skill not ready");
         }
-    }
-
-
-    public void SellSelf() {
-        Debug.Log("Sell: " + heroBlueprint.GetSellAmount());
-        PlayerStats.Energy += heroBlueprint.GetSellAmount();
-
-        GameObject effect = (GameObject)Instantiate(BuildManager.instance.sellEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-
-        Destroy(hero);
-        hero = null;
-        heroBlueprint = null;
+        HasSkillUsed = true;
     }
 
 
@@ -156,9 +140,14 @@ public class BaseHero : BaseCharacter {
     }
 
 
-    public virtual IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(15f);  //default cooldown time
-        SkillIsReady = true;
+    protected override void Die() {
+        isDead = true;
+        SkillCDImage.fillAmount = 1f;  //disable skill button UI
+
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
     }
 
 
@@ -168,8 +157,7 @@ public class BaseHero : BaseCharacter {
         bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
         bool isBlock = (Random.Range(0f, 1f) > (enemy.BlockValue));
 
-        if (!isHit)
-        {
+        if (!isHit) {
             return 0;
         }
         float damage = ((ATKValue > enemy.PDEFValue)? ATKValue - enemy.PDEFValue:0) + ((MATKValue > enemy.MDEFValue)? (MATKValue - enemy.MDEFValue):0) * (isCrit ? (1.0f+CritDMGValue) : 1.0f) * (isBlock ? 1.0f : 0.5f);

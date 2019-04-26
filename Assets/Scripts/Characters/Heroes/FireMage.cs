@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -10,31 +11,34 @@ public class FireMage : Mage {
     public static FireMage instance;
 
     private static readonly object padlock = new object();
+
     //use large range bulletPrefab, missile
     public float radius = 0f;
 
     new void Start() {
-        if (instance == null)
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
+        if (instance == null) {
+            lock (padlock) {
+                if (instance == null) {
                     instance = new FireMage();
                 }
             }
         }
+
         instance = this;
-       // Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, CommonConfig.FireMage);
+
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
-        SkillIsReady = true;
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
 
+        LoadSkill();
+
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
+
 
     protected override void Attack() {
         if (HeroAnimator != null) {
@@ -65,9 +69,11 @@ public class FireMage : Mage {
     }
 
 
-    public override IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(FireMageConfig.SkillCooldownTime);
-        SkillIsReady = true;
+    private void LoadSkill() {
+        SkillTimer = 0f;
+        SkillCooldownTime = FireMageConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.FireMageSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 
