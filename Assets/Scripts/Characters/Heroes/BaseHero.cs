@@ -26,11 +26,6 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
-    // Skill bar
-    public SkillUI skillUI;
-    private Vector3 skillPos;  //used to fix skill ui position
-    public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
-
     // Skill CD
     public Image SkillCDImage;
     public float SkillTimer = 0f;
@@ -42,31 +37,17 @@ public class BaseHero : BaseCharacter {
     [HideInInspector]
     public HeroBlueprint heroBlueprint;
 
-
-    public Vector3 GetBuildPosition() {
-        return transform.position + positionOffset;
-    }
+    //Hero Name and Health Bar
+    private Vector3 heroCanvasPos;  //used to fix skill ui position
 
 
     // Default initialization
     void Start() {
-        skillPos = skillUI.transform.eulerAngles;
+        heroCanvasPos = HeroCanvas.transform.eulerAngles;
 
         //TODO: set skill image color
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-    }
-
-
-    //TODO: Create a HeroClicker script for listening click events? https://www.youtube.com/watch?v=0sFrDJKwsdM
-    //Remeber to add box collider so to click this hero object
-    void OnMouseDown() {
-        if (!skillUI.IsActive) {
-            skillUI.SetTarget(this);
-            skillUI.Show();
-        } else {
-            skillUI.Hide();
-        }
     }
 
 
@@ -130,7 +111,8 @@ public class BaseHero : BaseCharacter {
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
-        skillUI.transform.eulerAngles = skillPos;  
+
+        HeroCanvas.transform.eulerAngles = heroCanvasPos;
     }
 
 
@@ -153,19 +135,6 @@ public class BaseHero : BaseCharacter {
             Debug.Log("Skill not ready");
         }
         HasSkillUsed = true;
-    }
-
-
-    public void SellSelf() {
-        Debug.Log("Sell: " + heroBlueprint.GetSellAmount());
-        PlayerStats.Energy += heroBlueprint.GetSellAmount();
-
-        GameObject effect = (GameObject)Instantiate(BuildManager.instance.sellEffect, GetBuildPosition(), Quaternion.identity);
-        Destroy(effect, 5f);
-
-        Destroy(hero);
-        hero = null;
-        heroBlueprint = null;
     }
 
 
