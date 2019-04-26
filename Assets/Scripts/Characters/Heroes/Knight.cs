@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
-using UnityEngine.EventSystems;
+
 
 public class Knight : BaseHero {
     public static Knight instance;
@@ -25,17 +26,18 @@ public class Knight : BaseHero {
                 }
             }
         }
+
         instance = this;
 
-        HeroPool.GetInstance().SetHero(this, "KNIGHT");
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
 
-        //   Object.DontDestroyOnLoad(instance);
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
-        SkillIsReady = true;
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
+
+        LoadSkill();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
@@ -69,12 +71,6 @@ public class Knight : BaseHero {
     }
 
 
-    public override IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(PriestConfig.SkillCooldownTime);
-        SkillIsReady = true;
-    }
-
-
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(2f);
         PDEF.RemoveModifier(PDEFModifierBySkill);
@@ -85,16 +81,22 @@ public class Knight : BaseHero {
     }
 
 
-    //TODO: change back to private (currently set to pulbic for testing purpose)
-    public void LoadAttr() {
-        //special
-        Range = new CharacterAttribute(KnightConfig.Range);
+    private void LoadSkill() {
+        SkillTimer = 0f;
+        SkillCooldownTime = KnightConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.KnightSkillCDImage).GetComponent<Image>();
 
-        //skill
         PDEFModifierBySkill = new StatModifier(KnightConfig.PDEFPercent, StatModType.PercentAdd);
         MDEFModifierBySkill = new StatModifier(KnightConfig.MDEFPercent, StatModType.PercentAdd);
         DodgeModifierBySkill = new StatModifier(KnightConfig.DodgeFlat, StatModType.Flat);
         BlockModifierBySkill = new StatModifier(KnightConfig.BlockFlat, StatModType.Flat);
+    }
+
+
+    //TODO: change back to private (currently set to pulbic for testing purpose)
+    public void LoadAttr() {
+        //special
+        Range = new CharacterAttribute(KnightConfig.Range);
 
         CharacterName = KnightConfig.CharacterName;
         CharacterDescription = KnightConfig.CharacterDescription;

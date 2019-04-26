@@ -83,7 +83,6 @@ public class HeroPool : MonoBehaviour {
             default:
                 Debug.Log("In SetHero, no heroName"); break;
         }
-
     }
 
 

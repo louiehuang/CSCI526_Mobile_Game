@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BaseHero : BaseCharacter {
@@ -30,6 +31,12 @@ public class BaseHero : BaseCharacter {
     private Vector3 skillPos;  //used to fix skill ui position
     public static Vector3 positionOffset = new Vector3(0f, 5f, 0f);
 
+    // Skill CD
+    public Image SkillCDImage;
+    public float SkillTimer = 0f;
+    public float SkillCooldownTime = 10f;  //default cooldown time
+    protected bool HasSkillUsed = false;  //has the skill has ever been used?
+
     [HideInInspector]
     public GameObject hero;
     [HideInInspector]
@@ -44,6 +51,9 @@ public class BaseHero : BaseCharacter {
     // Default initialization
     void Start() {
         skillPos = skillUI.transform.eulerAngles;
+
+        //TODO: set skill image color
+
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -87,6 +97,13 @@ public class BaseHero : BaseCharacter {
 
     // Update is called once per frame
     protected virtual void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
+        //Enemy
         if (target == null) {
             if (HeroAnimator != null) {
                 HeroAnimator.SetBool("CanAttack", false);
@@ -127,15 +144,15 @@ public class BaseHero : BaseCharacter {
 
 
     public void UseSkill() {
-        Debug.Log("SkillIsReady: " + SkillIsReady);
-        if (SkillIsReady) {  // Check CD
+        Debug.Log("skillCDImage: " + SkillCDImage);
+        if (!HasSkillUsed || SkillTimer > SkillCooldownTime) {
             Debug.Log("Use skill");
-            ExSkill();  //TODO: for test
-            SkillIsReady = false;
-            StartCoroutine("SkillCooldown");
+            ExSkill();
+            SkillTimer = 0;
         } else {
             Debug.Log("Skill not ready");
         }
+        HasSkillUsed = true;
     }
 
 
@@ -158,7 +175,7 @@ public class BaseHero : BaseCharacter {
 
 
     public virtual IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(3f);  //TODO: default cooldown time
+        yield return new WaitForSeconds(10f);  //TODO: default cooldown time
         SkillIsReady = true;
     }
 
@@ -169,8 +186,7 @@ public class BaseHero : BaseCharacter {
         bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
         bool isBlock = (Random.Range(0f, 1f) > (enemy.BlockValue));
 
-        if (!isHit)
-        {
+        if (!isHit) {
             return 0;
         }
         float damage = ((ATKValue > enemy.PDEFValue)? ATKValue - enemy.PDEFValue:0) + ((MATKValue > enemy.MDEFValue)? (MATKValue - enemy.MDEFValue):0) * (isCrit ? (1.0f+CritDMGValue) : 1.0f) * (isBlock ? 1.0f : 0.5f);

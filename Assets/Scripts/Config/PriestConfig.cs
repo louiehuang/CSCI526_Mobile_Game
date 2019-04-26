@@ -3,7 +3,7 @@
 [Serializable]
 public static class PriestConfig {
     //special attrs
-    public static float SkillCooldownTime = 5f;
+    public static float SkillCooldownTime = 12f;
 
     //level up related bonus
     public static float MaxHPBonus = 15f;

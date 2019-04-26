@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+
 
 /// <summary>
 /// Ice Mage
@@ -17,6 +19,7 @@ public class IceMage : Mage {
     public ParticleSystem impactEffect;
     public Light impactLight;
 
+
     new void Start() {
         if (instance == null)
         {
@@ -28,24 +31,29 @@ public class IceMage : Mage {
                 }
             }
         }
+
         instance = this;
 
-        HeroPool.GetInstance().SetHero(this, "IceMage");
+        HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
 
-        // Object.DontDestroyOnLoad(instance);
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
-
-        SkillIsReady = true;
 
         LoadAttr();
 
-        //string json = JsonUtility.ToJson(ATK);
+        LoadSkill();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("In IceMage");
     }
 
+
     protected override void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
         if (this.Target == null) { 
             if (lineRenderer.enabled) {
                 lineRenderer.enabled = false;
@@ -84,6 +92,13 @@ public class IceMage : Mage {
         impactEffect.transform.position = this.Target.position + dir.normalized;
 
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+
+    private void LoadSkill() {
+        SkillTimer = 0f;
+        SkillCooldownTime = IceMageConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.IceMageSkillCDImage).GetComponent<Image>();
     }
 
 

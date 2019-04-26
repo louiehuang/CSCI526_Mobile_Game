@@ -3,7 +3,7 @@
 [Serializable]
 public static class IceMageConfig {
     //special attrs
-    public static float SkillCooldownTime = 5f;
+    public static float SkillCooldownTime = 9f;
     public static float SlowAmount = 0.5f;
 
     //level up related bonus

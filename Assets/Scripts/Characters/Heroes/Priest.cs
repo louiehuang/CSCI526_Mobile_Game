@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 
@@ -32,17 +33,19 @@ public class Priest : BaseHero {
                 }
             }
         }
+
         instance = this;
 
-        HeroPool.GetInstance().SetHero(this, "PRIEST");
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
 
         // Object.DontDestroyOnLoad(instance);
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
-        SkillIsReady = true;
         animator = GetComponent<Animator>();
 
         LoadAttr();
+
+        LoadSkill();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
     }
@@ -91,6 +94,12 @@ public class Priest : BaseHero {
 
 
     protected override void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
         if (this.Target == null) {
             if (animator != null) {
                 animator.SetBool("CanAttack", false);
@@ -112,9 +121,9 @@ public class Priest : BaseHero {
     }
 
 
-    void Heal(BaseHero hero) {
+    void Heal(BaseHero _hero) {
         float amount = 0.8f * MATKValue;
-        float realAmount = hero.CurHP + amount > hero.MaxHPValue ? hero.MaxHPValue - hero.CurHP : amount;
+        float realAmount = _hero.CurHP + amount > _hero.MaxHPValue ? _hero.MaxHPValue - _hero.CurHP : amount;
         TargetHero.TakeDamage(-realAmount);
         Debug.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
     }
@@ -128,10 +137,10 @@ public class Priest : BaseHero {
 
         GameObject[] heroes = GameObject.FindGameObjectsWithTag(heroTag);
         List<GameObject> heroesToHeal = new List<GameObject>();
-        foreach (GameObject hero in heroes) {
-            float distanceToHero = Vector3.Distance(transform.position, hero.transform.position);
+        foreach (GameObject _hero in heroes) {
+            float distanceToHero = Vector3.Distance(transform.position, _hero.transform.position);
             if (distanceToHero <= skillRange) {
-                heroesToHeal.Add(hero);
+                heroesToHeal.Add(_hero);
             }
         }
 
@@ -145,16 +154,17 @@ public class Priest : BaseHero {
 
         if (heroesToHeal.Count > 0) {
             float amount = 1.0f * MATKValue;
-            foreach (GameObject hero in heroesToHeal) {
-                Heal(hero.GetComponent<BaseHero>());
+            foreach (GameObject _hero in heroesToHeal) {
+                Heal(_hero.GetComponent<BaseHero>());
             }
         }
     }
 
 
-    public override IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(PriestConfig.SkillCooldownTime);
-        SkillIsReady = true;
+    private void LoadSkill() {
+        SkillTimer = 0f;
+        SkillCooldownTime = PriestConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.PriestSkillCDImage).GetComponent<Image>();
     }
 
 
