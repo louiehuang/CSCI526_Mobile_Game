@@ -27,7 +27,10 @@ public class Archer : BaseHero {
             }
         }
         instance = this;
-      //  Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, "Archer");
+
+        //  Object.DontDestroyOnLoad(instance);
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
 
         SkillIsReady = true;

@@ -12,7 +12,7 @@ public static class FireMageConfig {
     public static int Level = 1;
     public static float Range = 30f;
 
-    public static string CharacterName = "Fire";
+    public static string CharacterName = "FireMage";
     public static string CharacterDescription = "Default Fire Mage Description";
 
     public static float MaxHPValue = 100f;

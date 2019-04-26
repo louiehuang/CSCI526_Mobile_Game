@@ -29,7 +29,10 @@ public class IceMage : Mage {
             }
         }
         instance = this;
-       // Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, "IceMage");
+
+        // Object.DontDestroyOnLoad(instance);
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         SkillIsReady = true;
@@ -55,6 +58,11 @@ public class IceMage : Mage {
         LockOnTarget();
 
         Laser();
+    }
+
+
+    public override void ExSkill() {
+        Debug.Log("Ice Mage uses skill");
     }
 
 

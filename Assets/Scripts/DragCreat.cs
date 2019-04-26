@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     GameObject go;
-    public HeroPool heroPool;
+    public HeroPool heroPool = HeroPool.GetInstance();
     Vector3 selfScenePosition;
     HeroBlueprint bluePrint;
     public LayerMask mask = 1 << 8;

@@ -26,7 +26,10 @@ public class Knight : BaseHero {
             }
         }
         instance = this;
-     //   Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, "KNIGHT");
+
+        //   Object.DontDestroyOnLoad(instance);
         LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         SkillIsReady = true;

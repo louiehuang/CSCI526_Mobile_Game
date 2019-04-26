@@ -33,7 +33,10 @@ public class Priest : BaseHero {
             }
         }
         instance = this;
-       // Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, "PRIEST");
+
+        // Object.DontDestroyOnLoad(instance);
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
         SkillIsReady = true;
@@ -118,6 +121,7 @@ public class Priest : BaseHero {
 
 
     public override void ExSkill() {
+        Debug.Log("Heal all heroes");
         //TODO: consume energy
         //heal heroes within a range
         float skillRange = 30f;

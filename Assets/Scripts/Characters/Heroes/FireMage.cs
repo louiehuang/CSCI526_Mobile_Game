@@ -25,7 +25,10 @@ public class FireMage : Mage {
             }
         }
         instance = this;
-       // Object.DontDestroyOnLoad(instance);
+
+        HeroPool.GetInstance().SetHero(this, "FIREMAGE");
+
+        // Object.DontDestroyOnLoad(instance);
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         SkillIsReady = true;

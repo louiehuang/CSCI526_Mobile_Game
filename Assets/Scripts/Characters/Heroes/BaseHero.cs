@@ -11,7 +11,7 @@ public class BaseHero : BaseCharacter {
 
     public Animator HeroAnimator;
 
-    public bool SkillIsReady = true;
+    protected bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -127,10 +127,11 @@ public class BaseHero : BaseCharacter {
 
 
     public void UseSkill() {
+        Debug.Log("SkillIsReady: " + SkillIsReady);
         if (SkillIsReady) {  // Check CD
             Debug.Log("Use skill");
-            SkillIsReady = false;
             ExSkill();  //TODO: for test
+            SkillIsReady = false;
             StartCoroutine("SkillCooldown");
         } else {
             Debug.Log("Skill not ready");
@@ -157,7 +158,7 @@ public class BaseHero : BaseCharacter {
 
 
     public virtual IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(15f);  //default cooldown time
+        yield return new WaitForSeconds(3f);  //TODO: default cooldown time
         SkillIsReady = true;
     }
 
