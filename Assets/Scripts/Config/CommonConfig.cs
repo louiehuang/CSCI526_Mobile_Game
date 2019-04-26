@@ -3,17 +3,16 @@
 [Serializable]
 public static class CommonConfig {
 
-    public static string Knight = "Knight";
-    public static string Archer = "Archer";
-    public static string FireMage = "FireMage";
-    public static string IceMage = "IceMage";
-    public static string Priest = "Priest";
+    public const string Knight = "Knight";
+    public const string Archer = "Archer";
+    public const string FireMage = "FireMage";
+    public const string IceMage = "IceMage";
+    public const string Priest = "Priest";
 
-    public static string KnightSkillCDImage = "KnightSkillCDImage";
-    public static string ArcherSkillCDImage = "ArcherSkillCDImage";
-    public static string FireMageSkillCDImage = "FireMageSkillCDImage";
-    public static string IceMageSkillCDImage = "IceMageSkillCDImage";
-    public static string PriestSkillCDImage = "PriestSkillCDImage";
-
+    public const string KnightSkillCDImage = "KnightSkillCDImage";
+    public const string ArcherSkillCDImage = "ArcherSkillCDImage";
+    public const string FireMageSkillCDImage = "FireMageSkillCDImage";
+    public const string IceMageSkillCDImage = "IceMageSkillCDImage";
+    public const string PriestSkillCDImage = "PriestSkillCDImage";
 
 }

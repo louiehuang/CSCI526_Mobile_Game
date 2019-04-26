@@ -67,18 +67,17 @@ public class HeroPool : MonoBehaviour {
 
 
     public void SetHero(BaseHero _target, String heroName) {
-        Debug.Log("SetHero: " + heroName.ToUpper() + ", " + _target);
-        //TODO: remove hard-code
-        switch (heroName.ToUpper()) {
-            case "KNIGHT":
+        //Debug.Log("SetHero: " + heroName.ToUpper() + ", " + _target);
+        switch (heroName) {
+            case CommonConfig.Knight:
                 knightObj = _target; break;
-            case "ARCHER":
+            case CommonConfig.Archer:
                 archerObj = _target; break;
-            case "FIREMAGE":
+            case CommonConfig.FireMage:
                 fireMageObj = _target; break;
-            case "ICEMAGE":
+            case CommonConfig.IceMage:
                 iceMageObj = _target; break;
-            case "PRIEST":
+            case CommonConfig.Priest:
                 priestObj = _target; break;
             default:
                 Debug.Log("In SetHero, no heroName"); break;
@@ -90,21 +89,24 @@ public class HeroPool : MonoBehaviour {
         knightObj.UseSkill();
     }
 
+
     public void UseArcherSkill() {
         archerObj.UseSkill();
     }
+
 
     public void UseFireMageSkill() {
         fireMageObj.UseSkill();
     }
 
+
     public void UseIceMageSkill() {
         iceMageObj.UseSkill();
     }
 
+
     public void UsePriestSkill() {
         priestObj.UseSkill();
     }
-
 
 }

@@ -174,12 +174,6 @@ public class BaseHero : BaseCharacter {
     }
 
 
-    public virtual IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(10f);  //TODO: default cooldown time
-        SkillIsReady = true;
-    }
-
-
     //TODO: damage formula
     public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
         bool isCrit = (Random.Range(0f, 1f) > (CritValue - enemy.CritResistanceValue));
