@@ -16,17 +16,6 @@ public class ShowHideText : MonoBehaviour {
 
     }
 
-    IEnumerator Flash(int flashCount, bool isHide) {
-        for (int i = 0; i < flashCount; i++) {
-            text.color = new Color(1f, 1f, 1f);
-            yield return new WaitForSeconds(0.3f);
-            text.color = color;
-            yield return new WaitForSeconds(0.3f);
-
-        }
-        gameObject.active = !isHide;
-    }
-
     IEnumerator Flash(bool isHide) {
         while (buildManager.buildHerosNumber == 0) {
 
@@ -40,6 +29,6 @@ public class ShowHideText : MonoBehaviour {
             }
 
         }
-        gameObject.active = !isHide;
+        gameObject.SetActive(!isHide);
     }
 }
