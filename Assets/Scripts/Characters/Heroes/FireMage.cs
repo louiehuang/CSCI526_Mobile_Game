@@ -56,13 +56,14 @@ public class FireMage : Mage {
 
     public override void ExSkill() {
         //do damage on all enemies
-        Debug.Log("Do damage on all enemies");
-
+        Debug.Log("Fire Mage do damage on all enemies");
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
+        //Debug.Log("Number of enemies: " + enemies.Length);
         if (enemies != null && enemies.Length > 0) {
             float amount = 1.85f * MATKValue;
             foreach (GameObject enemy in enemies) {
                 BaseEnemy te = enemy.GetComponent<BaseEnemy>();
+                //Debug.Log(te.CurHP + ", " + amount);
                 te.TakeDamage(amount);
             }
         }
