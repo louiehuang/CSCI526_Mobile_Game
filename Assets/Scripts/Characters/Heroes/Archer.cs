@@ -15,6 +15,10 @@ public class Archer : BaseHero {
     //Skill fields
     StatModifier ATKSpeedModifierBySkill;
 
+    [Header("Archer Fileds")]
+    public ParticleSystem particleEffect;
+    public ParticleSystem arrowEffect;
+
     new void Start() {
         if (instance == null) {
             lock (padlock) {
@@ -33,6 +37,9 @@ public class Archer : BaseHero {
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
+
+        particleEffect.Stop();
+        arrowEffect.Stop();
 
         LoadSkill();
 
@@ -60,6 +67,11 @@ public class Archer : BaseHero {
         //duration time
         Debug.Log("Attack Speed Up");
 
+        if (HeroAnimator != null) {
+            HeroAnimator.SetBool("Skill", true);
+        }
+        particleEffect.Play();
+        arrowEffect.Play();
         ATKSpeed.AddModifier(ATKSpeedModifierBySkill);
         attackRate = ATKSpeedValue;
         StartCoroutine("SkillDuration");
@@ -68,10 +80,13 @@ public class Archer : BaseHero {
 
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(3f);
-        Debug.Log("Attack Speed back to normal");
+        Debug.Log("Archer: Biu Biu Biu~~~~~~~!");
 
         ATKSpeed.RemoveModifier(ATKSpeedModifierBySkill);
         attackRate = ATKSpeedValue;  //3 attacks per second
+        particleEffect.Stop();
+        arrowEffect.Stop();
+        HeroAnimator.SetBool("Skill", false);
     }
 
 

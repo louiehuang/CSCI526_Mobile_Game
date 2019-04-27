@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 
 /// <summary>
@@ -18,6 +19,9 @@ public class IceMage : Mage {
     public LineRenderer lineRenderer;
     public ParticleSystem impactEffect;
     public Light impactLight;
+    public ParticleSystem particleEffect;
+    public ParticleSystem iceEffect;
+    protected Animator animator;
 
 
     new void Start() {
@@ -38,7 +42,12 @@ public class IceMage : Mage {
 
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
+        animator = GetComponent<Animator>();
+
         LoadAttr();
+
+        particleEffect.Stop();
+        iceEffect.Stop();
 
         LoadSkill();
 
@@ -56,6 +65,7 @@ public class IceMage : Mage {
 
         if (this.Target == null) { 
             if (lineRenderer.enabled) {
+                animator.SetBool("CanAttack", false);
                 lineRenderer.enabled = false;
                 impactEffect.Stop();
                 impactLight.enabled = false;
@@ -64,6 +74,7 @@ public class IceMage : Mage {
         }
 
         LockOnTarget();
+        this.transform.LookAt(this.Target);
 
         Laser();
     }
@@ -71,6 +82,18 @@ public class IceMage : Mage {
 
     public override void ExSkill() {
         Debug.Log("Ice Mage uses skill");
+        particleEffect.Play();
+        iceEffect.Play();
+        StartCoroutine("SkillDuration");
+    }
+
+
+    IEnumerator SkillDuration() {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("IceMage: Show time :)");
+        particleEffect.Stop();
+        iceEffect.Stop();
+        HeroAnimator.SetBool("Skill", false);
     }
 
 
@@ -79,6 +102,7 @@ public class IceMage : Mage {
         this.TargetEnemy.Slow(slowAmount);
 
         if (!lineRenderer.enabled) {
+            animator.SetBool("CanAttack", true);
             lineRenderer.enabled = true;
             impactEffect.Play();
             impactLight.enabled = true;
