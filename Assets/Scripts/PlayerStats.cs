@@ -13,12 +13,14 @@ public class PlayerStats : MonoBehaviour {
     public int startLives = 20;
 
     public static int Rounds;
+    public static int deadHeroNumber;
 
     void Start() {
         Energy = startEnergy;
         Lives = startLives;
 
         Rounds = 0;
+        deadHeroNumber = 0;
     }
 
 }

@@ -145,6 +145,7 @@ public class BaseHero : BaseCharacter {
         SkillCDImage.fillAmount = 1f;  //disable skill button UI
 
         GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        PlayerStats.deadHeroNumber++;
         Destroy(effect, 5f);
 
         Destroy(gameObject);
