@@ -3,7 +3,7 @@
 [Serializable]
 public static class PriestConfig {
     //special attrs
-    public static float SkillCooldownTime = 5f;
+    public static float SkillCooldownTime = 12f;
 
     //level up related bonus
     public static float MaxHPBonus = 15f;
@@ -16,7 +16,7 @@ public static class PriestConfig {
     public static int Level = 1;
     public static float Range = 25f;  //heal heros within this range (normal heals)
 
-    public static string CharacterName = "Priest";
+    public static string CharacterName = "Aselica";
     public static string CharacterDescription = "Default Priest Description";
 
     public static float MaxHPValue = 150f;
@@ -32,8 +32,8 @@ public static class PriestConfig {
 
     public static float PernetrationValue = 0f;
     public static float ACCValue = 1f;
-    public static float DodgeValue = 0f;
-    public static float BlockValue = 0f;
+    public static float DodgeValue = 0.1f;
+    public static float BlockValue = 0.08f;
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 0.5f;  // 0.5 attack per second

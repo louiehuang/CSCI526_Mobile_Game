@@ -2,15 +2,9 @@
 
 .vs
 
-Assembly-CSharp.csproj
+*.csproj
 
-CSCI526_Mobile_Game.sln
-
-ScriptsAssembly.csproj
-
-CSCI526_Mobile_Game.sln
-
-Tests.csproj
+*.sln
 
 ProjectSettings/ProjectVersion.txt
 

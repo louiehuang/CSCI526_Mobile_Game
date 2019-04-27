@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class BaseHero : BaseCharacter {
@@ -9,7 +10,9 @@ public class BaseHero : BaseCharacter {
     private BaseEnemy targetEnemy; 
     public BaseEnemy TargetEnemy { get; set; }
 
-    public bool SkillIsReady = true;
+    public Animator HeroAnimator;
+
+    protected bool SkillIsReady = true;
 
     [Header("Use Bullets (default)")]
     public GameObject bulletPrefab;
@@ -23,12 +26,27 @@ public class BaseHero : BaseCharacter {
     public float turnSpeed = 10f;
     public Transform firePoint;
 
+    // Skill CD
+    public Image SkillCDImage;
+    public float SkillTimer = 0f;
+    public float SkillCooldownTime = 10f;  //default cooldown time
+    protected bool HasSkillUsed = false;  //has the skill has ever been used?
+
+    [HideInInspector]
+    public GameObject hero;
+    [HideInInspector]
+    public HeroBlueprint heroBlueprint;
+
+    //Hero Name and Health Bar
+    private Vector3 heroCanvasPos;  //used to fix skill ui position
+
+
     // Default initialization
-    protected void Start() {
-        Range = new CharacterAttribute(10f);  //default
+    void Start() {
+        heroCanvasPos = CharacterCanvas.transform.eulerAngles;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("Say something");
     }
+
 
     protected void UpdateTarget() {
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
@@ -54,9 +72,20 @@ public class BaseHero : BaseCharacter {
         this.TargetEnemy = targetEnemy;
     }
 
+
     // Update is called once per frame
     protected virtual void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
+        //Enemy
         if (target == null) {
+            if (HeroAnimator != null) {
+                HeroAnimator.SetBool("CanAttack", false);
+            }
             return;
         }
 
@@ -70,14 +99,19 @@ public class BaseHero : BaseCharacter {
         attackCountdown -= Time.deltaTime;
     }
 
+
     protected void LockOnTarget() {
         Vector3 dir = Target.position - transform.position;
         if (dir.Equals(Vector3.zero))
             return;
+
         Quaternion lookRotation = Quaternion.LookRotation(dir);
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
+
+        CharacterCanvas.transform.eulerAngles = heroCanvasPos;
     }
+
 
     protected virtual void Attack() {
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
@@ -87,25 +121,50 @@ public class BaseHero : BaseCharacter {
             bullet.Seek(target);
     }
 
+
     public void UseSkill() {
-        if (SkillIsReady) {  // Check CD
-            Debug.Log("use skill");
-            SkillIsReady = false;
-            ExSkill();  //TODO: for test
-            StartCoroutine("SkillCooldown");
+        Debug.Log("skillCDImage: " + SkillCDImage);
+        if (!HasSkillUsed || SkillTimer > SkillCooldownTime) {
+            Debug.Log("Use skill");
+            ExSkill();
+            SkillTimer = 0;
         } else {
-            Debug.Log("skill not ready");
+            Debug.Log("Skill not ready");
         }
+        HasSkillUsed = true;
     }
+
 
     public virtual void ExSkill() {
         //pass
     }
 
-    public virtual IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(15f);  //default cooldown time
-        SkillIsReady = true;
+
+    protected override void Die() {
+        isDead = true;
+        SkillCDImage.fillAmount = 1f;  //disable skill button UI
+
+        GameObject effect = (GameObject)Instantiate(deathEffect, transform.position, Quaternion.identity);
+        PlayerStats.deadHeroNumber++;
+        Destroy(effect, 5f);
+
+        Destroy(gameObject);
     }
+
+
+    //TODO: damage formula
+    public float CalculateHeroDamageOnEnemy(BaseEnemy enemy) {
+        bool isCrit = (Random.Range(0f, 1f) > (CritValue - enemy.CritResistanceValue));
+        bool isHit = (Random.Range(0f, 1f) > (ACCValue - enemy.DodgeValue));
+        bool isBlock = (Random.Range(0f, 1f) > (enemy.BlockValue));
+
+        if (!isHit) {
+            return 0;
+        }
+        float damage = ((ATKValue > enemy.PDEFValue)? ATKValue - enemy.PDEFValue:0) + ((MATKValue > enemy.MDEFValue)? (MATKValue - enemy.MDEFValue):0) * (isCrit ? (1.0f+CritDMGValue) : 1.0f) * (isBlock ? 1.0f : 0.5f);
+        return damage;
+    }
+
 
     void OnDrawGizmosSelected() {
         Gizmos.color = Color.red;

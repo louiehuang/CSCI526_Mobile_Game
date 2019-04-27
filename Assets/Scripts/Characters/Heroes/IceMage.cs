@@ -1,10 +1,15 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+
 
 /// <summary>
 /// Ice Mage
 /// Slow down the enemies and give them DOT
 /// </summary>
 public class IceMage : Mage {
+    public static IceMage instance;
+
+    private static readonly object padlock = new object();
 
     [Header("Ice Mage Fileds")]
     public float damageOverTime = 0f;
@@ -14,20 +19,41 @@ public class IceMage : Mage {
     public ParticleSystem impactEffect;
     public Light impactLight;
 
-    new void Start() {
-        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
-        SkillIsReady = true;
+    new void Start() {
+        if (instance == null)
+        {
+            lock (padlock)
+            {
+                if (instance == null)
+                {
+                    instance = new IceMage();
+                }
+            }
+        }
+
+        instance = this;
+
+        HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
+
+        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         LoadAttr();
 
-        //string json = JsonUtility.ToJson(ATK);
+        LoadSkill();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
         Debug.Log("In IceMage");
     }
 
+
     protected override void Update() {
+        //Skill
+        if (HasSkillUsed) {
+            SkillTimer += Time.deltaTime;
+            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+
         if (this.Target == null) { 
             if (lineRenderer.enabled) {
                 lineRenderer.enabled = false;
@@ -40,6 +66,11 @@ public class IceMage : Mage {
         LockOnTarget();
 
         Laser();
+    }
+
+
+    public override void ExSkill() {
+        Debug.Log("Ice Mage uses skill");
     }
 
 
@@ -61,6 +92,14 @@ public class IceMage : Mage {
         impactEffect.transform.position = this.Target.position + dir.normalized;
 
         impactEffect.transform.rotation = Quaternion.LookRotation(dir);
+    }
+
+
+    private void LoadSkill() {
+        SkillTimer = 0f;
+        SkillCooldownTime = IceMageConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.IceMageSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
     }
 
 

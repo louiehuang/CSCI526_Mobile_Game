@@ -3,7 +3,7 @@
 [Serializable]
 public static class FireMageConfig {
     //special attrs
-    public static float SkillCooldownTime = 5f;
+    public static float SkillCooldownTime = 10f;
     public static float Radius = 8f;  //explosion radius
 
     //level up related bonus (set in IceMageConfig)
@@ -12,7 +12,7 @@ public static class FireMageConfig {
     public static int Level = 1;
     public static float Range = 30f;
 
-    public static string CharacterName = "Fire";
+    public static string CharacterName = "FireMage";
     public static string CharacterDescription = "Default Fire Mage Description";
 
     public static float MaxHPValue = 100f;
@@ -28,8 +28,8 @@ public static class FireMageConfig {
 
     public static float PernetrationValue = 0f;
     public static float ACCValue = 1f;
-    public static float DodgeValue = 0f;
-    public static float BlockValue = 0f;
+    public static float DodgeValue = 0.05f;
+    public static float BlockValue = 0.05f;
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 2f;  // 2 attacks per second

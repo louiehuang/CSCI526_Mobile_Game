@@ -1,9 +1,13 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class BuildManager : MonoBehaviour {
 
     public static BuildManager instance;
-
+    public bool hasDraged = false;
+    public int buildHerosNumber = 0;
+    public List<GameObject> InstruList;
     void Awake() {
         if (instance != null) {
             Debug.LogError("More than one BuildManager in scene!");
@@ -12,42 +16,22 @@ public class BuildManager : MonoBehaviour {
         instance = this;
     }
 
+    void Start() {
+        StartCoroutine(closeInstruction());
+    }
+
     public GameObject buildEffect;
     public GameObject sellEffect;
 
-    private HeroBlueprint heroToBuild;
-    private Node selectedNode;
-
-    public NodeUI nodeUI;
-
-    public bool CanBuild { get { return heroToBuild != null; } }
-    public bool HasEnergy { get { return PlayerStats.Energy >= heroToBuild.cost; } }
-
-    public void SelectNode(Node node) {
-        if (selectedNode == node) {
-            DeselectNode();
-            return;
+    IEnumerator closeInstruction() {
+        while (buildHerosNumber == 0) {
+            yield return new WaitForSeconds(0.1f);
+        }
+        foreach(GameObject gameObject in InstruList) {
+            gameObject.SetActive(false);
         }
 
-        selectedNode = node;
-        heroToBuild = null;
-
-        nodeUI.SetTarget(node);
-    }
-
-    public void DeselectNode() {
-        selectedNode = null;
-        nodeUI.Hide();
-    }
-
-
-    public void SelectTurretToBuild(HeroBlueprint hero) {
-        heroToBuild = hero;
-        DeselectNode();
-    }
-
-    public HeroBlueprint GetTurretToBuild() {
-        return heroToBuild;
+        yield return null;
     }
 
 }

@@ -6,16 +6,21 @@ public class PlayerStats : MonoBehaviour {
     public static int Energy;
     public int startEnergy = 50;
 
+    public static int Money;
+    public int startMoney = 50;
+
     public static int Lives;
     public int startLives = 20;
 
     public static int Rounds;
+    public static int deadHeroNumber;
 
     void Start() {
         Energy = startEnergy;
         Lives = startLives;
 
         Rounds = 0;
+        deadHeroNumber = 0;
     }
 
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -6,30 +7,52 @@ using System.Collections;
 /// Archer.
 /// </summary>
 public class Archer : BaseHero {
-
+    public static Archer instance = null;
     public ArcherLeveling LevelManager;
+
+    private static readonly object padlock = new object();
 
     //Skill fields
     StatModifier ATKSpeedModifierBySkill;
 
     new void Start() {
+        if (instance == null) {
+            lock (padlock) {
+                if (instance == null) {
+                    instance = new Archer();
+                }
+            }
+        }
+
+        instance = this;
+
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
+
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
 
-        SkillIsReady = true;
+        HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
 
+        LoadSkill();
+
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In Knight");
     }
 
+
     protected override void Attack() {
+        if (HeroAnimator != null) {
+            HeroAnimator.SetBool("CanAttack", true);
+        }
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
         bullet.damage = 0.3f * ATKValue;
-
-        if (bullet != null)
-            bullet.Seek(Target);
+        bullet.ACC = ACCValue;
+        bullet.criticalDamage = CritDMGValue;
+        bullet.critical = CritValue;
+        if (bullet != null) {
+        	bullet.Seek(Target);
+        }
     }
 
 
@@ -43,12 +66,6 @@ public class Archer : BaseHero {
     }
 
 
-    public override IEnumerator SkillCooldown() {
-        yield return new WaitForSeconds(ArcherConfig.SkillCooldownTime);
-        SkillIsReady = true;
-    }
-
-
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(3f);
         Debug.Log("Attack Speed back to normal");
@@ -58,13 +75,19 @@ public class Archer : BaseHero {
     }
 
 
+    private void LoadSkill() {
+        ATKSpeedModifierBySkill = new StatModifier(ArcherConfig.ATKSpeedPercent, StatModType.PercentAdd);
+        SkillTimer = 0f;
+        SkillCooldownTime = ArcherConfig.SkillCooldownTime;
+        SkillCDImage = GameObject.Find(CommonConfig.ArcherSkillCDImage).GetComponent<Image>();
+        SkillCDImage.fillAmount = 0f;
+    }
+
+
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
         //special
         Range = new CharacterAttribute(ArcherConfig.Range);
-
-        //skill
-        ATKSpeedModifierBySkill = new StatModifier(ArcherConfig.ATKSpeedPercent, StatModType.PercentAdd);
 
         CharacterName = ArcherConfig.CharacterName;
         CharacterDescription = ArcherConfig.CharacterDescription;
@@ -91,5 +114,3 @@ public class Archer : BaseHero {
         attackRate = ATKSpeedValue;  //3 attacks per second
     }
 }
-
-
