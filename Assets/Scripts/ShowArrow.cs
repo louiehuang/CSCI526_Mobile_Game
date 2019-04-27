@@ -34,6 +34,6 @@ public class ShowArrow : MonoBehaviour {
 
         }
 
-        gameObject.active = !isHide;
+        gameObject.SetActive(!isHide);
     }
 }
