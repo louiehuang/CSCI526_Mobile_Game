@@ -9,6 +9,7 @@ public static class CommonConfig {
     public const string IceMage = "IceMage";
     public const string Priest = "Priest";
 
+    //CD Image Name
     public const string KnightSkillCDImage = "KnightSkillCDImage";
     public const string ArcherSkillCDImage = "ArcherSkillCDImage";
     public const string FireMageSkillCDImage = "FireMageSkillCDImage";

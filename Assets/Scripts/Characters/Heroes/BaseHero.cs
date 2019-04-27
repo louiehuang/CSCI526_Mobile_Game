@@ -43,7 +43,7 @@ public class BaseHero : BaseCharacter {
 
     // Default initialization
     void Start() {
-        heroCanvasPos = HeroCanvas.transform.eulerAngles;
+        heroCanvasPos = CharacterCanvas.transform.eulerAngles;
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
@@ -109,7 +109,7 @@ public class BaseHero : BaseCharacter {
         Vector3 rotation = Quaternion.Lerp(partToRotate.rotation, lookRotation, Time.deltaTime * turnSpeed).eulerAngles;
         partToRotate.rotation = Quaternion.Euler(0f, rotation.y, 0f);
 
-        HeroCanvas.transform.eulerAngles = heroCanvasPos;
+        CharacterCanvas.transform.eulerAngles = heroCanvasPos;
     }
 
 

@@ -56,7 +56,7 @@ public class BaseCharacter : MonoBehaviour {
 
 
     [Header("Unity Stuff")]
-    public Canvas HeroCanvas;
+    public Canvas CharacterCanvas;
     public Image HealthBarUI;
     public GameObject deathEffect;
 
