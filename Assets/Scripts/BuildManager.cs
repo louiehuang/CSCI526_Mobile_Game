@@ -25,10 +25,7 @@ public class BuildManager : MonoBehaviour {
 
     IEnumerator closeInstruction() {
         while (buildHerosNumber == 0) {
-
             yield return new WaitForSeconds(0.1f);
-
-
         }
         foreach(GameObject gameObject in InstruList) {
             gameObject.SetActive(false);
