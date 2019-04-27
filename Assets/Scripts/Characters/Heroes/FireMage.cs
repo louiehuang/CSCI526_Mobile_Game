@@ -15,6 +15,10 @@ public class FireMage : Mage {
     //use large range bulletPrefab, missile
     public float radius = 0f;
 
+    [Header("FireMage Fileds")]
+    public ParticleSystem particleEffect;
+    public ParticleSystem fireEffect;
+
     new void Start() {
         if (instance == null) {
             lock (padlock) {
@@ -33,6 +37,9 @@ public class FireMage : Mage {
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
+
+        particleEffect.Stop();
+        fireEffect.Stop();
 
         LoadSkill();
 
@@ -57,6 +64,13 @@ public class FireMage : Mage {
     public override void ExSkill() {
         //do damage on all enemies
         Debug.Log("Fire Mage do damage on all enemies");
+
+        if (HeroAnimator != null) {
+            HeroAnimator.SetBool("Skill", true);
+        }
+        particleEffect.Play();
+        fireEffect.Play();
+
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
         //Debug.Log("Number of enemies: " + enemies.Length);
         if (enemies != null && enemies.Length > 0) {
@@ -67,6 +81,16 @@ public class FireMage : Mage {
                 te.TakeDamage(amount);
             }
         }
+
+        StartCoroutine("SkillDuration");
+    }
+
+    IEnumerator SkillDuration() {
+        yield return new WaitForSeconds(3f);
+        Debug.Log("FireMage: Boom shakalaka = =");
+        particleEffect.Stop();
+        fireEffect.Stop();
+        HeroAnimator.SetBool("Skill", false);
     }
 
 
