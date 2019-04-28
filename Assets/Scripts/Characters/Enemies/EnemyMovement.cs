@@ -16,7 +16,7 @@ public class EnemyMovement : MonoBehaviour {
     private float attackRange;
 
     private string stopTag = "Knight";
-    private float stopRange = 5f;
+    private float stopRange = 8f;
     public float turnSpeed = 10f;
 
     void Start() {
