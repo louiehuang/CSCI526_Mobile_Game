@@ -38,6 +38,8 @@ public class QTESystem : MonoBehaviour {
     private int width;
     private int height;
 
+    public Image ProgressBarImage;
+
     private void Start() {
         width = Screen.width;
         height = Screen.height;
@@ -171,8 +173,11 @@ public class QTESystem : MonoBehaviour {
             if (hasButton1 && hasButton2 && hasButton3 && hasButton4 && hasButtonTime >= 0) {
                 hasButtonTime = times;
             }
+
             if (hasButtonTime - times >= waitTime) {
                 TriggerFail();
+            } else {
+                ProgressBarImage.fillAmount = 1 - (hasButtonTime - times) / waitTime;
             }
         }
     }
