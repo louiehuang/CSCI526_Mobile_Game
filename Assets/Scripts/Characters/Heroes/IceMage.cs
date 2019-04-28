@@ -93,7 +93,7 @@ public class IceMage : Mage {
         Debug.Log("IceMage: Show time :)");
         particleEffect.Stop();
         iceEffect.Stop();
-        HeroAnimator.SetBool("Skill", false);
+        animator.SetBool("Skill", false);
     }
 
 
