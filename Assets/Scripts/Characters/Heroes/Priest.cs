@@ -21,6 +21,8 @@ public class Priest : BaseHero {
     public BaseHero TargetHero { get; set; }
     protected Animator animator;
 
+    [Header("Priest Fileds")]
+    public ParticleSystem particleEffect;
 
     new void Start() {
         if (instance == null)
@@ -40,6 +42,8 @@ public class Priest : BaseHero {
 
         // Object.DontDestroyOnLoad(instance);
         LevelManager = new PriestLeveling(this, PriestConfig.Level);
+
+        particleEffect.Stop();
 
         animator = GetComponent<Animator>();
 
@@ -135,6 +139,8 @@ public class Priest : BaseHero {
         //heal heroes within a range
         float skillRange = 30f;
 
+        particleEffect.Play();
+
         GameObject[] heroes = GameObject.FindGameObjectsWithTag(heroTag);
         List<GameObject> heroesToHeal = new List<GameObject>();
         foreach (GameObject _hero in heroes) {
@@ -158,6 +164,14 @@ public class Priest : BaseHero {
                 Heal(_hero.GetComponent<BaseHero>());
             }
         }
+
+        StartCoroutine("SkillDuration");
+    }
+
+    IEnumerator SkillDuration()
+    {
+        yield return new WaitForSeconds(7f);
+        particleEffect.Stop();
     }
 
 
