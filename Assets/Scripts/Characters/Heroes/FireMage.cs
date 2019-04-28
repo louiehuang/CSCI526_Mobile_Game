@@ -43,7 +43,7 @@ public class FireMage : Mage {
         }
 
         HeroAnimator = GetComponent<Animator>();
-
+        Debug.Log(HeroAnimator);
         LoadAttr();
 
         particleEffect.Stop();

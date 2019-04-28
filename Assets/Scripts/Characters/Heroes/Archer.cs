@@ -44,7 +44,7 @@ public class Archer : BaseHero {
         }
         LoadAttr();
         HeroAnimator = GetComponent<Animator>();
-          
+        Debug.Log(HeroAnimator);
         particleEffect.Stop();
         arrowEffect.Stop();
         LoadSkill();
