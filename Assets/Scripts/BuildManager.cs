@@ -17,7 +17,10 @@ public class BuildManager : MonoBehaviour {
     }
 
     void Start() {
-        StartCoroutine(closeInstruction());
+        if(InstruList.Count != 0) {
+            StartCoroutine(closeInstruction());
+        }
+
     }
 
     public GameObject buildEffect;
@@ -27,11 +30,13 @@ public class BuildManager : MonoBehaviour {
         while (buildHerosNumber == 0) {
             yield return new WaitForSeconds(0.1f);
         }
-        foreach(GameObject gameObject in InstruList) {
+
+        foreach (GameObject gameObject in InstruList) {
+            if (gameObject == null) continue;
             gameObject.SetActive(false);
         }
-
         yield return null;
+
     }
 
 }
