@@ -25,23 +25,30 @@ public class IceMage : Mage {
     protected Animator animator;
 
 
-    new void Start() {
+    private IceMage getInstance()
+    {
+        if(instance == null)
+        {
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
+            LevelManager = new MageLeveling(this, IceMageConfig.Level);
+        }
+        return instance;
+    }
+
+
+     void Start() {
         if (instance == null)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new IceMage();
+                    getInstance();
                 }
             }
         }
-
-        instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
-
-        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         animator = GetComponent<Animator>();
 

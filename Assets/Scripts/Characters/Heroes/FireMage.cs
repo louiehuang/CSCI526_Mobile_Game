@@ -20,20 +20,27 @@ public class FireMage : Mage {
     public ParticleSystem particleEffect;
     public ParticleSystem fireEffect;
 
-    new void Start() {
+
+    private FireMage getInstance()
+    {
+        if (instance == null)
+        {
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.FireMage);
+            LevelManager = new MageLeveling(this, FireMageConfig.Level);
+        }
+        return instance;
+    }
+
+    void Start() {
         if (instance == null) {
             lock (padlock) {
                 if (instance == null) {
-                    instance = new FireMage();
+                    getInstance();
                 }
             }
         }
-
-        instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.FireMage);
-
-        LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         HeroAnimator = GetComponent<Animator>();
 

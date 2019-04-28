@@ -16,7 +16,7 @@ public class Knight : BaseHero {
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
 
-    new void Start() {
+     void Start() {
         if (instance == null)
         {
             lock (padlock)
@@ -30,7 +30,6 @@ public class Knight : BaseHero {
 
                     LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
-                    HeroAnimator = GetComponent<Animator>();
                 }
             }
         }
@@ -41,19 +40,15 @@ public class Knight : BaseHero {
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
 
-        /* instance = this;
+        LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
-         HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
+        HeroAnimator = GetComponent<Animator>();
 
-         LevelManager = new KnightLeveling(this, KnightConfig.Level);
+        LoadAttr();
 
-         HeroAnimator = GetComponent<Animator>();
+        LoadSkill();
 
-         LoadAttr();
-
-         LoadSkill();
-
-         InvokeRepeating("UpdateTarget", 0f, 0.5f);*/
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
 

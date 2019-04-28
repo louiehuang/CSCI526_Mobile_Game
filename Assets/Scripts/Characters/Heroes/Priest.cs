@@ -21,25 +21,33 @@ public class Priest : BaseHero {
     public BaseHero TargetHero { get; set; }
     protected Animator animator;
 
+    private Priest getInstance(){
 
-    new void Start() {
+        if (instance == null){
+
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
+
+            LevelManager = new PriestLeveling(this, PriestConfig.Level);
+
+        }
+        return instance;
+    }
+
+    void Start() {
         if (instance == null)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new Priest();
+                    getInstance();
                 }
             }
         }
 
         instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
-
-        // Object.DontDestroyOnLoad(instance);
-        LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
         animator = GetComponent<Animator>();
 

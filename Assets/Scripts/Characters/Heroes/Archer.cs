@@ -30,18 +30,14 @@ public class Archer : BaseHero {
 
             LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
 
-            LoadAttr();
         }
         return instance;
     }
 
-    new void Start() {
+     void Start() {
         if (instance == null) {
             lock (padlock) {
                 if (instance == null) {
-                    //instance = new Archer();
-                    instance = this;
-
                     getInstance();
                 }
             }
@@ -52,7 +48,6 @@ public class Archer : BaseHero {
           
         particleEffect.Stop();
         arrowEffect.Stop();
-        LoadAttr();
         LoadSkill();
 
           InvokeRepeating("UpdateTarget", 0f, 0.5f);
