@@ -35,7 +35,7 @@ public class Equipment : Item {
     public string path = "Assets/Icons/Equipments/Blank.jpg";
 
     public bool isUsed = false;
-    public BaseHero hero = null;
+    public string hero = null;
     public EquipmentType EquipmentType = EquipmentType.Armor;
     public int value = 100;
     public string ename = "armor";
@@ -43,7 +43,7 @@ public class Equipment : Item {
 
     public void Equip(BaseHero hero)
     {
-        bool hasEquipped = false;
+        /*bool hasEquipped = false;
         Equipment temp = null;
         foreach (Equipment e in EquipmentManager.instance.getHeroEquipment(hero))
         {
@@ -57,7 +57,7 @@ public class Equipment : Item {
         if (hasEquipped)
         {
             temp.Unequip(hero);
-        }
+        }*/
         if(EquipmentType == EquipmentType.Helmet)
         {
             hero.PDEF.AddModifier(new StatModifier(PDEF, StatModType.Flat));
@@ -110,16 +110,44 @@ public class Equipment : Item {
                 hero.CritDMG.AddModifier(new StatModifier(CritDMG, StatModType.PercentAdd, this));
             }
         }
+    }
+
+    public void AddEquipToHero(string hero){
+        bool hasEquipped = false;
+        Equipment temp = null;
+        foreach (Equipment e in EquipmentManager.instance.getHeroEquipment(hero))
+        {
+            if (e.EquipmentType == this.EquipmentType)
+            {
+                hasEquipped = true;
+                temp = e;
+                break;
+            }
+        }
+        if (hasEquipped)
+        {
+            temp.RemoveEquipmentFromHero(hero);
+        }
+
         List<Equipment> list = EquipmentManager.instance.getHeroEquipment(hero);
         this.hero = hero;
-        Debug.Log(hero);
         list.Add(this);
         list = EquipmentManager.instance.getUnequippedEquipment(this.EquipmentType);
         list.Remove(this);
         isUsed = true;
     }
 
-    public void Unequip(BaseHero hero)
+    public void RemoveEquipmentFromHero(string hero)
+    {
+        List<Equipment> temp = EquipmentManager.instance.getHeroEquipment(hero);
+        temp.Remove(this);
+        this.hero = null;
+        isUsed = false;
+        temp = EquipmentManager.instance.getUnequippedEquipment(this.EquipmentType);
+        temp.Add(this);
+    }
+
+  /*  public void Unequip(BaseHero hero)
     {
         hero.ATK.RemoveAllModifiersFromSource(this);
         hero.Crit.RemoveAllModifiersFromSource(this);
@@ -132,13 +160,8 @@ public class Equipment : Item {
         hero.MaxHP.RemoveAllModifiersFromSource(this);
         hero.PDEF.RemoveAllModifiersFromSource(this);
         hero.MDEF.RemoveAllModifiersFromSource(this);
-        List<Equipment> temp = EquipmentManager.instance.getHeroEquipment(hero);
-        temp.Remove(this);
-        this.hero = null;
-        isUsed = false;
-        temp = EquipmentManager.instance.getUnequippedEquipment(this.EquipmentType);
-        temp.Add(this);
-    }
+      
+    }*/
 
     public void Destroy()
     {

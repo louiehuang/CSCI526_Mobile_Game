@@ -25,7 +25,7 @@ public class BaseHero : BaseCharacter {
     public Transform partToRotate;
     public float turnSpeed = 10f;
     public Transform firePoint;
-
+    public string HeroType;
     // Skill CD
     public Image SkillCDImage;
     public float SkillTimer = 0f;

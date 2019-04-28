@@ -15,7 +15,7 @@ public class UnEquipmentNode : MonoBehaviour
     public Text SecondAttribute;
     public Text Type;
     public Image image;
-    private BaseHero hero;
+    private string hero = null;
     public int index;
     public List<GameObject> tempList;
 
@@ -27,10 +27,14 @@ public class UnEquipmentNode : MonoBehaviour
     public void equip()
     {
         GameObject cubeF = GameObject.Find("HasEquipmentNode");
+        if (hero == null)
+        {
+            return;
+        }
         HasEquipmentNode t = cubeF.GetComponent<HasEquipmentNode>();
         if (cubeF == null) return;
         Equipment temp = t.equipment;
-        equipment.Equip(hero);
+        equipment.AddEquipToHero(hero);
         t.set(equipment, equipment.EquipmentType);
         if(temp == null)
         {
@@ -92,7 +96,7 @@ public class UnEquipmentNode : MonoBehaviour
 
     private void showText()
     {
-        image.sprite = LoadTexture2Sprite(equipment.path);
+        image.sprite = setSprite(equipment.path);
         Type.text = "type:" + equipment.EquipmentType.ToString();
         euipmentName.text = "name:" + equipment.ename;
         value.text = "value:" + equipment.value.ToString();
@@ -153,26 +157,16 @@ public class UnEquipmentNode : MonoBehaviour
         ui.SetActive(false);
     }
 
-    public void setHero(BaseHero h)
+    public void setHero(string h)
     {
         hero = h;
     }
 
 
-    private static byte[] getImageByte(string imagePath)
+    public Sprite setSprite(string text)
     {
-        FileStream files = new FileStream(imagePath, FileMode.Open);
-        byte[] imgByte = new byte[files.Length];
-        files.Read(imgByte, 0, imgByte.Length);
-        files.Close();
-        return imgByte;
-    }
-
-    private Sprite LoadTexture2Sprite(string imagePath)
-    {
-        Texture2D t2d = new Texture2D(1920, 1080);
-        t2d.LoadImage(getImageByte(imagePath));
-        Sprite sprite = Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);
-        return sprite;
+        Texture2D aa = (Texture2D)Resources.Load(text) as Texture2D;
+        Sprite kk = Sprite.Create(aa, new Rect(0, 0, aa.width, aa.height), new Vector2(0.5f, 0.5f));
+        return kk;
     }
 }

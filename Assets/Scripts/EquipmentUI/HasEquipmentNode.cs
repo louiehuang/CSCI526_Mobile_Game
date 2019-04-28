@@ -19,13 +19,13 @@ public class HasEquipmentNode : MonoBehaviour
     public List<GameObject> temp;
     private bool hasClick;
     public GameObject prefab;
-    public BaseHero hero;
+    public string hero;
     private Vector3 prev;
     private Vector3 cur;
     GameObject scroller;
     ScrollViewManager manager;
 
-    private string NoneString = "/Users/chenyuanhai/Desktop/526ICON/Blank.jpg";
+    private string NoneString = "Blank";
 
     private void Awake()
     {
@@ -150,7 +150,7 @@ public class HasEquipmentNode : MonoBehaviour
         }
         if (equipment.isUsed)
         {
-            equipment.Unequip(equipment.hero);
+            equipment.RemoveEquipmentFromHero(equipment.hero);
             equipment.isUsed = false;
             if (equipment.EquipmentType == EquipmentType.Helmet)
             {
@@ -273,14 +273,14 @@ public class HasEquipmentNode : MonoBehaviour
             equipment = null;
             forNull = type;
             showText(null, type);
-            image.sprite = LoadTexture2Sprite(NoneString);
+            image.sprite = setSprite(NoneString);
         }
         else
         {
             forNull = e.EquipmentType;
             equipment = e;
             showText(e, type);
-            image.sprite = LoadTexture2Sprite(e.path);
+            image.sprite = setSprite(e.path);
         }
         ui.SetActive(true);
     }
@@ -292,7 +292,7 @@ public class HasEquipmentNode : MonoBehaviour
             euipmentName.text = "name:"+e.ename;
             TypeName.text = "type:"+e.EquipmentType.ToString();
             value.text = "value:" + equipment.value.ToString();
-            image.sprite = LoadTexture2Sprite(e.path);
+            image.sprite = setSprite(e.path);
             if (type == EquipmentType.Helmet)
             {
                 PDEF.text = "PDEF:"+ equipment.PDEF;
@@ -436,22 +436,22 @@ public class HasEquipmentNode : MonoBehaviour
 
     private void addHero()
     {
-        if(hero == EquipmentManager.instance.knight)
+        if(hero == CommonConfig.Knight)
         {
             GameObject tt = GameObject.Find("Knight1");
             tt.transform.position = new Vector3(150f, 320f, 0f);
         }
-        else if (hero == EquipmentManager.instance.archer)
+        else if (hero == CommonConfig.Archer)
         {
             GameObject tt = GameObject.Find("Archer1");
             tt.transform.position = new Vector3(150f, 320f, 0f);
         }
-        else if (hero == EquipmentManager.instance.iceMage)
+        else if (hero == CommonConfig.IceMage)
         {
             GameObject tt = GameObject.Find("IceMage1");
             tt.transform.position = new Vector3(150f, 320f, 0f);
         }
-        else if (hero == EquipmentManager.instance.fireMage)
+        else if (hero == CommonConfig.FireMage)
         {
             GameObject tt = GameObject.Find("FireMage1");
             tt.transform.position = new Vector3(150f, 320f, 0f);
@@ -478,20 +478,10 @@ public class HasEquipmentNode : MonoBehaviour
     }
 
 
-    private static byte[] getImageByte(string imagePath)
+    public Sprite setSprite(string text)
     {
-        FileStream files = new FileStream(imagePath, FileMode.Open);
-        byte[] imgByte = new byte[files.Length];
-        files.Read(imgByte, 0, imgByte.Length);
-        files.Close();
-        return imgByte;
-    }
-
-    private Sprite LoadTexture2Sprite(string imagePath)
-    {
-        Texture2D t2d = new Texture2D(1920, 1080);
-        t2d.LoadImage(getImageByte(imagePath));
-        Sprite sprite = Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);
-        return sprite;
+        Texture2D aa = (Texture2D)Resources.Load(text) as Texture2D;
+        Sprite kk = Sprite.Create(aa, new Rect(0, 0, aa.width, aa.height), new Vector2(0.5f, 0.5f));
+        return kk;
     }
 }

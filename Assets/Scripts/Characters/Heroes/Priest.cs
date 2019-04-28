@@ -171,6 +171,7 @@ public class Priest : BaseHero {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        HeroType = CommonConfig.Priest;
         CharacterName = PriestConfig.CharacterName;
         CharacterDescription = PriestConfig.CharacterDescription;
 
@@ -196,6 +197,12 @@ public class Priest : BaseHero {
 
         //special
         Range = new CharacterAttribute(PriestConfig.Range);
+
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Priest];
+        foreach (Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }
 

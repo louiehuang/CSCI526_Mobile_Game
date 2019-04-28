@@ -25,13 +25,13 @@ public static class KnightConfig {
     public static string CharacterName = "Loman";
     public static string CharacterDescription = "A descendant of Loman’s family, who has been gatekeeping the Orvelia for generations.";
 
-    public static float MaxHPValue = 500f;
+    public static float MaxHPValue = 450f;
 
     public static float ATKValue = 10f;
     public static float MATKValue = 10f;
 
-    public static float PDEFValue = 25f;
-    public static float MDEFValue = 25f;
+    public static float PDEFValue = 13f;
+    public static float MDEFValue = 13f;
 
     public static float CritValue = 0.1f;
     public static float CritDMGValue = 0.2f;

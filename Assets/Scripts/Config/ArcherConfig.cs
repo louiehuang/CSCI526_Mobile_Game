@@ -17,15 +17,15 @@ public static class ArcherConfig {
 
     //common base value
     public static int Level = 1;
-    public static float Range = 35f;
+    public static float Range = 30f;
 
-    public static string CharacterName = "Loman";
+    public static string CharacterName = "GT";
     public static string CharacterDescription = "A descendant of Loman’s family, who has been gatekeeping the Orvelia for generations.";
 
     public static float MaxHPValue = 120f;
 
-    public static float ATKValue = 28f;
-    public static float MATKValue = 12f;
+    public static float ATKValue = 40f;
+    public static float MATKValue = 0f;
 
     public static float PDEFValue = 10f;
     public static float MDEFValue = 10f;

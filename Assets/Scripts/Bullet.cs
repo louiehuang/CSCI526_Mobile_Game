@@ -84,14 +84,14 @@ public class Bullet : MonoBehaviour {
     private float calculateDamage(BaseCharacter e)
     {
         bool isCrit = (Random.Range(0f, 1f) > (critical - e.CritResistanceValue));
-        bool isHit = (Random.Range(0f, 1f) > (ACC - e.DodgeValue));
+        bool isHit = (Random.Range(0f, 1f) < (ACC - e.DodgeValue));
         bool isBlock = (Random.Range(0f, 1f) > (e.BlockValue));
 
         if (!isHit)
         {
             return 0;
         }
-        float res = ((ATK > e.PDEFValue) ? ATK - e.PDEFValue : 5f) + ((MATK > e.MDEFValue) ? (MATK - e.MDEFValue) : 5f) * (isCrit ? (1.0f + criticalDamage) : 1.0f) * (isBlock ? 1.0f : 0.5f);
+        float res = ((ATK > e.PDEFValue) ? ATK - e.PDEFValue : 3f) + ((MATK > e.MDEFValue) ? (MATK - e.MDEFValue) : 3f) * (isCrit ? (1.0f + criticalDamage) : 1.0f) * (isBlock ? 1.0f : 0.5f);
         return res;
     }
 }

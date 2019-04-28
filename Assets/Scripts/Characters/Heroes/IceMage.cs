@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+using System.Collections.Generic;
 
 /// <summary>
 /// Ice Mage
@@ -129,6 +130,7 @@ public class IceMage : Mage {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        HeroType = CommonConfig.IceMage;
         CharacterName = IceMageConfig.CharacterName;
         CharacterDescription = IceMageConfig.CharacterDescription;
 
@@ -156,5 +158,11 @@ public class IceMage : Mage {
         damageOverTime = 0.75f * MATKValue;
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
+
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
+        foreach (Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }

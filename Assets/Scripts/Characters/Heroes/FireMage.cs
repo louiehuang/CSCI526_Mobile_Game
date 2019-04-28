@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 
 /// <summary>
@@ -54,8 +55,11 @@ public class FireMage : Mage {
 
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.damage = 0.5f * MATKValue;
-
+        bullet.ATK = ATKValue;
+        bullet.MATK = MATKValue;
+        bullet.critical = CritValue;
+        bullet.criticalDamage = CritDMGValue;
+        bullet.ACC = ACCValue;
         if (bullet != null)
             bullet.Seek(Target);
     }
@@ -104,6 +108,7 @@ public class FireMage : Mage {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        HeroType = CommonConfig.FireMage;
         CharacterName = FireMageConfig.CharacterName;
         CharacterDescription = FireMageConfig.CharacterDescription;
 
@@ -131,6 +136,12 @@ public class FireMage : Mage {
         //special
         Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
+
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.FireMage];
+        foreach (Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }
 

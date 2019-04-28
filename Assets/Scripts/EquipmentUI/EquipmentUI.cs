@@ -14,7 +14,7 @@ public class EquipmentUI : MonoBehaviour
     public SingleEquipment pants;
     public SingleEquipment shoes;
     public GameObject Scroller;
-    public BaseHero initialHero;
+    public string initialHero;
     private bool[] hasEquipment;
     private Vector3 fixedPosition;
     private Vector3 outposition;
@@ -30,7 +30,7 @@ public class EquipmentUI : MonoBehaviour
 
    void Start()
     {
-        initialHero = EquipmentManager.instance.knight;
+        initialHero = CommonConfig.Knight;
         hasEquipment = new bool[6];
         ui.SetActive(true);
         GetHeroEquiments(initialHero);
@@ -86,7 +86,7 @@ public class EquipmentUI : MonoBehaviour
 
     }
 
-    public void GetHeroEquiments(BaseHero hero)
+    public void GetHeroEquiments(string hero)
     {
         equipments = EquipmentManager.instance.getHeroEquipment(hero);
     }
@@ -103,7 +103,7 @@ public class EquipmentUI : MonoBehaviour
 
     public void changeKnight()
     {
-        changeHero(EquipmentManager.instance.knight);
+        changeHero(CommonConfig.Knight);
         GameObject t = GameObject.Find("Knight1");
         weapon.type = EquipmentType.Sword;
         prev.transform.position = outposition;
@@ -113,7 +113,7 @@ public class EquipmentUI : MonoBehaviour
 
     public void changeArcher()
     {
-        changeHero(EquipmentManager.instance.archer);
+        changeHero(CommonConfig.Archer);
         GameObject t = GameObject.Find("Archer1");
         weapon.type = EquipmentType.Bow;
         prev.transform.position = outposition;
@@ -123,7 +123,7 @@ public class EquipmentUI : MonoBehaviour
 
     public void changeIceMage()
     {
-        changeHero(EquipmentManager.instance.iceMage);
+        changeHero(CommonConfig.IceMage);
         GameObject t = GameObject.Find("IceMage1");
         weapon.type = EquipmentType.Staff;
         prev.transform.position = outposition;
@@ -133,7 +133,7 @@ public class EquipmentUI : MonoBehaviour
 
     public void changeFireMage()
     {
-        changeHero(EquipmentManager.instance.fireMage);
+        changeHero(CommonConfig.FireMage);
         GameObject t = GameObject.Find("FireMage1");
         weapon.type = EquipmentType.Staff;
         prev.transform.position = outposition;
@@ -143,7 +143,7 @@ public class EquipmentUI : MonoBehaviour
 
     public void changePreist()
     {   
-        changeHero(EquipmentManager.instance.priest);
+        changeHero(CommonConfig.Priest);
         GameObject t = GameObject.Find("Priest1");
         weapon.type = EquipmentType.Staff;
         prev.transform.position = outposition;
@@ -151,7 +151,7 @@ public class EquipmentUI : MonoBehaviour
         prev = t;
     }
 
-    public void changeHero(BaseHero hero)
+    public void changeHero(string hero)
     {
         EquipmentManager.instance.nodeUI1.hero = hero;
         GetHeroEquiments(hero);
@@ -224,10 +224,6 @@ public class EquipmentUI : MonoBehaviour
             else
             {   
                 weapon.setEquipment(equipments[i]);
-              /*  if(equipments[i].EquipmentType == EquipmentType.Sword)
-                {
-
-                }*/
                 hasEquipment[2] = true;
             }
         }
