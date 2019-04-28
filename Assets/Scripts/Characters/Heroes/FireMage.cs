@@ -9,9 +9,6 @@ using System.Collections.Generic;
 /// Feature: range attack
 /// </summary>
 public class FireMage : Mage {
-    public static FireMage instance;
-
-    private static readonly object padlock = new object();
 
     //use large range bulletPrefab, missile
     public float radius = 0f;
@@ -21,26 +18,9 @@ public class FireMage : Mage {
     public ParticleSystem fireEffect;
 
 
-    private FireMage getInstance()
-    {
-        if (instance == null)
-        {
-            instance = this;
-
-            HeroPool.GetInstance().SetHero(this, CommonConfig.FireMage);
-            LevelManager = new MageLeveling(this, FireMageConfig.Level);
-        }
-        return instance;
-    }
-
     void Start() {
-        if (instance == null) {
-            lock (padlock) {
-                if (instance == null) {
-                    getInstance();
-                }
-            }
-        }
+        HeroPool.GetInstance().SetHero(this, CommonConfig.FireMage);
+        LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         HeroAnimator = GetComponent<Animator>();
         Debug.Log(HeroAnimator);
@@ -79,7 +59,6 @@ public class FireMage : Mage {
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
-        PlayerStats.Energy -= energyCostBySkill;
         particleEffect.Play();
         fireEffect.Play();
 
@@ -145,7 +124,7 @@ public class FireMage : Mage {
         Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
         energyCostBySkill = FireMageConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.FireMage];
+        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.FireMage);
         foreach (Equipment equip in equipments)
         {
             equip.Equip(this);

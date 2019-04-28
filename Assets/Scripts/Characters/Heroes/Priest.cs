@@ -7,12 +7,10 @@ using System.Collections;
 /// Priest.
 /// </summary>
 public class Priest : BaseHero {
-    public static Priest instance;
     public PriestLeveling LevelManager;
     private float healCountdown = 0f;
     public string knightTag = "Knight";
 
-    private static readonly object padlock = new object();
 
     private Transform targetHeroTransform;
     //public Transform Target { get; set; }
@@ -24,33 +22,12 @@ public class Priest : BaseHero {
     [Header("Priest Fileds")]
     public ParticleSystem particleEffect;
 
-    private Priest getInstance(){
-        if (instance == null){
-
-            instance = this;
-
-            HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
-
-            LevelManager = new PriestLeveling(this, PriestConfig.Level);
-
-        }
-        return instance;
-    }
 
     void Start() {
-        if (instance == null)
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    getInstance();
-                }
-            }
-        }
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
 
+        LevelManager = new PriestLeveling(this, PriestConfig.Level);
 
-    
         animator = GetComponent<Animator>();
 
         LoadAttr();
@@ -234,7 +211,7 @@ public class Priest : BaseHero {
         //special
         Range = new CharacterAttribute(PriestConfig.Range);
         energyCostBySkill = PriestConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Priest];
+        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.Priest);
         foreach (Equipment equip in equipments)
         {
             equip.Equip(this);

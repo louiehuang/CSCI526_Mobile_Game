@@ -9,9 +9,7 @@ using System.Collections.Generic;
 /// Slow down the enemies and give them DOT
 /// </summary>
 public class IceMage : Mage {
-    public static IceMage instance;
 
-    private static readonly object padlock = new object();
 
     [Header("Ice Mage Fileds")]
     public float damageOverTime = 0f;
@@ -25,30 +23,10 @@ public class IceMage : Mage {
     protected Animator animator;
 
 
-    private IceMage getInstance()
-    {
-        if(instance == null)
-        {
-            instance = this;
-
-            HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
-            LevelManager = new MageLeveling(this, IceMageConfig.Level);
-        }
-        return instance;
-    }
-
 
      void Start() {
-        if (instance == null)
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    getInstance();
-                }
-            }
-        }
+        HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
+        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         animator = GetComponent<Animator>();
 
@@ -183,7 +161,7 @@ public class IceMage : Mage {
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
         energyCostBySkill = IceMageConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
+        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.IceMage);
         foreach (Equipment equip in equipments)
         {
             equip.Equip(this);

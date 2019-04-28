@@ -37,41 +37,9 @@ public class EquipmentManager : MonoBehaviour
             return;
         }
         instance = this;
-        //Object.DontDestroyOnLoad(instance);
-        /*if (GameObject.Find("/CheckResult") != null)
-        {
-            CalculateAfterGame();
-            return;
-        }*/
-      /*  fixedPosition = new Vector3(150f, 323f, 0f);
-        if(knight != null)
-        {
-            knight.transform.position = fixedPosition;
-        }
-        else
-        {
-            knight = new Knight();
-            iceMage = new IceMage();
-            fireMage = new FireMage();
-            archer = new Archer();
-            priest = new Priest();
-            EquipmentStorage.getEquippped()[knight] = new List<Equipment>();
-            EquipmentStorage.getEquippped()[iceMage] = new List<Equipment>();
-            EquipmentStorage.getEquippped()[fireMage] = new List<Equipment>();
-            EquipmentStorage.getEquippped()[archer] = new List<Equipment>();
-            EquipmentStorage.getEquippped()[priest] = new List<Equipment>();
-        }*/
+
         generator = new EquipGenerator();
 
-        /*unEquipped[EquipmentType.Sword] = new List<Equipment>();
-        unEquipped[EquipmentType.Shield] = new List<Equipment>();
-        unEquipped[EquipmentType.Staff] = new List<Equipment>();
-        unEquipped[EquipmentType.Bow] = new List<Equipment>();
-        unEquipped[EquipmentType.Helmet] = new List<Equipment>();
-        unEquipped[EquipmentType.Armor] = new List<Equipment>();
-        unEquipped[EquipmentType.Gloves] = new List<Equipment>();
-        unEquipped[EquipmentType.Pants] = new List<Equipment>();
-        unEquipped[EquipmentType.Shoes] = new List<Equipment>();*/
         if (nodeUI != null)
         {
             nodeUI.ui.SetActive(false);
@@ -133,13 +101,6 @@ public class EquipmentManager : MonoBehaviour
         nodeUI.Set(p);
     }
 
-   /* private void addEquipment(List<Equipment> equipments)
-    {
-        for (int i = 0; i < equipments.Count; i++)
-        {
-            unEquipped[equipments[i].EquipmentType].Add(equipments[i]);
-        }
-    }*/
 
     public void CalculateAfterGame()
     {
@@ -187,22 +148,21 @@ public class EquipmentManager : MonoBehaviour
             Debug.Log(k);
             Debug.Log(EquipmentStorage.getUnEquippped()[k].Count);
         }
-        //addEquipment(list);
-       // Destroy(tempG);
+
         for(int i = 0;i < numEquipment; i++)
         {
             tempG = GameObject.Find("CheckResult").transform.GetChild(1).GetChild(0).GetChild(0).GetChild(0);
             GameObject temp1 = (GameObject)Instantiate(cubeF, transform.position, transform.rotation);
             UnEquipmentNode newEquipment = temp1.GetComponent<UnEquipmentNode>();
             temp1.transform.SetParent(tempG.transform);
-            temp1.transform.localScale = new Vector3(0.5f, 0.5f, 0.3f);
+            temp1.transform.localScale = new Vector3(1.0f, 1.0f, 0.3f);
             if (i % 2 == 0)
             {
-                newEquipment.transform.position = new Vector3(231, -50 - 170 * (i / 2), 0f);
+                newEquipment.transform.position = new Vector3(300, -170 - 1000 * (i / 2), 0f);
             }
             else
             {
-                newEquipment.transform.position = new Vector3(231 + 400, -50 - 170 * (i / 2), 0f);
+                newEquipment.transform.position = new Vector3(300 + 600, -170 - 1000 * (i / 2), 0f);
             }
             newEquipment.Set(list[i]);
         }

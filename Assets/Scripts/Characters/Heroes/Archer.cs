@@ -8,10 +8,8 @@ using System.Collections.Generic;
 /// Archer.
 /// </summary>
 public class Archer : BaseHero {
-    private static Archer instance = null;
     public ArcherLeveling LevelManager;
 
-    private static readonly object padlock = new object();
 
     //Skill fields
     StatModifier ATKSpeedModifierBySkill;
@@ -20,28 +18,11 @@ public class Archer : BaseHero {
     public ParticleSystem particleEffect;
     public ParticleSystem arrowEffect;
 
-    private Archer getInstance()
-    {   
-        if(instance == null)
-        {
-            instance = this;
-
-            HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
-
-            LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
-
-        }
-        return instance;
-    }
 
      void Start() {
-        if (instance == null) {
-            lock (padlock) {
-                if (instance == null) {
-                    getInstance();
-                }
-            }
-        }
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
+
+        LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
         LoadAttr();
         HeroAnimator = GetComponent<Animator>();
         Debug.Log(HeroAnimator);
@@ -135,7 +116,7 @@ public class Archer : BaseHero {
         ATKSpeed = new CharacterAttribute(ArcherConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
         energyCostBySkill = ArcherConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Archer];
+        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.Archer);
         foreach(Equipment equip in equipments)
         {
             equip.Equip(this);

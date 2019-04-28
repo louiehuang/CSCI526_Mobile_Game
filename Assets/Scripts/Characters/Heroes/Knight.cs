@@ -5,10 +5,8 @@ using System.Collections.Generic;
 
 
 public class Knight : BaseHero {
-    public static Knight instance;
     public KnightLeveling LevelManager;
 
-    private static readonly object padlock = new object();
 
     //Skill fields
     StatModifier PDEFModifierBySkill;
@@ -20,22 +18,9 @@ public class Knight : BaseHero {
     public ParticleSystem particleEffect;
 
      void Start() {
-        if (instance == null)
-        {
-            lock (padlock)
-            {
-                if (instance == null)
-                {
-                    //instance = new Knight();
-                    instance = this;
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
 
-                    HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
-
-                    LevelManager = new KnightLeveling(this, KnightConfig.Level);
-
-                }
-            }
-        }
+        LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         HeroAnimator = GetComponent<Animator>();
 
@@ -131,7 +116,7 @@ public class Knight : BaseHero {
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
         energyCostBySkill = KnightConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
+        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight);
         foreach (Equipment equip in equipments)
         {
             Debug.Log(equip);
