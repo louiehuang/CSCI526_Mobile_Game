@@ -34,14 +34,6 @@ public class Knight : BaseHero {
             }
         }
 
-        LoadAttr();
-
-        LoadSkill();
-
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
-
-        LevelManager = new KnightLeveling(this, KnightConfig.Level);
-
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
