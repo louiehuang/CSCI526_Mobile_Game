@@ -1,21 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 public class ShowArrow : MonoBehaviour {
-    public Sprite img1;
-    public Sprite img2;
-    public Sprite img3;
-    private Sprite[] imgs;
+    public List<Sprite> imgs;
     Image curImg;
     public int FlashCount;
     public bool IsHead;
 
     BuildManager buildManager;
     void Start() {
-        imgs = new Sprite[3];
-        imgs[0] = img1;
-        imgs[1] = img2;
-        imgs[2] = img3;
+
         buildManager = BuildManager.instance;
         curImg = gameObject.GetComponent<Image>();
         StartCoroutine(ImageFlash(FlashCount, IsHead));
