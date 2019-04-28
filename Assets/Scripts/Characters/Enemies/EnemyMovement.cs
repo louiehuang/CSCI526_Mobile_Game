@@ -23,7 +23,7 @@ public class EnemyMovement : MonoBehaviour {
         enemy = GetComponent<BaseEnemy>();
 
         this.attackTag = enemy.enemyTag;
-        this.attackRange = enemy.range;
+        this.attackRange = enemy.RangeValue;
 
         Animation anim = GetComponent<Animation>();
         if(anim != null)

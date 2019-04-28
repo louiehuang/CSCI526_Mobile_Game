@@ -25,5 +25,6 @@ public static class EnermyUsingBulletConfig
     public static float BlockValue = 0.02f;
     public static float CritResistanceValue = 0.02f;
 
+
     public static float ATKSpeedValue = 0.8f;  // 0.8 attack per second
 }

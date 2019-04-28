@@ -4,7 +4,7 @@
 public static class TripodonteBullet
 {
     //common base value
-    public static float Range = 20f;
+    public static float Range = 35f;
 
     public static string CharacterName = "Enermy";
 
@@ -25,5 +25,5 @@ public static class TripodonteBullet
     public static float BlockValue = 0.02f;
     public static float CritResistanceValue = 0.02f;
 
-    public static float ATKSpeedValue = 0.5f;  // 0.8 attack per second
+    public static float ATKSpeedValue = 1.0f;  // 0.8 attack per second
 }

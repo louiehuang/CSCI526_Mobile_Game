@@ -66,9 +66,25 @@ public class IceMage : Mage {
 
     protected override void Update() {
         //Skill
+        if (PlayerStats.Energy < energyCostBySkill)
+        {
+            NotEnoughEnergy = true;
+        }
+        else
+        {
+            NotEnoughEnergy = false;
+        }
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
             SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+        if (NotEnoughEnergy == true && prev <= 0)
+        {
+            SkillCDImage.fillAmount = 1f;
+        }
+        else
+        {
+            SkillCDImage.fillAmount = prev;
         }
 
         if (this.Target == null) { 
@@ -166,7 +182,7 @@ public class IceMage : Mage {
         damageOverTime = 0.75f * MATKValue;
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
-
+        energyCostBySkill = IceMageConfig.energyCostValue;
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
         foreach (Equipment equip in equipments)
         {

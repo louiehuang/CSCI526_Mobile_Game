@@ -4,7 +4,7 @@
 public static class BossConfig
 {
     //common base value
-    public static float Range = 20f;
+    public static float Range = 30f;
 
     public static string CharacterName = "Enermy";
 

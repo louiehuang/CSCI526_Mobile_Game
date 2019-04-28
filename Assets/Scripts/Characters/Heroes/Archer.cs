@@ -76,7 +76,6 @@ public class Archer : BaseHero {
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
-        Debug.Log("Archer");
         particleEffect.Play();
         arrowEffect.Play();
         ATKSpeed.AddModifier(ATKSpeedModifierBySkill);
@@ -135,7 +134,7 @@ public class Archer : BaseHero {
 
         ATKSpeed = new CharacterAttribute(ArcherConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
-
+        energyCostBySkill = ArcherConfig.energyCostValue;
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Archer];
         foreach(Equipment equip in equipments)
         {

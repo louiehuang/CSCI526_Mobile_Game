@@ -79,6 +79,7 @@ public class FireMage : Mage {
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
+        PlayerStats.Energy -= energyCostBySkill;
         particleEffect.Play();
         fireEffect.Play();
 
@@ -143,7 +144,7 @@ public class FireMage : Mage {
         //special
         Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
-
+        energyCostBySkill = FireMageConfig.energyCostValue;
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.FireMage];
         foreach (Equipment equip in equipments)
         {

@@ -3,7 +3,7 @@
 [Serializable]
 public static class ArcherConfig {
     //special attrs
-    public static float SkillCooldownTime = 5f;
+    public static float SkillCooldownTime = 20f;
 
     //skill effects
     public static float ATKSpeedPercent = 1.0f;  //atk speed increase 100%
@@ -15,9 +15,11 @@ public static class ArcherConfig {
     public static float PDEFBonus = 2f;
     public static float MDEFBonus = 2f;
 
+    public static int energyCostValue = 10;
+
     //common base value
     public static int Level = 1;
-    public static float Range = 30f;
+    public static float Range = 40f;
 
     public static string CharacterName = "GT";
     public static string CharacterDescription = "A descendant of Loman’s family, who has been gatekeeping the Orvelia for generations.";

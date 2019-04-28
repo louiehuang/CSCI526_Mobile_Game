@@ -16,6 +16,9 @@ public class Knight : BaseHero {
     StatModifier DodgeModifierBySkill;
     StatModifier BlockModifierBySkill;
 
+    [Header("Knight Fileds")]
+    public ParticleSystem particleEffect;
+
      void Start() {
         if (instance == null)
         {
@@ -37,6 +40,7 @@ public class Knight : BaseHero {
         HeroAnimator = GetComponent<Animator>();
 
         LoadAttr();
+        particleEffect.Stop();
 
         LoadSkill();
 
@@ -64,6 +68,7 @@ public class Knight : BaseHero {
     public override void ExSkill() {
         //duration time
         Debug.Log("DEF up");
+        particleEffect.Play();
         PDEF.AddModifier(PDEFModifierBySkill);
         MDEF.AddModifier(MDEFModifierBySkill);
         Dodge.AddModifier(DodgeModifierBySkill);
@@ -73,11 +78,12 @@ public class Knight : BaseHero {
 
 
     IEnumerator SkillDuration() {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(7f);
         PDEF.RemoveModifier(PDEFModifierBySkill);
         MDEF.RemoveModifier(MDEFModifierBySkill);
         Dodge.RemoveModifier(DodgeModifierBySkill);
         Block.RemoveModifier(BlockModifierBySkill);
+        particleEffect.Stop();
         Debug.Log("DEF back to normal");
     }
 
@@ -124,7 +130,7 @@ public class Knight : BaseHero {
 
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
-
+        energyCostBySkill = KnightConfig.energyCostValue;
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
         foreach (Equipment equip in equipments)
         {
