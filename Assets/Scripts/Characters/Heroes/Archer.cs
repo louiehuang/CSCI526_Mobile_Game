@@ -43,7 +43,6 @@ public class Archer : BaseHero {
             }
         }
         LoadAttr();
-
         HeroAnimator = GetComponent<Animator>();
           
         particleEffect.Stop();
@@ -74,10 +73,10 @@ public class Archer : BaseHero {
     public override void ExSkill() {
         //duration time
         Debug.Log("Attack Speed Up");
-
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
+        Debug.Log("Archer");
         particleEffect.Play();
         arrowEffect.Play();
         ATKSpeed.AddModifier(ATKSpeedModifierBySkill);

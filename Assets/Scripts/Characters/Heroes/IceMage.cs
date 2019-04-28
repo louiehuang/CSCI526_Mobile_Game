@@ -90,6 +90,7 @@ public class IceMage : Mage {
 
     public override void ExSkill() {
         Debug.Log("Ice Mage uses skill");
+        Debug.Log("IceMage");
         particleEffect.Play();
         iceEffect.Play();
         StartCoroutine("SkillDuration");
