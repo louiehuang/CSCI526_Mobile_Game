@@ -227,31 +227,6 @@ public class EquipmentUI : MonoBehaviour
                 hasEquipment[2] = true;
             }
         }
-        /*GameObject temp;
-        SingleEquipment tempS;
-        temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Armor");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Pants");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Shoes");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Gloves");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/HasEquipmentNode");
-        if (temp == null) return;
-        HasEquipmentNode tempH;
-        tempH = temp.GetComponent<HasEquipmentNode>();
-        tempH.close();*/
     }
 
 }

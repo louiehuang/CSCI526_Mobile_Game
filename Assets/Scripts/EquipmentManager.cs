@@ -10,7 +10,6 @@ public class EquipmentManager : MonoBehaviour
     public UnEquipmentNode nodeUI;
     public HasEquipmentNode nodeUI1;
     public EquipmentUI equipmentUI;
-    public NonEquipmentUI nonequipmentUI;
     public string hero;
     public int ElimatedEnermy;
     public GameObject cubeF;
@@ -26,7 +25,6 @@ public class EquipmentManager : MonoBehaviour
             if (nodeUI != null)
             {
                 nodeUI.ui.SetActive(false);
-                nonequipmentUI.ui.SetActive(true);
             }
             else if (nodeUI1 != null)
             {
@@ -43,7 +41,6 @@ public class EquipmentManager : MonoBehaviour
         if (nodeUI != null)
         {
             nodeUI.ui.SetActive(false);
-            nonequipmentUI.ui.SetActive(true);
         }
         else if (nodeUI1 != null)
         {

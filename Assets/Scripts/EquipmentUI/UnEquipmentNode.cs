@@ -104,51 +104,51 @@ public class UnEquipmentNode : MonoBehaviour
         {
             PDEF.text = "PDEF:"+ equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "ACC:"+ equipment.ACC.ToString();
-            SecondAttribute.text = "ACC:" + equipment.Block.ToString();
+            FirstAttribute.text = "ACC:"+ (equipment.ACC*100).ToString() + "%";
+            SecondAttribute.text = "Block:" + (equipment.Block*100).ToString() + "%";
         }
         else if (equipment.EquipmentType == EquipmentType.Gloves)
         {
             PDEF.text = "PDEF:" + equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "Pernetration:" + equipment.Pernetration.ToString();
-            SecondAttribute.text = "Crit:" + equipment.Crit.ToString();
+            FirstAttribute.text = "Pernetration:" + (equipment.Pernetration*100).ToString() + "%";
+            SecondAttribute.text = "Crit:" + (equipment.Crit*100).ToString() + "%";
         }
         else if (equipment.EquipmentType == EquipmentType.Pants)
         {
             PDEF.text = "PDEF:" + equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "HP:" + equipment.HP.ToString();
-            SecondAttribute.text = "CritResistance:" + equipment.CritResistance.ToString();
+            FirstAttribute.text = "HP:" + ((int)equipment.HP).ToString();
+            SecondAttribute.text = "CritResistance:" + (equipment.CritResistance*100).ToString() + "%";
         }
         else if (equipment.EquipmentType == EquipmentType.Shoes)
         {
             PDEF.text = "PDEF:" + equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "ACC:" + equipment.ACC.ToString();
-            SecondAttribute.text = "Dodge:" + equipment.Dodge.ToString();
+            FirstAttribute.text = "ACC:" + (equipment.ACC*100).ToString() + "%";
+            SecondAttribute.text = "Dodge:" + (equipment.Dodge*100).ToString() + "%";
         }
         else if (equipment.EquipmentType == EquipmentType.Armor)
         {
             PDEF.text = "PDEF:" + equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "Block:" + equipment.Block.ToString();
-            SecondAttribute.text = "CritResistance:" + equipment.CritResistance.ToString();
+            FirstAttribute.text = "Block:" + (equipment.Block*100).ToString() + "%";
+            SecondAttribute.text = "CritResistance:" + (equipment.CritResistance*100).ToString() + "%";
         }
         else if (equipment.EquipmentType == EquipmentType.Bow || equipment.EquipmentType == EquipmentType.Staff ||
                 equipment.EquipmentType == EquipmentType.Sword)
         {
             PDEF.text = "ATK:" + equipment.PATK.ToString();
             MDEF.text = "Matk:" + equipment.MATK.ToString();
-            FirstAttribute.text = "Block:" + equipment.Crit.ToString();
-            SecondAttribute.text = "CritResistance:" + equipment.CritDMG.ToString();
+            FirstAttribute.text = "Crit:" + (equipment.Crit*100).ToString() + "%";
+            SecondAttribute.text = "CritDMG:" + (equipment.CritDMG*100).ToString() + "%";
         }
         else
         {
             PDEF.text = "PDEF:" + equipment.PDEF.ToString();
             MDEF.text = "MDEF:" + equipment.MDEF.ToString();
-            FirstAttribute.text = "Block:" + equipment.Block.ToString();
-            SecondAttribute.text = "CritResistance:" + equipment.CritResistance.ToString();
+            FirstAttribute.text = "Block:" + (equipment.Block*100).ToString() + "%";
+            SecondAttribute.text = "CritResistance:" + (equipment.CritResistance*100).ToString() + "%";
         }
     }
 

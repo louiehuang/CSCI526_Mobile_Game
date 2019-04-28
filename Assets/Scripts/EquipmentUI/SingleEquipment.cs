@@ -63,21 +63,6 @@ public class SingleEquipment : MonoBehaviour
         //removeHero();
     }
 
-    /* private void removeHero()
-     {
-         GameObject t;
-         Vector3  v = new Vector3(-1000f, -1000f, 0f);
-         t = GameObject.Find("/Knight1");
-         t.transform.position = v;
-         t = GameObject.Find("/Priest1");
-         t.transform.position = v;
-         t = GameObject.Find("/IceMage1");
-         t.transform.position = v;
-         t = GameObject.Find("/FireMage1");
-         t.transform.position = v;
-         t = GameObject.Find("/Archer1");
-         t.transform.position = v;
-     }*/
 
     private static byte[] getImageByte(string imagePath)
     {
