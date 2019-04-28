@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 
 public class Knight : BaseHero {
@@ -18,23 +19,23 @@ public class Knight : BaseHero {
     [Header("Knight Fileds")]
     public ParticleSystem particleEffect;
 
-    new void Start() {
+     void Start() {
         if (instance == null)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new Knight();
+                    //instance = new Knight();
+                    instance = this;
+
+                    HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
+
+                    LevelManager = new KnightLeveling(this, KnightConfig.Level);
+
                 }
             }
         }
-
-        instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.Knight);
-
-        LevelManager = new KnightLeveling(this, KnightConfig.Level);
 
         HeroAnimator = GetComponent<Animator>();
 
@@ -103,6 +104,7 @@ public class Knight : BaseHero {
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
         //special
+        HeroType = CommonConfig.Knight;
         Range = new CharacterAttribute(KnightConfig.Range);
 
         CharacterName = KnightConfig.CharacterName;
@@ -128,6 +130,13 @@ public class Knight : BaseHero {
 
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
+        energyCostBySkill = KnightConfig.energyCostValue;
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
+        foreach (Equipment equip in equipments)
+        {
+            Debug.Log(equip);
+            equip.Equip(this);
+        }
     }
 
 }

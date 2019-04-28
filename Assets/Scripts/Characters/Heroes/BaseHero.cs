@@ -18,24 +18,26 @@ public class BaseHero : BaseCharacter {
     public GameObject bulletPrefab;
     public float attackRate = 1f;  //TODO: convert attackSpeed to attackRate
     private float attackCountdown = 0f;
-
+    public int energyCostBySkill = 0;
     [Header("Unity Setup Fields")]
     public string heroTag = "Hero";
     public string enemyTag = "Enemy";
     public Transform partToRotate;
     public float turnSpeed = 10f;
     public Transform firePoint;
-
+    public string HeroType;
     // Skill CD
     public Image SkillCDImage;
     public float SkillTimer = 0f;
     public float SkillCooldownTime = 10f;  //default cooldown time
     protected bool HasSkillUsed = false;  //has the skill has ever been used?
-
+    public bool NotEnoughEnergy = true;
     [HideInInspector]
     public GameObject hero;
     [HideInInspector]
     public HeroBlueprint heroBlueprint;
+
+    public float prev = 0f;
 
     //Hero Name and Health Bar
     private Vector3 heroCanvasPos;  //used to fix skill ui position
@@ -75,12 +77,26 @@ public class BaseHero : BaseCharacter {
 
     // Update is called once per frame
     protected virtual void Update() {
+        //Energy and SkillCost
+        if (PlayerStats.Energy < energyCostBySkill) { 
+            NotEnoughEnergy = true;
+        }
+        else{
+            NotEnoughEnergy = false;
+        }
         //Skill
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
-            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+            prev = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
         }
-
+        if (NotEnoughEnergy == true && prev<=0)
+        {
+            SkillCDImage.fillAmount = 1f;
+        }
+        else
+        {
+            SkillCDImage.fillAmount = prev;
+        }
         //Enemy
         if (target == null) {
             if (HeroAnimator != null) {
@@ -124,8 +140,9 @@ public class BaseHero : BaseCharacter {
 
     public void UseSkill() {
         Debug.Log("skillCDImage: " + SkillCDImage);
-        if (!HasSkillUsed || SkillTimer > SkillCooldownTime) {
+        if ((!HasSkillUsed || SkillTimer > SkillCooldownTime) && PlayerStats.Energy>=energyCostBySkill) {
             Debug.Log("Use skill");
+            PlayerStats.Energy -= energyCostBySkill;
             ExSkill();
             SkillTimer = 0;
         } else {

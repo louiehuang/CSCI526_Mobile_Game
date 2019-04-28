@@ -24,32 +24,40 @@ public class Priest : BaseHero {
     [Header("Priest Fileds")]
     public ParticleSystem particleEffect;
 
-    new void Start() {
+    private Priest getInstance(){
+        if (instance == null){
+
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
+
+            LevelManager = new PriestLeveling(this, PriestConfig.Level);
+
+        }
+        return instance;
+    }
+
+    void Start() {
         if (instance == null)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new Priest();
+                    getInstance();
                 }
             }
         }
 
-        instance = this;
 
-        HeroPool.GetInstance().SetHero(this, CommonConfig.Priest);
-
-        // Object.DontDestroyOnLoad(instance);
-        LevelManager = new PriestLeveling(this, PriestConfig.Level);
-
-        particleEffect.Stop();
-
+    
         animator = GetComponent<Animator>();
 
         LoadAttr();
 
         LoadSkill();
+
+        particleEffect.Stop();
 
         InvokeRepeating("UpdateHeroTarget", 0f, 0.5f);
     }
@@ -99,11 +107,26 @@ public class Priest : BaseHero {
 
     protected override void Update() {
         //Skill
+        if (PlayerStats.Energy < energyCostBySkill)
+        {
+            NotEnoughEnergy = true;
+        }
+        else
+        {
+            NotEnoughEnergy = false;
+        }
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
-            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+            prev = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
         }
-
+        if (NotEnoughEnergy == true && prev <= 0)
+        {
+            SkillCDImage.fillAmount = 1f;
+        }
+        else
+        {
+            SkillCDImage.fillAmount = prev;
+        }
         if (this.Target == null) {
             if (animator != null) {
                 animator.SetBool("CanAttack", false);
@@ -159,18 +182,17 @@ public class Priest : BaseHero {
         }
 
         if (heroesToHeal.Count > 0) {
-            float amount = 1.0f * MATKValue;
+            float amount = 1.7f * MATKValue;
             foreach (GameObject _hero in heroesToHeal) {
                 Heal(_hero.GetComponent<BaseHero>());
             }
         }
-
         StartCoroutine("SkillDuration");
     }
 
     IEnumerator SkillDuration()
     {
-        yield return new WaitForSeconds(7f);
+        yield return new WaitForSeconds(5f);
         particleEffect.Stop();
     }
 
@@ -185,6 +207,7 @@ public class Priest : BaseHero {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        HeroType = CommonConfig.Priest;
         CharacterName = PriestConfig.CharacterName;
         CharacterDescription = PriestConfig.CharacterDescription;
 
@@ -210,6 +233,12 @@ public class Priest : BaseHero {
 
         //special
         Range = new CharacterAttribute(PriestConfig.Range);
+        energyCostBySkill = PriestConfig.energyCostValue;
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Priest];
+        foreach (Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }
 

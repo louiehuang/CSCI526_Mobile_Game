@@ -3,7 +3,7 @@
 [Serializable]
 public static class PriestConfig {
     //special attrs
-    public static float SkillCooldownTime = 12f;
+    public static float SkillCooldownTime = 15f;
 
     //level up related bonus
     public static float MaxHPBonus = 15f;
@@ -37,4 +37,6 @@ public static class PriestConfig {
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 0.5f;  // 0.5 attack per second
+
+    public static int energyCostValue = 10;
 }

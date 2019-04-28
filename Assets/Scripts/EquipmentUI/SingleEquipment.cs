@@ -9,7 +9,7 @@ public class SingleEquipment : MonoBehaviour
     public Text ename;
     public GameObject ui;
     public Image image;
-    private string NoneString = "/Users/chenyuanhai/Desktop/526ICON/Blank.jpg";
+    private string NoneString = "Blank";
 
     public void setEquipment(Equipment e)
     {
@@ -17,12 +17,12 @@ public class SingleEquipment : MonoBehaviour
         if (e == null)
         {
             ename.text = "none";
-            image.sprite = LoadTexture2Sprite(NoneString);
+            image.sprite = setSprite(NoneString);
         }
         else
         {
             ename.text = e.ename;
-            image.sprite = LoadTexture2Sprite(e.path);
+            image.sprite = setSprite(e.path);
         }
     }
 
@@ -88,11 +88,10 @@ public class SingleEquipment : MonoBehaviour
         return imgByte;
     }
 
-    private Sprite LoadTexture2Sprite(string imagePath)
+    public Sprite setSprite(string text)
     {
-        Texture2D t2d = new Texture2D(1920, 1080);
-        t2d.LoadImage(getImageByte(imagePath));
-        Sprite sprite = Sprite.Create(t2d, new Rect(0, 0, t2d.width, t2d.height), Vector2.zero);
-        return sprite;
+        Texture2D aa = (Texture2D)Resources.Load(text) as Texture2D;
+        Sprite kk = Sprite.Create(aa, new Rect(0, 0, aa.width, aa.height), new Vector2(0.5f, 0.5f));
+        return kk;
     }
 }

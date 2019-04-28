@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+using System.Collections.Generic;
 
 /// <summary>
 /// Ice Mage
@@ -24,23 +25,30 @@ public class IceMage : Mage {
     protected Animator animator;
 
 
-    new void Start() {
+    private IceMage getInstance()
+    {
+        if(instance == null)
+        {
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
+            LevelManager = new MageLeveling(this, IceMageConfig.Level);
+        }
+        return instance;
+    }
+
+
+     void Start() {
         if (instance == null)
         {
             lock (padlock)
             {
                 if (instance == null)
                 {
-                    instance = new IceMage();
+                    getInstance();
                 }
             }
         }
-
-        instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
-
-        LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
         animator = GetComponent<Animator>();
 
@@ -58,9 +66,25 @@ public class IceMage : Mage {
 
     protected override void Update() {
         //Skill
+        if (PlayerStats.Energy < energyCostBySkill)
+        {
+            NotEnoughEnergy = true;
+        }
+        else
+        {
+            NotEnoughEnergy = false;
+        }
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
             SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+        }
+        if (NotEnoughEnergy == true && prev <= 0)
+        {
+            SkillCDImage.fillAmount = 1f;
+        }
+        else
+        {
+            SkillCDImage.fillAmount = prev;
         }
 
         if (this.Target == null) { 
@@ -82,6 +106,7 @@ public class IceMage : Mage {
 
     public override void ExSkill() {
         Debug.Log("Ice Mage uses skill");
+        Debug.Log("IceMage");
         particleEffect.Play();
         iceEffect.Play();
         StartCoroutine("SkillDuration");
@@ -129,6 +154,7 @@ public class IceMage : Mage {
 
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
+        HeroType = CommonConfig.IceMage;
         CharacterName = IceMageConfig.CharacterName;
         CharacterDescription = IceMageConfig.CharacterDescription;
 
@@ -156,5 +182,11 @@ public class IceMage : Mage {
         damageOverTime = 0.75f * MATKValue;
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
+        energyCostBySkill = IceMageConfig.energyCostValue;
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
+        foreach (Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }

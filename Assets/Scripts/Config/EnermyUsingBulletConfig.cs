@@ -10,7 +10,7 @@ public static class EnermyUsingBulletConfig
 
     public static float MaxHPValue = 120f;
 
-    public static float ATKValue = 10f;
+    public static float ATKValue = 22f;
     public static float MATKValue = 0f;
 
     public static float PDEFValue = 3f;
@@ -24,6 +24,7 @@ public static class EnermyUsingBulletConfig
     public static float DodgeValue = 0.02f;
     public static float BlockValue = 0.02f;
     public static float CritResistanceValue = 0.02f;
+
 
     public static float ATKSpeedValue = 0.8f;  // 0.8 attack per second
 }

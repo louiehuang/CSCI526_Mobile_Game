@@ -1,13 +1,14 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 
 /// <summary>
 /// Archer.
 /// </summary>
 public class Archer : BaseHero {
-    public static Archer instance = null;
+    private static Archer instance = null;
     public ArcherLeveling LevelManager;
 
     private static readonly object padlock = new object();
@@ -19,31 +20,36 @@ public class Archer : BaseHero {
     public ParticleSystem particleEffect;
     public ParticleSystem arrowEffect;
 
-    new void Start() {
+    private Archer getInstance()
+    {   
+        if(instance == null)
+        {
+            instance = this;
+
+            HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
+
+            LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
+
+        }
+        return instance;
+    }
+
+     void Start() {
         if (instance == null) {
             lock (padlock) {
                 if (instance == null) {
-                    instance = new Archer();
+                    getInstance();
                 }
             }
         }
-
-        instance = this;
-
-        HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
-
-        LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
-
-        HeroAnimator = GetComponent<Animator>();
-
         LoadAttr();
-
+        HeroAnimator = GetComponent<Animator>();
+        Debug.Log(HeroAnimator);
         particleEffect.Stop();
         arrowEffect.Stop();
-
         LoadSkill();
 
-        InvokeRepeating("UpdateTarget", 0f, 0.5f);
+          InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
 
@@ -53,10 +59,11 @@ public class Archer : BaseHero {
         }
         GameObject bulletGO = (GameObject)Instantiate(bulletPrefab, firePoint.position, firePoint.rotation);
         Bullet bullet = bulletGO.GetComponent<Bullet>();
-        bullet.damage = 0.3f * ATKValue;
+        bullet.ATK = 0.33f * ATKValue;
         bullet.ACC = ACCValue;
         bullet.criticalDamage = CritDMGValue;
         bullet.critical = CritValue;
+        bullet.MATK = MATKValue;
         if (bullet != null) {
         	bullet.Seek(Target);
         }
@@ -66,7 +73,6 @@ public class Archer : BaseHero {
     public override void ExSkill() {
         //duration time
         Debug.Log("Attack Speed Up");
-
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
@@ -102,6 +108,7 @@ public class Archer : BaseHero {
     //TODO: change back to private (currently set to pulbic for testing purpose)
     public void LoadAttr() {
         //special
+        HeroType = CommonConfig.Archer;
         Range = new CharacterAttribute(ArcherConfig.Range);
 
         CharacterName = ArcherConfig.CharacterName;
@@ -127,5 +134,11 @@ public class Archer : BaseHero {
 
         ATKSpeed = new CharacterAttribute(ArcherConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
+        energyCostBySkill = ArcherConfig.energyCostValue;
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Archer];
+        foreach(Equipment equip in equipments)
+        {
+            equip.Equip(this);
+        }
     }
 }
