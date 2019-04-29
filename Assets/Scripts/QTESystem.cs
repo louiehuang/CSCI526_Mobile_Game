@@ -123,6 +123,7 @@ public class QTESystem : MonoBehaviour {
     }
 
     private void TriggerFail() {
+        ProgressBarImage.fillAmount = 1f;
         hasButtonTime = 0f;
         LosePannel.gameObject.SetActive(true);
         Debug.Log("Cai Start!");
@@ -138,7 +139,10 @@ public class QTESystem : MonoBehaviour {
         hasButton3 = false;
         hasButton4 = false;
 
-        QTEPannel.DetachChildren();
+        Destroy(button1.gameObject);
+        Destroy(button2.gameObject);
+        Destroy(button3.gameObject);
+        Destroy(button4.gameObject);
 
         clickButton1 = false;
         clickButton2 = false;
@@ -196,6 +200,7 @@ public class QTESystem : MonoBehaviour {
             if (hasButtonTime - times >= waitTime) {
                 TriggerFail();
             } else {
+                //Debug.Log(1 - (hasButtonTime - times) / waitTime);
                 ProgressBarImage.fillAmount = 1 - (hasButtonTime - times) / waitTime;
             }
         }
@@ -253,7 +258,10 @@ public class QTESystem : MonoBehaviour {
             hasButton3 = false;
             hasButton4 = false;
 
-            QTEPannel.DetachChildren();
+            Destroy(button1.gameObject);
+            Destroy(button2.gameObject);
+            Destroy(button3.gameObject);
+            Destroy(button4.gameObject);
 
             clickButton1 = false;
             clickButton2 = false;
