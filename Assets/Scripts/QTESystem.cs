@@ -40,11 +40,16 @@ public class QTESystem : MonoBehaviour {
 
     public Image ProgressBarImage;
 
+    private int QTEStartTime = 3;
+    public Text QTEText;
+    public GameObject QTEButton;
+
     private void Start() {
         width = Screen.width;
         height = Screen.height;
         QTEPannel.gameObject.SetActive(false);
         LosePannel.gameObject.SetActive(false);
+        QTEButton.SetActive(false);
     }
 
 
@@ -152,7 +157,13 @@ public class QTESystem : MonoBehaviour {
 
     void Update() {
         times -= Time.deltaTime;
+        if (times < QTEStartTime && times >= 0) {
+            QTEButton.SetActive(true);
+            QTEText.text = string.Format("{0:00.00}", Mathf.Clamp(times, 0f, Mathf.Infinity));
+        }
+
         if (times < 0) {
+            QTEButton.SetActive(false);
             BuildManager build = BuildManager.instance;
             if (build.hasDraged) {
                 return;
