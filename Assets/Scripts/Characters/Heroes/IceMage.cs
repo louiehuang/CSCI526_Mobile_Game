@@ -84,7 +84,6 @@ public class IceMage : Mage {
 
     public override void ExSkill() {
         Debug.Log("Ice Mage uses skill");
-        Debug.Log("IceMage");
         particleEffect.Play();
         iceEffect.Play();
         StartCoroutine("SkillDuration");
@@ -162,9 +161,9 @@ public class IceMage : Mage {
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
         energyCostBySkill = IceMageConfig.energyCostValue;
+
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.IceMage];
-        foreach (Equipment equip in equipments)
-        {
+        foreach (Equipment equip in equipments) {
             equip.Equip(this);
         }
     }

@@ -211,9 +211,9 @@ public class Priest : BaseHero {
         //special
         Range = new CharacterAttribute(PriestConfig.Range);
         energyCostBySkill = PriestConfig.energyCostValue;
+
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Priest];
-        foreach (Equipment equip in equipments)
-        {
+        foreach (Equipment equip in equipments) {
             equip.Equip(this);
         }
     }
