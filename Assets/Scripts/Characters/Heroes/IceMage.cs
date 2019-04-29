@@ -23,8 +23,7 @@ public class IceMage : Mage {
     protected Animator animator;
 
 
-
-     void Start() {
+    void Start() {
         HeroPool.GetInstance().SetHero(this, CommonConfig.IceMage);
         LevelManager = new MageLeveling(this, IceMageConfig.Level);
 
