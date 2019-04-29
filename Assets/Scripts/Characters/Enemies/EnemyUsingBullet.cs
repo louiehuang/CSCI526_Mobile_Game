@@ -16,7 +16,7 @@ public class EnemyUsingBullet : BaseEnemy
         CurHP = MaxHPValue;
         range = RangeValue;
         LoadAttr();
-        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
+        //Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
     }
 
     // Update is called once per frame

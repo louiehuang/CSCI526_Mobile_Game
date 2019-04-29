@@ -91,7 +91,8 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
 
         GameObject hero = (GameObject)Instantiate(blueprint.prefab);
-        Debug.Log("Hero " + blueprint.prefab.name + " Summoned!");
+
+        Logger.Log("Hero " + blueprint.prefab.name + " Summoned!");
 
         BaseHero baseHero = hero.GetComponent<BaseHero>();
         baseHero.hero = hero;
