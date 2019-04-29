@@ -133,10 +133,11 @@ public class IceMage : Mage {
             impactLight.enabled = true;
         }
 
-        lineRenderer.SetPosition(0, firePoint.position);
+        Vector3 startPoint = new Vector3(transform.position.x, transform.position.y + 5, transform.position.z);
+        lineRenderer.SetPosition(0, startPoint);
         lineRenderer.SetPosition(1, this.Target.position);
 
-        Vector3 dir = firePoint.position - this.Target.position;
+        Vector3 dir = transform.position - this.Target.position;
 
         impactEffect.transform.position = this.Target.position + dir.normalized;
 
