@@ -118,7 +118,7 @@ public class Knight : BaseHero {
         energyCostBySkill = KnightConfig.energyCostValue;
 
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
-        foreach (Equipment equip in equipments) {
+        foreach (Equipment equip in equipments){
             Logger.Log(equip);
             equip.Equip(this);
         }
