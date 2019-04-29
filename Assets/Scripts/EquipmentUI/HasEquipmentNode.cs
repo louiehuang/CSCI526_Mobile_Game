@@ -64,13 +64,6 @@ public class HasEquipmentNode : MonoBehaviour
             {
                 manager.ui.SetActive(true);
             }
-            /* GameObject Scroller = GameObject.Find("Canvas/UnEquipments");
-             if (Scroller != null)
-             {
-                 manager = Scroller.GetComponent<ScrollViewManager>();
-                 manager.ui.SetActive(true);
-                 Scroller.transform.position = cur;
-             }*/
             List<Equipment> list;
             if (equipment == null)
             {   

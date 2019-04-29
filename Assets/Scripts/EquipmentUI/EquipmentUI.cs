@@ -26,6 +26,43 @@ public class EquipmentUI : MonoBehaviour
         fixedPosition = new Vector3(150f, 320f, 0f);
         outposition = new Vector3(-1000f, -1000f, 0f);
         prev.transform.position = fixedPosition;
+        GameObject temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
+        if(temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Helmet";
+        }
+         temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
+        if (temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Weapon";
+        }
+        temp = GameObject.Find("/EquipmentUI/Equipments/Pants");
+        if (temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Pants";
+        }
+        temp = GameObject.Find("/EquipmentUI/Equipments/Gloves");
+        if (temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Gloves";
+        }
+        temp = GameObject.Find("/EquipmentUI/Equipments/Armor");
+        if (temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Armor";
+        }
+        temp = GameObject.Find("/EquipmentUI/Equipments/Shoes");
+        if (temp != null)
+        {
+            SingleEquipment e = temp.GetComponent<SingleEquipment>();
+            e.noneName = "Shoes";
+        }
+
     }
 
    void Start()
@@ -40,7 +77,7 @@ public class EquipmentUI : MonoBehaviour
         armor.type = EquipmentType.Armor;
         pants.type = EquipmentType.Pants;
         shoes.type = EquipmentType.Shoes;
-
+        changeHero(initialHero);
         Scroller = GameObject.Find("Canvas/UnEquipments");
         if (Scroller != null)
         {
@@ -227,31 +264,6 @@ public class EquipmentUI : MonoBehaviour
                 hasEquipment[2] = true;
             }
         }
-        /*GameObject temp;
-        SingleEquipment tempS;
-        temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Armor");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Pants");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Shoes");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/EquipmentUI/Equipments/Gloves");
-        tempS = temp.GetComponent<SingleEquipment>();
-        tempS.ui.SetActive(true);
-        temp = GameObject.Find("/HasEquipmentNode");
-        if (temp == null) return;
-        HasEquipmentNode tempH;
-        tempH = temp.GetComponent<HasEquipmentNode>();
-        tempH.close();*/
     }
 
 }
