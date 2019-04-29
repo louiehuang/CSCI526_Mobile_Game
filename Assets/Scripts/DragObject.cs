@@ -25,7 +25,7 @@ public class DragObject : MonoBehaviour{
         }
 
         if (myTransform != null) {
-            //Debug.Log("go != null start drag");
+            //Logger.Log("go != null start drag");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 500, mask)) {

@@ -23,7 +23,7 @@ public class ShowArrow : MonoBehaviour {
             foreach(Sprite img in imgs) {
 
                 curImg.sprite = img;
-                //Debug.Log(curImg.name);
+                //Logger.Log(curImg.name);
                 yield return new WaitForSeconds(0.5f);
             }
 

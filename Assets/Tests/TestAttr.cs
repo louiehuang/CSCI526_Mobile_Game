@@ -49,7 +49,7 @@ namespace Tests {
             iceMage.ATK = new CharacterAttribute();
 
             iceMage.LevelManager.AddEXP(700);
-            //Debug.Log("EXP: " + iceMage.LevelManager.CurrentEXP);
+            //Logger.Log("EXP: " + iceMage.LevelManager.CurrentEXP);
             //Assert.AreEqual(700, iceMage.LevelManager.CurrentEXP);
         }
 
@@ -64,7 +64,7 @@ namespace Tests {
             iceMage.LevelManager = new MageLeveling(iceMage, 1);
 
             iceMage.LevelManager.AddEXP(800);
-            Debug.Log("Level: " + iceMage.LevelManager.Level);
+            Logger.Log("Level: " + iceMage.LevelManager.Level);
 
             Assert.AreEqual(2, iceMage.LevelManager.Level);
         }

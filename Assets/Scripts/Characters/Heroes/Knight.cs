@@ -52,7 +52,7 @@ public class Knight : BaseHero {
 
     public override void ExSkill() {
         //duration time
-        Debug.Log("DEF up");
+        Logger.Log("DEF up");
         particleEffect.Play();
         PDEF.AddModifier(PDEFModifierBySkill);
         MDEF.AddModifier(MDEFModifierBySkill);
@@ -69,7 +69,7 @@ public class Knight : BaseHero {
         Dodge.RemoveModifier(DodgeModifierBySkill);
         Block.RemoveModifier(BlockModifierBySkill);
         particleEffect.Stop();
-        Debug.Log("DEF back to normal");
+        Logger.Log("DEF back to normal");
     }
 
 
@@ -119,7 +119,7 @@ public class Knight : BaseHero {
 
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
         foreach (Equipment equip in equipments) {
-            Debug.Log(equip);
+            Logger.Log(equip);
             equip.Equip(this);
         }
     }

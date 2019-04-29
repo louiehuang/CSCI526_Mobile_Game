@@ -54,7 +54,7 @@ public class QTESystem : MonoBehaviour {
 
 
     private Button CreateQTEButton1() {
-        //Debug.Log("CreateQTEButton");
+        //Logger.Log("CreateQTEButton");
         //int ni = 200;
         //int ni = 2800;
         //int nj = 400;
@@ -62,7 +62,7 @@ public class QTESystem : MonoBehaviour {
         
         int ni = Random.Range(100, (width - 100) / 2);
         int nj = Random.Range(100, (height - 100) / 2);
-        Debug.Log("1: " + ni + " " + nj);
+        Logger.Log("1: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab1, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -75,10 +75,10 @@ public class QTESystem : MonoBehaviour {
     }
 
     private Button CreateQTEButton2() {
-        //Debug.Log("CreateQTEButton");
+        //Logger.Log("CreateQTEButton");
         int ni = Random.Range((width + 100) / 2, width - 100);
         int nj = Random.Range(100, (height - 100) / 2);
-        Debug.Log("2: " + ni + " " + nj);
+        Logger.Log("2: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab2, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -91,10 +91,10 @@ public class QTESystem : MonoBehaviour {
     }
 
     private Button CreateQTEButton3() {
-        //Debug.Log("CreateQTEButton");
+        //Logger.Log("CreateQTEButton");
         int ni = Random.Range((width + 100) / 2, width - 100);
         int nj = Random.Range((height + 100) / 2, height - 100);
-        Debug.Log("3: " + ni + " " + nj);
+        Logger.Log("3: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab3, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -107,10 +107,10 @@ public class QTESystem : MonoBehaviour {
     }
 
     private Button CreateQTEButton4() {
-        //Debug.Log("CreateQTEButton");
+        //Logger.Log("CreateQTEButton");
         int ni = Random.Range(100, (width - 100) / 2);
         int nj = Random.Range((height + 100) / 2, height - 100);
-        Debug.Log("4: " + ni + " " + nj);
+        Logger.Log("4: " + ni + " " + nj);
         var button = Instantiate(QTEPrefab4, new Vector3(ni, nj, 0), Quaternion.identity) as Button;
 
         var rectTransform = button.GetComponent<RectTransform>();
@@ -126,14 +126,14 @@ public class QTESystem : MonoBehaviour {
         ProgressBarImage.fillAmount = 1f;
         hasButtonTime = 0f;
         LosePannel.gameObject.SetActive(true);
-        Debug.Log("Cai Start!");
+        Logger.Log("Cai Start!");
         StartCoroutine(Wait(2f));
     }
 
     IEnumerator Wait(float t) {
         yield return new WaitForSeconds(t);
         LosePannel.gameObject.SetActive(false);
-        Debug.Log("Cai End!");
+        Logger.Log("Cai End!");
         hasButton1 = false;
         hasButton2 = false;
         hasButton3 = false;
@@ -200,7 +200,7 @@ public class QTESystem : MonoBehaviour {
             if (hasButtonTime - times >= waitTime) {
                 TriggerFail();
             } else {
-                //Debug.Log(1 - (hasButtonTime - times) / waitTime);
+                //Logger.Log(1 - (hasButtonTime - times) / waitTime);
                 ProgressBarImage.fillAmount = 1 - (hasButtonTime - times) / waitTime;
             }
         }
@@ -215,7 +215,7 @@ public class QTESystem : MonoBehaviour {
             clickButton2 = false;
             clickButton3 = false;
             clickButton4 = false;
-            Debug.Log("fail!");
+            Logger.Log("fail!");
             TriggerFail();
         }
     }
@@ -229,7 +229,7 @@ public class QTESystem : MonoBehaviour {
             clickButton2 = false;
             clickButton3 = false;
             clickButton4 = false;
-            Debug.Log("fail!");
+            Logger.Log("fail!");
             TriggerFail();
         }
     }
@@ -243,7 +243,7 @@ public class QTESystem : MonoBehaviour {
             clickButton2 = false;
             clickButton3 = false;
             clickButton4 = false;
-            Debug.Log("fail!");
+            Logger.Log("fail!");
             TriggerFail();
         }
     }
@@ -252,7 +252,7 @@ public class QTESystem : MonoBehaviour {
         if (hasButton1 && hasButton2 && hasButton3 && hasButton4
             && clickButton1 && clickButton2 && clickButton3) {
             clickButton4 = true;
-            Debug.Log("success!");
+            Logger.Log("success!");
             hasButton1 = false;
             hasButton2 = false;
             hasButton3 = false;
@@ -282,7 +282,7 @@ public class QTESystem : MonoBehaviour {
             clickButton2 = false;
             clickButton3 = false;
             clickButton4 = false;
-            Debug.Log("fail!");
+            Logger.Log("fail!");
             TriggerFail();
         }
     }

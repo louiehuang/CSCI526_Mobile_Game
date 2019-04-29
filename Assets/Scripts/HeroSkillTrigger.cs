@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -40,7 +40,7 @@ public class HeroSkillTrigger : MonoBehaviour, IPointerDownHandler, IPointerUpHa
 
 
     public void OnPointerUp(PointerEventData eventData) {
-        //Debug.Log(pointerDownTimer + ", " + requiredHoldTime);
+        //Logger.Log(pointerDownTimer + ", " + requiredHoldTime);
         if (pointerDownTimer < requiredHoldTime) {  //short click, use skill
             UseSkill();
         }
@@ -62,7 +62,7 @@ public class HeroSkillTrigger : MonoBehaviour, IPointerDownHandler, IPointerUpHa
         } else if (EqualsIgnoreCase(heroName, CommonConfig.Priest)) {
             heroPool.UsePriestSkill();
         } else {
-            Debug.Log("Unknown Hero Skill");
+            Logger.Log("Unknown Hero Skill");
         }
     }
 

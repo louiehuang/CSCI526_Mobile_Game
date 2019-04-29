@@ -54,7 +54,7 @@ public static class Logger {
     }
 
 
-    public static void Log(string message) {
+    public static void Log(object message) {
         if (!IsOuputLog(LogLevel.Info)) {
             return;
         }
@@ -64,7 +64,7 @@ public static class Logger {
     }
 
 
-    public static void LogWarning(string message) {
+    public static void LogWarning(object message) {
         if (!IsOuputLog(LogLevel.Waning)) {
             return;
         }
@@ -74,7 +74,7 @@ public static class Logger {
     }
 
 
-    public static void LogError(string message) {
+    public static void LogError(object message) {
         if (!IsOuputLog(LogLevel.Error)) {
             return;
         }
@@ -95,7 +95,7 @@ public static class Logger {
     }
 
 
-    private static void OutputConsole(string message, int type) {
+    private static void OutputConsole(object message, int type) {
         if (!IsLogDestination(LogDestination.Console)) {
             return;
         }
@@ -130,7 +130,7 @@ public static class Logger {
     }
 
 
-    private static string FormatLog(string message, int type) {
+    private static string FormatLog(object message, int type) {
         string result = "";
         switch (type) {
             case 0: {
