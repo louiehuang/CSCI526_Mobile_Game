@@ -3,7 +3,7 @@
 [Serializable]
 public static class IceMageConfig {
     //special attrs
-    public static float SkillCooldownTime = 9f;
+    public static float SkillCooldownTime = 15f;
     public static float SlowAmount = 0.5f;
 
     //level up related bonus
@@ -15,7 +15,7 @@ public static class IceMageConfig {
 
     //common base value
     public static int Level = 1;
-    public static float Range = 30f;
+    public static float Range = 35f;
 
     public static string CharacterName = "Ice";
     public static string CharacterDescription = "Default Description";
@@ -38,4 +38,6 @@ public static class IceMageConfig {
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 1f;  // 1 attack per second
+
+    public static int energyCostValue = 15;
 }

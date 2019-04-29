@@ -3,7 +3,7 @@
 [Serializable]
 public static class KnightConfig {
     //special attrs
-    public static float SkillCooldownTime = 8f;
+    public static float SkillCooldownTime = 20f;
 
     //skill effects
     public static float PDEFPercent = 0.5f;  //PDEF value increase 100%
@@ -30,8 +30,8 @@ public static class KnightConfig {
     public static float ATKValue = 10f;
     public static float MATKValue = 10f;
 
-    public static float PDEFValue = 25f;
-    public static float MDEFValue = 25f;
+    public static float PDEFValue = 14f;
+    public static float MDEFValue = 13f;
 
     public static float CritValue = 0.1f;
     public static float CritDMGValue = 0.2f;
@@ -43,4 +43,6 @@ public static class KnightConfig {
     public static float CritResistanceValue = 0.1f;
 
     public static float ATKSpeedValue = 0.8f;  // 0.8 attack per second
+
+    public static int energyCostValue = 5;
 }

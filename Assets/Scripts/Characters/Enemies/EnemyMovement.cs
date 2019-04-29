@@ -16,14 +16,14 @@ public class EnemyMovement : MonoBehaviour {
     private float attackRange;
 
     private string stopTag = "Knight";
-    private float stopRange = 5f;
+    private float stopRange = 8f;
     public float turnSpeed = 10f;
 
     void Start() {
         enemy = GetComponent<BaseEnemy>();
 
         this.attackTag = enemy.enemyTag;
-        this.attackRange = enemy.range;
+        this.attackRange = enemy.RangeValue;
 
         Animation anim = GetComponent<Animation>();
         if(anim != null)

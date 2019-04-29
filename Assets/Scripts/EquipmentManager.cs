@@ -11,16 +11,11 @@ public class EquipmentManager : MonoBehaviour
     public HasEquipmentNode nodeUI1;
     public EquipmentUI equipmentUI;
     public NonEquipmentUI nonequipmentUI;
-    public BaseHero hero;
+    public string hero;
     public int ElimatedEnermy;
     public GameObject cubeF;
     private int levelCount;
     private double factor = 0.5;
-    public Knight knight;
-    public IceMage iceMage;
-    public FireMage fireMage;
-    public Priest priest;
-    public Archer archer;
     private EquipGenerator generator;
     private Vector3 fixedPosition;
 
@@ -36,7 +31,7 @@ public class EquipmentManager : MonoBehaviour
             else if (nodeUI1 != null)
             {
                 nodeUI1.ui.SetActive(false);
-                nodeUI1.hero = knight;
+                nodeUI1.hero = CommonConfig.Knight;
                 equipmentUI.ui.SetActive(true);
             }
             return;
@@ -48,7 +43,7 @@ public class EquipmentManager : MonoBehaviour
             CalculateAfterGame();
             return;
         }*/
-        fixedPosition = new Vector3(150f, 323f, 0f);
+      /*  fixedPosition = new Vector3(150f, 323f, 0f);
         if(knight != null)
         {
             knight.transform.position = fixedPosition;
@@ -65,7 +60,7 @@ public class EquipmentManager : MonoBehaviour
             EquipmentStorage.getEquippped()[fireMage] = new List<Equipment>();
             EquipmentStorage.getEquippped()[archer] = new List<Equipment>();
             EquipmentStorage.getEquippped()[priest] = new List<Equipment>();
-        }
+        }*/
         generator = new EquipGenerator();
 
         /*unEquipped[EquipmentType.Sword] = new List<Equipment>();
@@ -85,7 +80,7 @@ public class EquipmentManager : MonoBehaviour
         else if (nodeUI1 != null)
         {
             nodeUI1.ui.SetActive(false);
-            nodeUI1.hero = knight;
+            nodeUI1.hero = CommonConfig.Knight;
             equipmentUI.ui.SetActive(true);
         }
         levelCount = 0;
@@ -98,13 +93,13 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-    public void ShowEquipped(BaseHero hero)
+    public void ShowEquipped(string hero)
     {
         equipmentUI.GetHeroEquiments(hero);
     }
 
 
-    public List<Equipment> getHeroEquipment(BaseHero hero)
+    public List<Equipment> getHeroEquipment(string hero)
     {
         if (!EquipmentStorage.getEquippped().ContainsKey(hero))
         {
