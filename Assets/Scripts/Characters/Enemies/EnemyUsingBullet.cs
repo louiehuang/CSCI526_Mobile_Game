@@ -137,6 +137,32 @@ public class EnemyUsingBullet : BaseEnemy
 
             ATKSpeed = new CharacterAttribute(TripodonteBullet.ATKSpeedValue);
             //attackRate = ATKSpeedValue;  //3 attacks per second
+        } else if (index == 3) {
+            //special
+            Range = new CharacterAttribute(OnePunchMan.Range);
+
+            CharacterName = OnePunchMan.CharacterName;
+
+            MaxHP = new CharacterAttribute(OnePunchMan.MaxHPValue * (float)(1 + EnemyConfig.levelCount * 0.2) * (float)(1 + 0.05 * EnemyConfig.waveCount));
+            CurHP = MaxHPValue;
+
+            ATK = new CharacterAttribute(OnePunchMan.ATKValue * (float)(1 + EnemyConfig.levelCount * 0.2) * (float)(1 + 0.05 * EnemyConfig.waveCount));
+            MATK = new CharacterAttribute(OnePunchMan.MATKValue * (float)(1 + EnemyConfig.levelCount * 0.2) * (float)(1 + 0.05 * EnemyConfig.waveCount));
+
+            PDEF = new CharacterAttribute(OnePunchMan.PDEFValue * (float)(1 + EnemyConfig.levelCount * 0.2) * (float)(1 + 0.05 * EnemyConfig.waveCount));
+            MDEF = new CharacterAttribute(OnePunchMan.MDEFValue * (float)(1 + EnemyConfig.levelCount * 0.2) * (float)(1 + 0.05 * EnemyConfig.waveCount));
+
+            Crit = new CharacterAttribute(OnePunchMan.CritValue);
+            CritDMG = new CharacterAttribute(OnePunchMan.CritDMGValue);
+
+            Pernetration = new CharacterAttribute(OnePunchMan.PernetrationValue);
+            ACC = new CharacterAttribute(OnePunchMan.ACCValue);
+            Dodge = new CharacterAttribute(OnePunchMan.DodgeValue);
+            Block = new CharacterAttribute(OnePunchMan.BlockValue);
+            CritResistance = new CharacterAttribute(OnePunchMan.CritResistanceValue);
+
+            ATKSpeed = new CharacterAttribute(OnePunchMan.ATKSpeedValue);
+            //attackRate = ATKSpeedValue;  //3 attacks per second
         }
     }
 }
