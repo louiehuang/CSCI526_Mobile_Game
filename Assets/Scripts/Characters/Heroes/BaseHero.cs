@@ -80,23 +80,21 @@ public class BaseHero : BaseCharacter {
         //Energy and SkillCost
         if (PlayerStats.Energy < energyCostBySkill) { 
             NotEnoughEnergy = true;
-        }
-        else{
+        } else {
             NotEnoughEnergy = false;
         }
+
         //Skill
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
             prev = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
         }
-        if (NotEnoughEnergy == true && prev<=0)
-        {
+        if (NotEnoughEnergy == true && prev<=0) {
             SkillCDImage.fillAmount = 1f;
-        }
-        else
-        {
+        } else {
             SkillCDImage.fillAmount = prev;
         }
+
         //Enemy
         if (target == null) {
             if (HeroAnimator != null) {
