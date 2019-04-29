@@ -137,15 +137,8 @@ public class Archer : BaseHero {
         ATKSpeed = new CharacterAttribute(ArcherConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
         energyCostBySkill = ArcherConfig.energyCostValue;
-<<<<<<< HEAD
-        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.Archer);
-        foreach(Equipment equip in equipments)
-        {
-=======
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Archer];
-
-        foreach(Equipment equip in equipments) {
->>>>>>> backup
+        foreach (Equipment equip in equipments) {
             equip.Equip(this);
         }
     }

@@ -10,13 +10,14 @@ public class SingleEquipment : MonoBehaviour
     public GameObject ui;
     public Image image;
     private string NoneString = "Blank";
+    public string noneName;
 
     public void setEquipment(Equipment e)
     {
         equipment = e;
         if (e == null)
         {
-            ename.text = "none";
+            ename.text = noneName;
             image.sprite = setSprite(NoneString);
         }
         else

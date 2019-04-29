@@ -161,7 +161,7 @@ public class IceMage : Mage {
         slowAmount = IceMageConfig.SlowAmount;
         Range = new CharacterAttribute(IceMageConfig.Range);
         energyCostBySkill = IceMageConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.IceMage);
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.IceMage];
         foreach (Equipment equip in equipments)
         {
             equip.Equip(this);

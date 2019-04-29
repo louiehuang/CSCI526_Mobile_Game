@@ -124,7 +124,7 @@ public class FireMage : Mage {
         Range = new CharacterAttribute(FireMageConfig.Range);
         radius = FireMageConfig.Radius;
         energyCostBySkill = FireMageConfig.energyCostValue;
-        List<Equipment> equipments = EquipmentManager.instance.getHeroEquipment(CommonConfig.FireMage);
+        List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.FireMage];
         foreach (Equipment equip in equipments)
         {
             equip.Equip(this);

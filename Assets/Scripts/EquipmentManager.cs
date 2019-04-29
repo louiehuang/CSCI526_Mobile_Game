@@ -69,15 +69,14 @@ public class EquipmentManager : MonoBehaviour
         if (!EquipmentStorage.getEquippped().ContainsKey(hero))
         {
             EquipmentStorage.getEquippped()[hero] = new List<Equipment>();
+            Debug.Log(111);
         }
         return EquipmentStorage.getEquippped()[hero];
-        //return Equipped[hero];
     }
 
     public List<Equipment> getUnequippedEquipment(EquipmentType type)
     {
         return EquipmentStorage.getUnEquippped()[type];
-        //return unEquipped[type];
     }
 
     public void selectEquippedEuipment(Equipment p, EquipmentType type)
