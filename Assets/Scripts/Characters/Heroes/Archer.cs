@@ -20,36 +20,34 @@ public class Archer : BaseHero {
     public ParticleSystem particleEffect;
     public ParticleSystem arrowEffect;
 
-    private Archer getInstance()
-    {   
-        if(instance == null)
-        {
-            instance = this;
-
-            HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
-
-            LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
-
+  
+    public Archer GetInstance() {
+        if (instance == null) {
+            lock (padlock) {
+                if (instance == null) {
+                    instance = this;
+                }
+            }
         }
         return instance;
     }
 
-     void Start() {
-        if (instance == null) {
-            lock (padlock) {
-                if (instance == null) {
-                    getInstance();
-                }
-            }
-        }
+
+    void Awake() {
+        instance = GetInstance();
+    }
+
+
+    void Start() {
+        LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
         LoadAttr();
+        LoadSkill();
+        HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
         HeroAnimator = GetComponent<Animator>();
-        Debug.Log(HeroAnimator);
         particleEffect.Stop();
         arrowEffect.Stop();
-        LoadSkill();
 
-          InvokeRepeating("UpdateTarget", 0f, 0.5f);
+        InvokeRepeating("UpdateTarget", 0f, 0.5f);
     }
 
 
@@ -136,8 +134,8 @@ public class Archer : BaseHero {
         attackRate = ATKSpeedValue;  //3 attacks per second
         energyCostBySkill = ArcherConfig.energyCostValue;
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Archer];
-        foreach(Equipment equip in equipments)
-        {
+
+        foreach(Equipment equip in equipments) {
             equip.Equip(this);
         }
     }
