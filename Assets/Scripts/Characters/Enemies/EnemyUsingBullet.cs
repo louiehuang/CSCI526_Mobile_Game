@@ -16,7 +16,7 @@ public class EnemyUsingBullet : BaseEnemy
         CurHP = MaxHPValue;
         range = RangeValue;
         LoadAttr();
-        Debug.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
+        //Logger.Log("Enemy initial: " + MoveSpeedValue + " CurHP " + CurHP + " Range " + range);
     }
 
     // Update is called once per frame
@@ -47,7 +47,7 @@ public class EnemyUsingBullet : BaseEnemy
         bullet.criticalDamage = CritDMGValue;
         bullet.critical = CritValue;
         bullet.MATK = MATKValue;
-        //Debug.Log("attack damage" + bullet.damage);
+        //Logger.Log("attack damage" + bullet.damage);
         if (bullet != null)
             bullet.Seek(AttackTarget);
     }

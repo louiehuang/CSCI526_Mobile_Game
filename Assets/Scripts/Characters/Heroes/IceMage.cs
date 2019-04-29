@@ -37,7 +37,7 @@ public class IceMage : Mage {
         LoadSkill();
 
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
-        Debug.Log("In IceMage");
+        Logger.Log("In IceMage");
     }
 
 
@@ -82,7 +82,7 @@ public class IceMage : Mage {
 
 
     public override void ExSkill() {
-        Debug.Log("Ice Mage uses skill");
+        Logger.Log("Ice Mage uses skill");
         particleEffect.Play();
         iceEffect.Play();
         StartCoroutine("SkillDuration");
@@ -91,7 +91,7 @@ public class IceMage : Mage {
 
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(3f);
-        Debug.Log("IceMage: Show time :)");
+        Logger.Log("IceMage: Show time :)");
         particleEffect.Stop();
         iceEffect.Stop();
         animator.SetBool("Skill", false);

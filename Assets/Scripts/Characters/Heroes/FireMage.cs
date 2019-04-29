@@ -23,7 +23,7 @@ public class FireMage : Mage {
         LevelManager = new MageLeveling(this, FireMageConfig.Level);
 
         HeroAnimator = GetComponent<Animator>();
-        Debug.Log(HeroAnimator);
+        Logger.Log(HeroAnimator);
         LoadAttr();
 
         particleEffect.Stop();
@@ -54,7 +54,7 @@ public class FireMage : Mage {
 
     public override void ExSkill() {
         //do damage on all enemies
-        Debug.Log("Fire Mage do damage on all enemies");
+        Logger.Log("Fire Mage do damage on all enemies");
 
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
@@ -63,12 +63,12 @@ public class FireMage : Mage {
         fireEffect.Play();
 
         GameObject[] enemies = GameObject.FindGameObjectsWithTag(enemyTag);
-        //Debug.Log("Number of enemies: " + enemies.Length);
+        //Logger.Log("Number of enemies: " + enemies.Length);
         if (enemies != null && enemies.Length > 0) {
             float amount = 1.85f * MATKValue;
             foreach (GameObject enemy in enemies) {
                 BaseEnemy te = enemy.GetComponent<BaseEnemy>();
-                //Debug.Log(te.CurHP + ", " + amount);
+                //Logger.Log(te.CurHP + ", " + amount);
                 te.TakeDamage(amount);
             }
         }
@@ -78,7 +78,7 @@ public class FireMage : Mage {
 
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(3f);
-        Debug.Log("FireMage: Boom shakalaka = =");
+        Logger.Log("FireMage: Boom shakalaka = =");
         particleEffect.Stop();
         fireEffect.Stop();
         HeroAnimator.SetBool("Skill", false);

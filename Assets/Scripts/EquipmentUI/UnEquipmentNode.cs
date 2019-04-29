@@ -38,8 +38,8 @@ public class UnEquipmentNode : MonoBehaviour
         t.set(equipment, equipment.EquipmentType);
         if(temp == null)
         {
-            Debug.Log(index);
-            Debug.Log(tempList.Count);
+            Logger.Log(index);
+            Logger.Log(tempList.Count);
             Destroy(tempList[index]);
             tempList.Remove(tempList[index]);
             for(int i = index; i < tempList.Count; i++)
@@ -61,7 +61,7 @@ public class UnEquipmentNode : MonoBehaviour
     {
         //PlayerStats.Money += equipment.value;
         equipment.Destroy();
-        Debug.Log(tempList.Count == 0);
+        Logger.Log(tempList.Count == 0);
         if (tempList != null && tempList.Count != 0)
         {
             Destroy(tempList[index]);

@@ -129,12 +129,12 @@ public class Priest : BaseHero {
         float amount = 0.8f * MATKValue;
         float realAmount = _hero.CurHP + amount > _hero.MaxHPValue ? _hero.MaxHPValue - _hero.CurHP : amount;
         TargetHero.TakeDamage(-realAmount);
-        Debug.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
+        Logger.Log("heal: " + realAmount + ", current health: " + TargetHero.CurHP);
     }
 
 
     public override void ExSkill() {
-        Debug.Log("Heal all heroes");
+        Logger.Log("Heal all heroes");
         //TODO: consume energy
         //heal heroes within a range
         float skillRange = 30f;

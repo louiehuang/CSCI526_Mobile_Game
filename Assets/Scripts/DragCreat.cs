@@ -15,13 +15,13 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     public SceneFader sceneFader;
 
     public void OnBeginDrag(PointerEventData eventData) {
-        //Debug.Log("OnBeginDrag " + gameObject.name);
+        //Logger.Log("OnBeginDrag " + gameObject.name);
         bluePrint  = heroPool.GetBlueprintByName(gameObject.name);
         go = BuildTurret(bluePrint);
-        //Debug.Log("OnDrag");
+        //Logger.Log("OnDrag");
         buildManager.hasDraged = true;
         if (go != null) {
-            //Debug.Log("go != null start drag");
+            //Logger.Log("go != null start drag");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)) {
@@ -41,7 +41,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         }
 
         if (go != null) {
-            //Debug.Log("go != null start drag");
+            //Logger.Log("go != null start drag");
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit, 500, mask)) {
@@ -58,7 +58,7 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
 
     public void OnEndDrag(PointerEventData eventData) {
-        //Debug.Log("OnEndDrag");
+        //Logger.Log("OnEndDrag");
         buildManager.hasDraged = false;
         if (go == null) {
             return;
@@ -86,12 +86,13 @@ public class DragCreat : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     GameObject BuildTurret(HeroBlueprint blueprint) {
         if (blueprint == null || PlayerStats.Energy < blueprint.cost || bluePrint.hasBuilt) {
-            Debug.Log("Not enough energy to summon that!");
+            Logger.Log("Not enough energy to summon that!");
             return null;
         }
 
         GameObject hero = (GameObject)Instantiate(blueprint.prefab);
-        Debug.Log("Hero " + blueprint.prefab.name + " Summoned!");
+
+        Logger.Log("Hero " + blueprint.prefab.name + " Summoned!");
 
         BaseHero baseHero = hero.GetComponent<BaseHero>();
         baseHero.hero = hero;

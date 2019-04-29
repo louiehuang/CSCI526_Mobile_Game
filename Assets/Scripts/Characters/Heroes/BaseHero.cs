@@ -139,14 +139,14 @@ public class BaseHero : BaseCharacter {
 
 
     public void UseSkill() {
-        Debug.Log("skillCDImage: " + SkillCDImage);
+        Logger.Log("skillCDImage: " + SkillCDImage);
         if ((!HasSkillUsed || SkillTimer > SkillCooldownTime) && PlayerStats.Energy>=energyCostBySkill) {
-            Debug.Log("Use skill");
+            Logger.Log("Use skill");
             PlayerStats.Energy -= energyCostBySkill;
             ExSkill();
             SkillTimer = 0;
         } else {
-            Debug.Log("Skill not ready");
+            Logger.Log("Skill not ready");
         }
         HasSkillUsed = true;
     }

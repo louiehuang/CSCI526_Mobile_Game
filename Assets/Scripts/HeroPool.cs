@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -48,7 +48,7 @@ public class HeroPool : MonoBehaviour {
 
 
     void UpdateImageStatus() {
-        //Debug.Log("UpdateImageStatus");
+        //Logger.Log("UpdateImageStatus");
         foreach (HeroBlueprint blueprint in hashTable.Values) {
             string heroName = blueprint.prefab.name;
             Image heroImage = GameObject.Find(heroName + "Item").GetComponent<Image>();
@@ -67,7 +67,7 @@ public class HeroPool : MonoBehaviour {
 
 
     public void SetHero(BaseHero _target, String heroName) {
-        //Debug.Log("SetHero: " + heroName.ToUpper() + ", " + _target);
+        //Logger.Log("SetHero: " + heroName.ToUpper() + ", " + _target);
         switch (heroName) {
             case CommonConfig.Knight:
                 knightObj = _target; break;
@@ -80,14 +80,14 @@ public class HeroPool : MonoBehaviour {
             case CommonConfig.Priest:
                 priestObj = _target; break;
             default:
-                Debug.Log("In SetHero, no heroName"); break;
+                Logger.Log("In SetHero, no heroName"); break;
         }
     }
 
 
     public void UseKnightSkill() {
         if (knightObj == null) {
-            Debug.Log("knightObj is null, cannot use skill");
+            Logger.Log("knightObj is null, cannot use skill");
             return;
         }
         knightObj.UseSkill();
@@ -96,7 +96,7 @@ public class HeroPool : MonoBehaviour {
 
     public void UseArcherSkill() {
         if (archerObj == null) {
-            Debug.Log("archerObj is null, cannot use skill");
+            Logger.Log("archerObj is null, cannot use skill");
             return;
         }
         archerObj.UseSkill();
@@ -105,7 +105,7 @@ public class HeroPool : MonoBehaviour {
 
     public void UseFireMageSkill() {
         if (fireMageObj == null) {
-            Debug.Log("fireMageObj is null, cannot use skill");
+            Logger.Log("fireMageObj is null, cannot use skill");
             return;
         }
         fireMageObj.UseSkill();
@@ -114,7 +114,7 @@ public class HeroPool : MonoBehaviour {
 
     public void UseIceMageSkill() {
         if (iceMageObj == null) {
-            Debug.Log("iceMageObj is null, cannot use skill");
+            Logger.Log("iceMageObj is null, cannot use skill");
             return;
         }
         iceMageObj.UseSkill();
@@ -123,7 +123,7 @@ public class HeroPool : MonoBehaviour {
 
     public void UsePriestSkill() {
         if (priestObj == null) {
-            Debug.Log("priestObj is null, cannot use skill");
+            Logger.Log("priestObj is null, cannot use skill");
             return;
         }
         priestObj.UseSkill();

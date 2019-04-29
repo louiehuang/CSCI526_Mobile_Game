@@ -69,7 +69,7 @@ public class EquipmentManager : MonoBehaviour
         if (!EquipmentStorage.getEquippped().ContainsKey(hero))
         {
             EquipmentStorage.getEquippped()[hero] = new List<Equipment>();
-            Debug.Log(111);
+            Logger.Log(111);
         }
         return EquipmentStorage.getEquippped()[hero];
     }
@@ -141,8 +141,8 @@ public class EquipmentManager : MonoBehaviour
             }
             EquipmentStorage.getUnEquippped()[newEquipment.EquipmentType].Add(newEquipment);
             //unEquipped[k].Add(newEquipment);
-            Debug.Log(k);
-            Debug.Log(EquipmentStorage.getUnEquippped()[k].Count);
+            Logger.Log(k);
+            Logger.Log(EquipmentStorage.getUnEquippped()[k].Count);
         }
 
         for(int i = 0;i < numEquipment; i++)

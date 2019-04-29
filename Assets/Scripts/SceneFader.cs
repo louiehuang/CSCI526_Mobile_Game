@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -23,14 +23,14 @@ public class SceneFader : MonoBehaviour {
     void Start() {
         StartCoroutine(FadeIn());
         updateEdgeData();
-        //Debug.Log("edge is : (" + minX+", "+minZ+") and ("+maxX+", "+maxZ+")");
+        //Logger.Log("edge is : (" + minX+", "+minZ+") and ("+maxX+", "+maxZ+")");
     }
 
     private void updateEdgeData() {
         GameObject nodes = GameObject.Find("Nodes");
         if (nodes == null) return;
         foreach (Transform child in nodes.transform) {
-            //Debug.Log(child.gameObject.name);
+            //Logger.Log(child.gameObject.name);
             minX = Math.Min(minX, child.position.x);
             maxX = Math.Max(maxX, child.position.x);
             minZ = Math.Min(minZ, child.position.z);

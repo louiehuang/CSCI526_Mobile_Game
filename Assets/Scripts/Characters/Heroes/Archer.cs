@@ -51,7 +51,7 @@ public class Archer : BaseHero {
 
     public override void ExSkill() {
         //duration time
-        Debug.Log("Attack Speed Up");
+        Logger.Log("Attack Speed Up");
         if (HeroAnimator != null) {
             HeroAnimator.SetBool("Skill", true);
         }
@@ -65,7 +65,7 @@ public class Archer : BaseHero {
 
     IEnumerator SkillDuration() {
         yield return new WaitForSeconds(3f);
-        Debug.Log("Archer: Biu Biu Biu~~~~~~~!");
+        Logger.Log("Archer: Biu Biu Biu~~~~~~~!");
 
         ATKSpeed.RemoveModifier(ATKSpeedModifierBySkill);
         attackRate = ATKSpeedValue;  //3 attacks per second

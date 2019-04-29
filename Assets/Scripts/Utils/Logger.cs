@@ -3,48 +3,43 @@ using System.IO;
 using UnityEngine;
 
 
-public class Logger {
-    public enum OutputTarget {
-        eNone,
-        eConsole = 1,
-        eUI = 2,
-        eFile = 3,
+public static class Logger {
+    public enum LogDestination {
+        None,
+        Console = 1,
+        File = 2,
     }
 
-    public enum OutputLevel {
-        eNone,
-        eLog = 1,
-        eLogWaning = 2,
-        eLogError = 3,
+    public enum LogLevel {
+        None,
+        Info = 1,
+        Waning = 2,
+        Error = 3,
     }
 
 
     private static bool useLog;
     private static int outputTarget;
     private static int outputLevel;
-
     private static string filePath;
-    private const int MAX_LOG_NUM = 1000;
-    private static List<string> logList = new List<string>();
 
 
-    public static void Init() {
+    static Logger() {
         Application.logMessageReceived += LogCallback;
 
         filePath = GetPath("LogFile.txt");
-
         if (File.Exists(filePath)) {
             File.Delete(filePath);
         }
 
         useLog = true;
 
-        SwitchTarget(OutputTarget.eConsole, true);
-        SwitchTarget(OutputTarget.eFile, true);
+        UseOutputMethod(LogDestination.Console, true);
+        UseOutputMethod(LogDestination.File, false);  //Do not use file
 
-        SwitchLevel(OutputLevel.eLog, true);
-        SwitchLevel(OutputLevel.eLogWaning, true);
-        SwitchLevel(OutputLevel.eLogError, true);
+        UseLogLevel(LogLevel.Info, true);
+        UseLogLevel(LogLevel.Waning, true);
+        UseLogLevel(LogLevel.Error, true);
     }
 
 
@@ -55,43 +50,53 @@ public class Logger {
         } else {
             result = string.Format("{0}\n{1}", condition, stackTrace);
         }
-
         OutputFile(result);
     }
 
 
-    public static void Log(string message) {
-        if (!IsOuputLog(OutputLevel.eLog)) {
+    public static void Log(object message) {
+        if (!IsOuputLog(LogLevel.Info)) {
             return;
         }
 
-        message = ModifyLog(message, 0);
+        message = FormatLog(message, 0);
         OutputConsole(message, 0);
     }
 
 
-    public static void LogWarning(string message) {
-        if (!IsOuputLog(OutputLevel.eLogWaning)) {
+    public static void LogWarning(object message) {
+        if (!IsOuputLog(LogLevel.Waning)) {
             return;
         }
 
-        message = ModifyLog(message, 1);
+        message = FormatLog(message, 1);
         OutputConsole(message, 1);
     }
 
 
-    public static void LogError(string message) {
-        if (!IsOuputLog(OutputLevel.eLogError)) {
+    public static void LogError(object message) {
+        if (!IsOuputLog(LogLevel.Error)) {
             return;
         }
 
-        message = ModifyLog(message, 2);
+        message = FormatLog(message, 2);
         OutputConsole(message, 2);
     }
 
 
-    private static void OutputConsole(string message, int type) {
-        if (!IsOutputTarget(OutputTarget.eConsole)) {
+    private static bool IsOuputLog(LogLevel level) {
+        bool result = false;
+        bool rule1 = useLog;
+        bool rule2 = (outputLevel & (1 << (int)level)) > 0 ? true : false;
+        if (rule1 && rule2) {
+            result = true;
+        }
+        return result;
+    }
+
+
+    private static void OutputConsole(object message, int type) {
+        if (!IsLogDestination(LogDestination.Console)) {
             return;
         }
 
@@ -106,7 +111,7 @@ public class Logger {
 
 
     private static void OutputFile(string message) {
-        if (!IsOutputTarget(OutputTarget.eFile)) {
+        if (!IsLogDestination(LogDestination.File)) {
             return;
         }
 
@@ -118,37 +123,26 @@ public class Logger {
     }
 
 
-    private static bool IsOuputLog(OutputLevel level) {
-        bool result = false;
-        bool rule1 = useLog;
-        bool rule2 = (outputLevel & (1 << (int)level)) > 0 ? true : false;
-        if (rule1 && rule2){
-            result = true;
-        }
-        return result;
-    }
-
-
-    private static bool IsOutputTarget(OutputTarget target) {
+    private static bool IsLogDestination(LogDestination target) {
         bool result = false;
         result = (outputTarget & (1 << (int)target)) > 0 ? true : false;
         return result;
     }
 
 
-    private static string ModifyLog(string message, int type) {
+    private static string FormatLog(object message, int type) {
         string result = "";
         switch (type) {
             case 0: {
-                    result += "common : ";
+                    result += "Info: ";
                 }
                 break;
             case 1: {
-                    result += "warning : ";
+                    result += "Warning: ";
                 }
                 break;
             case 2: {
-                    result += "error : ";
+                    result += "Error: ";
                 }
                 break;
         }
@@ -176,7 +170,7 @@ public class Logger {
     }
 
 
-    public static void SwitchTarget(OutputTarget target, bool isOpen) {
+    public static void UseOutputMethod(LogDestination target, bool isOpen) {
         if (isOpen) {
             outputTarget = outputTarget | (1 << (int)target);
         } else {
@@ -185,7 +179,7 @@ public class Logger {
     }
 
 
-    public static void SwitchLevel(OutputLevel level, bool isOpen) {
+    public static void UseLogLevel(LogLevel level, bool isOpen) {
         if (isOpen) {
             outputLevel = outputLevel | (1 << (int)level);
         } else {

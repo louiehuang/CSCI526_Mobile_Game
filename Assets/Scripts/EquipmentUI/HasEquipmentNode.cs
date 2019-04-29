@@ -78,7 +78,7 @@ public class HasEquipmentNode : MonoBehaviour
                 else
                 {
                     list = EquipmentManager.instance.getUnequippedEquipment(forNull);
-                    Debug.Log(list.Count);
+                    Logger.Log(list.Count);
                 }
             }
             else
@@ -197,7 +197,7 @@ public class HasEquipmentNode : MonoBehaviour
                     else
                     {
                         list = EquipmentManager.instance.getUnequippedEquipment(forNull);
-                        Debug.Log(list.Count);
+                        Logger.Log(list.Count);
                     }
                 }
                 else
@@ -248,7 +248,7 @@ public class HasEquipmentNode : MonoBehaviour
               unNode.Set(equipment);
               set(null, equipment.EquipmentType);
               temp.Add(temp1);
-              Debug.Log(temp.Count);
+              Logger.Log(temp.Count);
               temp1.transform.position = new Vector3(100f, 540f - (temp.Count - 1) * 150f, 0f);
               temp1.transform.localScale = new Vector3(0.4f, 0.4f, 0.3f);
               temp1.transform.SetParent(manager.transform.GetChild(0).GetChild(0));
