@@ -5,6 +5,7 @@ public static class EquipmentStorage
 {
     private static Dictionary<EquipmentType, List<Equipment>> unEquipped = new Dictionary<EquipmentType, List<Equipment>>();
     private static Dictionary<string, List<Equipment>> Equipped = new Dictionary<string, List<Equipment>>();
+    public static bool hasNeverUsed = false;
     public static List<string> Armor = new List<string>();
     public static List<string> Helmet = new List<string>();
     public static List<string> Pants = new List<string>();

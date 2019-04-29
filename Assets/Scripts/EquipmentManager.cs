@@ -15,7 +15,7 @@ public class EquipmentManager : MonoBehaviour
     public GameObject cubeF;
     private int levelCount;
     private double factor = 0.5;
-    private EquipGenerator generator;
+    public EquipGenerator generator;
     private Vector3 fixedPosition;
 
     void Awake()
@@ -69,7 +69,6 @@ public class EquipmentManager : MonoBehaviour
         if (!EquipmentStorage.getEquippped().ContainsKey(hero))
         {
             EquipmentStorage.getEquippped()[hero] = new List<Equipment>();
-            Logger.Log(111);
         }
         return EquipmentStorage.getEquippped()[hero];
     }
@@ -141,8 +140,6 @@ public class EquipmentManager : MonoBehaviour
             }
             EquipmentStorage.getUnEquippped()[newEquipment.EquipmentType].Add(newEquipment);
             //unEquipped[k].Add(newEquipment);
-            Logger.Log(k);
-            Logger.Log(EquipmentStorage.getUnEquippped()[k].Count);
         }
 
         for(int i = 0;i < numEquipment; i++)

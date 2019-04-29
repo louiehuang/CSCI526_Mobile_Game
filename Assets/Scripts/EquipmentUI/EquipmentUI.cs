@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
+using System;
 
 public class EquipmentUI : MonoBehaviour
 {
@@ -19,20 +20,20 @@ public class EquipmentUI : MonoBehaviour
     private Vector3 fixedPosition;
     private Vector3 outposition;
     private GameObject prev;
-
     void Awake()
     {
         prev = GameObject.Find("Knight1");
         fixedPosition = new Vector3(150f, 320f, 0f);
         outposition = new Vector3(-1000f, -1000f, 0f);
         prev.transform.position = fixedPosition;
+        hasEquipment = new bool[6];
         GameObject temp = GameObject.Find("/EquipmentUI/Equipments/Helmet");
-        if(temp != null)
+        if (temp != null)
         {
             SingleEquipment e = temp.GetComponent<SingleEquipment>();
             e.noneName = "Helmet";
         }
-         temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
+        temp = GameObject.Find("/EquipmentUI/Equipments/Weapon");
         if (temp != null)
         {
             SingleEquipment e = temp.GetComponent<SingleEquipment>();
@@ -62,13 +63,11 @@ public class EquipmentUI : MonoBehaviour
             SingleEquipment e = temp.GetComponent<SingleEquipment>();
             e.noneName = "Shoes";
         }
-
     }
 
-   void Start()
+    void Start()
     {
         initialHero = CommonConfig.Knight;
-        hasEquipment = new bool[6];
         ui.SetActive(true);
         GetHeroEquiments(initialHero);
         helmet.type = EquipmentType.Helmet;
@@ -82,14 +81,16 @@ public class EquipmentUI : MonoBehaviour
         if (Scroller != null)
         {
             Scroller.transform.position = new Vector3(-1000f, -1000f, 0f);
-           /* ScrollViewManager manager = Scroller.GetComponent<ScrollViewManager>();
-            manager.ui.SetActive(false);*/
-        }
 
+        }
+        if (EquipmentManager.instance.getHeroEquipment("knight").Count == 0 && EquipmentStorage.hasNeverUsed == false)
+        {
+            addInitialEquipment();
+        }
 
         for (int i = 0; i < equipments.Count; i++)
         {
-            if(equipments[i].EquipmentType == EquipmentType.Helmet)
+            if (equipments[i].EquipmentType == EquipmentType.Helmet)
             {
                 helmet.setEquipment(equipments[i]);
                 hasEquipment[0] = true;
@@ -99,17 +100,17 @@ public class EquipmentUI : MonoBehaviour
                 gloves.setEquipment(equipments[i]);
                 hasEquipment[1] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Pants)
+            else if (equipments[i].EquipmentType == EquipmentType.Pants)
             {
                 pants.setEquipment(equipments[i]);
                 hasEquipment[4] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Shoes)
+            else if (equipments[i].EquipmentType == EquipmentType.Shoes)
             {
                 shoes.setEquipment(equipments[i]);
                 hasEquipment[5] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Armor)
+            else if (equipments[i].EquipmentType == EquipmentType.Armor)
             {
                 armor.setEquipment(equipments[i]);
                 hasEquipment[3] = true;
@@ -179,7 +180,7 @@ public class EquipmentUI : MonoBehaviour
     }
 
     public void changePreist()
-    {   
+    {
         changeHero(CommonConfig.Priest);
         GameObject t = GameObject.Find("Priest1");
         weapon.type = EquipmentType.Staff;
@@ -226,7 +227,7 @@ public class EquipmentUI : MonoBehaviour
         armor.setEquipment(null);
         pants.setEquipment(null);
         shoes.setEquipment(null);
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             hasEquipment[i] = false;
         }
@@ -243,27 +244,60 @@ public class EquipmentUI : MonoBehaviour
                 gloves.setEquipment(equipments[i]);
                 hasEquipment[1] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Pants)
+            else if (equipments[i].EquipmentType == EquipmentType.Pants)
             {
                 pants.setEquipment(equipments[i]);
                 hasEquipment[4] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Shoes)
+            else if (equipments[i].EquipmentType == EquipmentType.Shoes)
             {
                 shoes.setEquipment(equipments[i]);
                 hasEquipment[5] = true;
             }
-            else if(equipments[i].EquipmentType == EquipmentType.Armor)
+            else if (equipments[i].EquipmentType == EquipmentType.Armor)
             {
                 armor.setEquipment(equipments[i]);
                 hasEquipment[3] = true;
             }
             else
-            {   
+            {
                 weapon.setEquipment(equipments[i]);
                 hasEquipment[2] = true;
             }
         }
     }
 
+    private void addInitialEquipment(){
+        Equipment e = EquipmentManager.instance.generator.GenerateArmor(1);
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        e.isUsed = true;
+        e = EquipmentManager.instance.generator.GenerateHelmet(1);
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        e.isUsed = true;
+        e = EquipmentManager.instance.generator.GeneratePants(1);
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        e.isUsed = true;
+        e = EquipmentManager.instance.generator.GenerateGloves(1);
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        e.isUsed = true;
+        e = EquipmentManager.instance.generator.GenerateShoes(1);
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        e.isUsed = true;
+
+        e = (Equipment)ScriptableObject.CreateInstance("Equipment");
+        string SwordPath = "Equipments/Sword/";
+        List<string> temp1 = EquipmentStorage.Sword;
+        e.EquipmentType = EquipmentType.Sword;
+        e.PATK = (int)(1 * UnityEngine.Random.Range(0.8f, 1.2f) * 1.0f);
+        e.MATK = (int)(1 * UnityEngine.Random.Range(0.8f, 1.2f) * 0.5f);
+        e.Crit = (float)Math.Round(1 * 1.5f * UnityEngine.Random.Range(0.8f, 1.2f) * 0.03f + 0.04f, 2);
+        e.CritDMG = (float)Math.Round(1 * UnityEngine.Random.Range(0.8f, 1.2f) * 0.03f + 0.03f, 2);
+        int id = UnityEngine.Random.Range(0, temp1.Count);
+        e.path = SwordPath + temp1[id];
+        e.ename = temp1[id];
+        e.isUsed = true;
+        EquipmentManager.instance.getHeroEquipment(CommonConfig.Knight).Add(e);
+        EquipmentStorage.hasNeverUsed = true;
+    }
 }
+

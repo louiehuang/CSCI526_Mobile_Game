@@ -18,7 +18,10 @@ public class Archer : BaseHero {
     public ParticleSystem particleEffect;
     public ParticleSystem arrowEffect;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> addInitialEquipment
     void Start() {
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
         LoadAttr();
