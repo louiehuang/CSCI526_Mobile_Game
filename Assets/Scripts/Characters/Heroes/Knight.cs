@@ -116,9 +116,9 @@ public class Knight : BaseHero {
         ATKSpeed = new CharacterAttribute(KnightConfig.ATKSpeedValue);
         attackRate = ATKSpeedValue;  //3 attacks per second
         energyCostBySkill = KnightConfig.energyCostValue;
+
         List<Equipment> equipments = EquipmentStorage.getEquippped()[CommonConfig.Knight];
-        foreach (Equipment equip in equipments)
-        {
+        foreach (Equipment equip in equipments) {
             Debug.Log(equip);
             equip.Equip(this);
         }

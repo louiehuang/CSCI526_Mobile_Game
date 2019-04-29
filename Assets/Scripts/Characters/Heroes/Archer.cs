@@ -18,29 +18,6 @@ public class Archer : BaseHero {
     public ParticleSystem particleEffect;
     public ParticleSystem arrowEffect;
 
-/*<<<<<<< HEAD
-
-     void Start() {
-        HeroPool.GetInstance().SetHero(this, CommonConfig.Archer);
-
-=======
-  
-    public Archer GetInstance() {
-        if (instance == null) {
-            lock (padlock) {
-                if (instance == null) {
-                    instance = this;
-                }
-            }
-        }
-        return instance;
-    }
-
-
-    void Awake() {
-        instance = GetInstance();
-    }*/
-
 
     void Start() {
         LevelManager = new ArcherLeveling(this, ArcherConfig.Level);
