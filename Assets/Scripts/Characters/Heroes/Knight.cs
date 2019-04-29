@@ -69,6 +69,7 @@ public class Knight : BaseHero {
         Dodge.RemoveModifier(DodgeModifierBySkill);
         Block.RemoveModifier(BlockModifierBySkill);
         particleEffect.Stop();
+        Logger.Log("DEF back to normal");
     }
 
 
