@@ -43,24 +43,20 @@ public class IceMage : Mage {
 
     protected override void Update() {
         //Skill
-        if (PlayerStats.Energy < energyCostBySkill)
-        {
+        if (PlayerStats.Energy < energyCostBySkill) {
             NotEnoughEnergy = true;
-        }
-        else
-        {
+        } else {
             NotEnoughEnergy = false;
         }
+
         if (HasSkillUsed) {
             SkillTimer += Time.deltaTime;
-            SkillCDImage.fillAmount = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
+            prev = (SkillCooldownTime - SkillTimer) / SkillCooldownTime;
         }
-        if (NotEnoughEnergy == true && prev <= 0)
-        {
+
+        if (NotEnoughEnergy == true && prev <= 0) {
             SkillCDImage.fillAmount = 1f;
-        }
-        else
-        {
+        } else {
             SkillCDImage.fillAmount = prev;
         }
 
